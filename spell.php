@@ -438,33 +438,7 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 			}
 		}
 
-		// Используется NPC:
-		$usedbynpc = $DB->select('
-			SELECT ?#, c.entry
-			{ , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc }
-			FROM ?_factiontemplate, creature_template c
-			{ LEFT JOIN (locales_creature l) ON c.entry = l.entry AND ? }
-			WHERE
-				(spell1 = ?d
-				OR spell2 = ?d
-				OR spell3 = ?d
-				OR spell4 = ?d)
-				AND factiontemplateID=faction_A
-			',
-			$npc_cols[0],
-			($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
-			($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
-			$spell['entry'], $spell['entry'], $spell['entry'], $spell['entry']
-		);
-		if($usedbynpc)
-		{
-			$spell['usedbynpc'] = array();
-			foreach($usedbynpc as $i=>$row)
-				$spell['usedbynpc'][] = creatureinfo2($row);
-			unset($usedbynpc);
-		}
-
-		// Используется вещями:
+		// Используется вещами:
 		$usedbyitem = $DB->select('
 			SELECT ?#, c.entry
 			{ , name_loc?d AS name_loc }
