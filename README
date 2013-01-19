@@ -1,0 +1,36 @@
+========== AoWoW README ==========
+
+AoWoW is MaNGOS database web interface written in PHP.
+Official AoWoW thread: http://getmangos.ru/forum/showthread.php?t=15152
+AoWoW supports World of Warcraft 3.1.3 version.
+
+---------- Information ----------
+
+ - Database Interface: DBSimple <http://dklab.ru/lib/DbSimple/>
+ - Template Engine: Smarty <http://www.smarty.net/>
+
+---------- Requirements ----------
+
+ - PHP, version 4.2.0 or higher. 5.X.X is welcome.
+ - MySQL, version 4.X.X or higher. 5.X.X is welcome.
+
+---------- How To Install ----------
+
+ - Download AoWoW: $ git clone git://github.com/LordJZ/aowow.git aowow
+ - Configure AoWoW by editing configs/config.php.in file.
+ - Rename configs/config.php.in to configs/config.php.
+ - Execute the following sql files into your database:
+    * AoWoW_SQL_313.sql (main DB content) -- download from <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_SQL_313.7z>
+    * (optionally) AoWoW_SQL_313_ruRU.sql (ruRU localization) -- download from <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_SQL_313_ruRU.7z>
+    * comments.sql (comments tables) -- tools/sql.
+    * instances.sql (some instances data) -- tools/sql.
+    * faction.sql (data from wowwiki.com) -- tools/sql.
+    * news.sql (news tables) -- tools/sql.
+    * indexes.sql (DB indexes) -- tools/sql.
+ - Download maps: <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_Maps_313.7z> and extract to images/maps.
+ - Download icons: <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_Icons_313.7z> and extract to images/icons.
+
+---------- Attention! ----------
+
+ - This website requires full access to the cache folder: $ chmod -R 777 ./cache/
+ - Everything created here is done under GPL. You can modify files or take program code or create project branches under GPL.
