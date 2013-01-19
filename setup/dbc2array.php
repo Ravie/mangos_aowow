@@ -75,7 +75,7 @@
     $unpackstr = substr($unpackstr, 1);
 
     // Optimizing unpack string: "x/x/x/x/x/x" => "x6"
-    while (ereg("(x/)+x", $unpackstr, $r))
+    while (mb_ereg("(x/)+x", $unpackstr, $r))
       $unpackstr = substr_replace($unpackstr, 'x'.((strlen($r[0])+1)/2), strpos($unpackstr, $r[0]), strlen($r[0]));
 
     //echo "Unpack string for " . $filename . ": " . $unpackstr . "\n";
