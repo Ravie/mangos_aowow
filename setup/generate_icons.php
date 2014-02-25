@@ -69,7 +69,7 @@
       imagejpeg($imgnew, $outfilename);
     else if (substr($outfilename, -4) == ".gif")
       imagegif($imgnew, $outfilename);
-    else die("Unsupported file fromat: " . substr($outfilename, -4));
+    else die("Unsupported file format: " . substr($outfilename, -4));
     imagedestroy($imgnew);
   }
 

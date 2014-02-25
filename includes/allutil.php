@@ -54,6 +54,7 @@ define('CLASS_PALADIN', 2);
 define('CLASS_HUNTER', 4);
 define('CLASS_ROGUE', 8);
 define('CLASS_PRIEST', 16);
+define('CLASS_DEATH_KNIGHT', 32);
 define('CLASS_SHAMAN', 64);
 define('CLASS_MAGE', 128);
 define('CLASS_WARLOCK', 256);
@@ -186,6 +187,8 @@ function classes($class)
 		if($tmp) $tmp = $tmp.', '.LOCALE_ROGUE; else $tmp = LOCALE_ROGUE;
 	if($class & CLASS_PRIEST)
 		if($tmp) $tmp = $tmp.', '.LOCALE_PRIEST; else $tmp = LOCALE_PRIEST;
+	if($class & CLASS_DEATH_KNIGHT)
+		if($tmp) $tmp = $tmp.', '.LOCALE_DEATH_KNIGHT; else $tmp = LOCALE_DEATH_KNIGHT;
 	if($class & CLASS_SHAMAN)
 		if($tmp) $tmp = $tmp.', '.LOCALE_SHAMAN; else $tmp = LOCALE_SHAMAN;
 	if($class & CLASS_MAGE)
@@ -195,7 +198,7 @@ function classes($class)
 	if($class & CLASS_DRUID)
 		if($tmp) $tmp = $tmp.', '.LOCALE_DRUID; else $tmp = LOCALE_DRUID;
 	if($tmp == LOCALE_WARRIOR.', '.LOCALE_PALADIN.', '.LOCALE_HUNTER.', '.LOCALE_ROGUE
-		.', '.LOCALE_PRIEST.', '.LOCALE_SHAMAN.', '.LOCALE_MAGE.', '.LOCALE_WARLOCK.', '.LOCALE_DRUID)
+		.', '.LOCALE_PRIEST.', '.LOCALE_DEATH_KNIGHT.', '.LOCALE_SHAMAN.', '.LOCALE_MAGE.', '.LOCALE_WARLOCK.', '.LOCALE_DRUID)
 		return;
 	else
 		return $tmp;
