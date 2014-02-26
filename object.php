@@ -22,7 +22,7 @@ if(!$object = load_cache(OBJECT_PAGE, $cache_key))
 	$object = array();
 	$object = objectinfo($id, 1);
 
-	// Начиниают квесты...
+	// Начинают квесты...
 	$rows_qs = $DB->select('
 		SELECT o.?#
 		FROM gameobject_questrelation q, quest_template o
@@ -89,7 +89,7 @@ if(!$object = load_cache(OBJECT_PAGE, $cache_key))
 		}
 	}
 
-	// Положения объектофф:
+	// Положения объектов:
 	$object['position'] = position($object['entry'], 'gameobject');
 
 	// Исправить type, чтобы подсвечивались event-овые объекты

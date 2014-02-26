@@ -77,7 +77,7 @@
 					</script>
 
 					{if isset($item.pagetext)}
-						<h3>Content</h3>
+						<h3>{#Content#}</h3>
 						<div id="book-generic"></div>
 						{strip}
 							<script>
