@@ -1,8 +1,7 @@
 ========== AoWoW README ==========
 
 AoWoW is MaNGOS database web interface written in PHP.
-Official AoWoW thread: http://getmangos.ru/forum/showthread.php?t=15152
-AoWoW supports World of Warcraft 3.1.3 version.
+AoWoW supports World of Warcraft 3.3.5a version.
 
 ---------- Information ----------
 
@@ -16,19 +15,14 @@ AoWoW supports World of Warcraft 3.1.3 version.
 
 ---------- How To Install ----------
 
- - Download AoWoW: $ git clone git://github.com/LordJZ/aowow.git aowow
  - Configure AoWoW by editing configs/config.php.in file.
  - Rename configs/config.php.in to configs/config.php.
  - Execute the following sql files into your database:
-    * AoWoW_SQL_313.sql (main DB content) -- download from <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_SQL_313.7z>
-    * (optionally) AoWoW_SQL_313_ruRU.sql (ruRU localization) -- download from <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_SQL_313_ruRU.7z>
     * comments.sql (comments tables) -- tools/sql.
     * instances.sql (some instances data) -- tools/sql.
     * faction.sql (data from wowwiki.com) -- tools/sql.
     * news.sql (news tables) -- tools/sql.
     * indexes.sql (DB indexes) -- tools/sql.
- - Download maps: <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_Maps_313.7z> and extract to images/maps.
- - Download icons: <http://cloud.github.com/downloads/LordJZ/aowow/AoWoW_Icons_313.7z> and extract to images/icons.
 
 ---------- Attention! ----------
 
