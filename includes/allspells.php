@@ -954,16 +954,16 @@ function render_spell_tooltip(&$row)
 		$x .= '<table width="100%"><tr><td>';
 
 	if($row['manacost'] >0)
-		$x .= $row['manacost'].' mana<br />';
+		$x .= $row['manacost'].' '.LOCALE_MANA.'<br />';
 
 	if($row['manacostpercent']>0)
-		$x .= $row['manacostpercent']."% of base mana<br />";
+		$x .= $row['manacostpercent']."% ".LOCALE_BASE_MANA."<br />";
 
 	if($range && (($row['manacost'] >0) || ($row['manacostpercent']>0)))
 		$x .= '</td><th>';
 
 	if($range)
-		$x .= $range.' yd range<br />';
+		$x .= $range.' '.LOCALE_RANGE.'<br />';
 
 	if($range && ($row['manacost'] > 0 || $row['manacostpercent'] > 0))
 		$x .= '</th></tr></table>';
@@ -975,11 +975,11 @@ function render_spell_tooltip(&$row)
 		$x .= '<table width="100%"><tr><td>';
 
 	if($row['ChannelInterruptFlags'])
-		$x .= 'Channeled';
+		$x .= LOCALE_CHANNELED;
 	elseif(isset($casttime))
-		$x .= $casttime.' sec cast';
+		$x .= LOCALE_CASTTIME.': '.$casttime.' '.LOCALE_SECONDS;
 	elseif($row['spellcasttimesID'] == 1)
-		$x .= 'Instant';
+		$x .= LOCALE_INSTANT_CAST;
 
 	if($row['procChance'] < 100.0)
 		$x .= ' <span title="spell proc chance" class="q0">'.$row['procChance'].'%</span>';
@@ -987,8 +987,14 @@ function render_spell_tooltip(&$row)
 	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1) && $row['cooldown'])
 		$x .= '</td><th>';
 
-	if($row['cooldown'])
-		$x.= ($row['cooldown']/1000).' sec cooldown';
+	if(($row['cooldown'] > 0) and ($row['cooldown'] < 60000))
+		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/1000).' '.LOCALE_SECONDS;
+    elseif(($row['cooldown'] >= 60000) and ($row['cooldown'] < 3600000))
+        $x.= LOCALE_COOLDOWN.': '.($row['cooldown']/60000).' '.LOCALE_MINUTES;
+    elseif(($row['cooldown'] >= 3600000) and ($row['cooldown'] < 86400000))
+        $x.= LOCALE_COOLDOWN.': '.($row['cooldown']/3600000).' '.LOCALE_HOURS;
+    elseif($row['cooldown'] >= 86400000)
+        $x.= LOCALE_COOLDOWN.': '.($row['cooldown']/86400000).' '.LOCALE_DAYS;
 
 	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1) && $row['cooldown'])
 		$x .= '</th></tr></table>';
@@ -1098,8 +1104,14 @@ function spell_buff_render($row)
 	
 	// Длительность баффа
 	$duration = $DB->selectCell("SELECT durationBase FROM ?_spellduration WHERE durationID=? LIMIT 1", $row['durationID']);
-	if($duration>0)
-		$x .= '<span class="q">'.($duration/1000).' seconds remaining</span>';
+    if(($duration > 0) and ($duration < 60000))
+		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/1000).' '.LOCALE_SECONDS.' </span>';
+    elseif(($duration >= 60000) and ($duration < 3600000))
+        $x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/60000).' '.LOCALE_MINUTES.' </span>';
+    elseif(($duration >= 3600000) and ($duration < 86400000))
+        $x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/3600000).' '.LOCALE_HOURS.' </span>';
+    elseif($duration >= 86400000)
+        $x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/86400000).' '.LOCALE_DAYS.' </span>';
 	
 	$x .= '</td></tr></table>';
 	
