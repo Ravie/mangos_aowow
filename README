@@ -15,6 +15,7 @@ AoWoW supports World of Warcraft 3.3.5a version.
 
 ---------- How To Install ----------
 
+ - You can download maps,icons and sql's from <http://yadi.sk/d/c52rJ9jZK9uPN>
  - Configure AoWoW by editing configs/config.php.in file.
  - Rename configs/config.php.in to configs/config.php.
  - Execute the following sql files into your database:
