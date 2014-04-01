@@ -681,12 +681,6 @@ function TalentCalc() {
 		ae(ao, ce("em"));
 		bc = ce("div");
 		bc.className = "talentcalc-sidebar-inner";
-		bp = ce("a");
-		bp.className = "talentcalc-button-help";
-		bp.href = (aB == aI ? "http://petopia.brashendeavors.net/html/patch30/patch30faq_talents.php": "?help=talent-calculator");
-		bp.target = "_blank";
-		ae(bp, ct(LANG.tc_help));
-		ae(bc, bp);
 		j = ce("div");
 		j.className = "talentcalc-sidebar-controls";
 		j.style.display = "none";
