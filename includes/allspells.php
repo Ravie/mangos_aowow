@@ -472,12 +472,19 @@ $pet_skill_categories = array(
 );
 
 $spell_cols[0] = array('spellID', 'iconname', 'effect1itemtype', 'effect1Aura', 'spellname_loc'.$_SESSION['locale']);
-$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
+$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'levelspell', 'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
 $spell_cols[2] = array('spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'levelspell', 'schoolMask', 'effect1itemtype', 'effect2itemtype', 'effect3itemtype', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'iconname', 'effect1Aura', 'effect2Aura', 'effect3Aura');
 
 function spell_duration($base)
 {
-	return round($base/1000).' sec';
+	if(($base > 0) and ($base < 60000))
+		return round($base/1000).' '.LOCALE_SECONDS;
+	elseif(($base >= 60000) and ($base < 3600000))
+		return round($base/60000).' '.LOCALE_MINUTES;
+	elseif(($base >= 3600000) and ($base < 86400000))
+		return round($base/3600000).' '.LOCALE_HOURS;
+	elseif($base >= 86400000)
+		return round($base/86400000).' '.LOCALE_DAYS;
 }
 
 function spell_schoolmask($schoolMask)
@@ -882,7 +889,7 @@ function render_spell_tooltip(&$row)
 	global $DB;
 
 	// Время каста
-	if($row['spellcasttimesID'] > 1)
+	if(($row['spellcasttimesID'] > 1) && ($row['spellcasttimesID'] != 18))
 		$casttime = ($DB->selectCell('SELECT base FROM ?_spellcasttimes WHERE id=? LIMIT 1', $row['spellcasttimesID']))/1000;
 	// Дальность действия
 	$range = $DB->selectCell('SELECT rangeMax FROM ?_spellrange WHERE rangeID=? LIMIT 1', $row['rangeID']);
@@ -963,7 +970,7 @@ function render_spell_tooltip(&$row)
 		$x .= '</td><th>';
 
 	if($range)
-		$x .= $range.' '.LOCALE_RANGE.'<br />';
+		$x .= LOCALE_RANGE.': '.$range.' '.LOCALE_YARDS.'<br />';
 
 	if($range && ($row['manacost'] > 0 || $row['manacostpercent'] > 0))
 		$x .= '</th></tr></table>';
@@ -975,30 +982,38 @@ function render_spell_tooltip(&$row)
 		$x .= '<table width="100%"><tr><td>';
 
 	if($row['ChannelInterruptFlags'])
-		$x .= LOCALE_CHANNELED;
-	elseif(isset($casttime))
-		$x .= LOCALE_CASTTIME.': '.$casttime.' '.LOCALE_SECONDS;
-	elseif($row['spellcasttimesID'] == 1)
-		$x .= LOCALE_INSTANT_CAST;
+		$x .= LOCALE_CHANNELED.'<br />';
+	if(isset($casttime))
+	{
+		if(($casttime > 0) and ($casttime < 60))
+			$x.= LOCALE_CASTTIME.': '.($casttime).' '.LOCALE_SECONDS.'<br />';
+		elseif(($casttime >= 60) and ($casttime < 3600))
+			$x.= LOCALE_CASTTIME.': '.($casttime/60).' '.LOCALE_MINUTES.'<br />';
+	}
+	if(($row['spellcasttimesID'] == 1) || ($row['spellcasttimesID'] == 18))
+		$x .= LOCALE_INSTANT_CAST.'<br />';
 
 	if($row['procChance'] < 100.0)
-		$x .= ' <span title="spell proc chance" class="q0">'.$row['procChance'].'%</span>';
+		$x .= LOCALE_PROC_CHANCE.': '.$row['procChance'].'%<br />';
 
-	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1) && $row['cooldown'])
+	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1 || $row['spellcasttimesID'] == 18) && $row['cooldown'])
 		$x .= '</td><th>';
 
 	if(($row['cooldown'] > 0) and ($row['cooldown'] < 60000))
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/1000).' '.LOCALE_SECONDS;
+		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/1000).' '.LOCALE_SECONDS.'<br />';
 	elseif(($row['cooldown'] >= 60000) and ($row['cooldown'] < 3600000))
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/60000).' '.LOCALE_MINUTES;
+		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/60000).' '.LOCALE_MINUTES.'<br />';
 	elseif(($row['cooldown'] >= 3600000) and ($row['cooldown'] < 86400000))
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/3600000).' '.LOCALE_HOURS;
+		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/3600000).' '.LOCALE_HOURS.'<br />';
 	elseif($row['cooldown'] >= 86400000)
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/86400000).' '.LOCALE_DAYS;
+		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/86400000).' '.LOCALE_DAYS.'<br />';
 
-	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1) && $row['cooldown'])
+	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1 || $row['spellcasttimesID'] == 18) && $row['cooldown'])
 		$x .= '</th></tr></table>';
 
+	if($row[levelspell]>1)
+		$x .= LOCALE_REQUIRES_LEVEL.': '.$row[levelspell];
+	
 	$x .= '</td></tr></table>';
 
 	if($reagents)
