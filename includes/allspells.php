@@ -1010,9 +1010,6 @@ function render_spell_tooltip(&$row)
 
 	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1 || $row['spellcasttimesID'] == 18) && $row['cooldown'])
 		$x .= '</th></tr></table>';
-
-	if($row[levelspell]>1)
-		$x .= LOCALE_REQUIRES_LEVEL.': '.$row[levelspell];
 	
 	$x .= '</td></tr></table>';
 

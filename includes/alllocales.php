@@ -82,11 +82,11 @@ switch($_SESSION['locale'])
 			'LOCALE_NATURE_RESISTANCE'	=>	'Сопротивляемость природной магии',
 			'LOCALE_HOLY_RESISTANCE'	=>	'RESISTANCE DOES NOT EXIST',
 			// binds
-			'LOCALE_BIND_PICKUP'		=>	'Становится персональным при нахождении',
+			'LOCALE_BIND_PICKUP'			=>	'Становится персональным при нахождении',
 			'LOCALE_BIND_EQUIP'			=>	'Становится персональным при надевании',
-			'LOCALE_BIND_USE'			=>	'Становится персональным при использовании',
-			'LOCALE_BIND_SOULBOUND'		=>	'Soulbound',
-			'LOCALE_BIND_QUEST_ITEM'	=>	'Quest Item',
+			'LOCALE_BIND_USE'				=>	'Становится персональным при использовании',
+			'LOCALE_BIND_SOULBOUND'		=>	'Персональный при использовании',
+			'LOCALE_BIND_QUEST_ITEM'	=>	'Предмет, необходимый для задания',
 			// bags
 			'LOCALE_BAG'			=>	'Сумка',
 			'LOCALE_BAG_QUIVER'		=>	'Колчан',
