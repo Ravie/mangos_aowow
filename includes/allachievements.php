@@ -132,14 +132,20 @@ function allachievementsinfo2($row, $level = 0)
 {
 	global $allachievements;
 
-	$id = $row['id'];
+	if(isset($row['id']))
+	{
+		$id = $row['id'];
+	}
 
 	if(isset($allachievements[$id]))
 		return $allachievements[$id];
 
-	$allachievements[$id] = array(
-		'icon' => $row['iconname']
-	);
+	if(isset($row['iconname']))
+	{
+		$allachievements[$id] = array(
+			'icon' => $row['iconname']
+		);
+	}
 
 	if($level > 0)
 	{

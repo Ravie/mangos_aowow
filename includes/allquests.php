@@ -58,35 +58,42 @@ $quest_faction_reward = array(
 );
 
 // Флаги квестов
-define('QUEST_FLAGS_NONE',				0);
-define('QUEST_FLAGS_STAY_ALIVE',		1);
-define('QUEST_FLAGS_PARTY_ACCEPT',		2);
-define('QUEST_FLAGS_EXPLORATION',		4);
-define('QUEST_FLAGS_SHARABLE',			8);
-define('QUEST_FLAGS_NONE2',				16);
-define('QUEST_FLAGS_EPIC',				32);
-define('QUEST_FLAGS_RAID',				64);
-define('QUEST_FLAGS_TBC',				128);
-define('QUEST_FLAGS_UNK2',				256);
-define('QUEST_FLAGS_HIDDEN_REWARDS',	512);
-define('QUEST_FLAGS_AUTO_REWARDED',	1024);
-define('QUEST_FLAGS_TBC_RACES',			2048);
-define('QUEST_FLAGS_DAILY',				4096);
-define('QUEST_FLAGS_UNK5',				8192);
+define('QUEST_FLAGS_NONE',              0);
+define('QUEST_FLAGS_STAY_ALIVE',        1);
+define('QUEST_FLAGS_EVENT',             2);
+define('QUEST_FLAGS_EXPLORATION',       4);
+define('QUEST_FLAGS_SHARABLE',          8);
+define('QUEST_FLAGS_NONE2',             16);
+define('QUEST_FLAGS_EPIC',              32);
+define('QUEST_FLAGS_RAID',              64);
+define('QUEST_FLAGS_TBC',               128);
+define('QUEST_FLAGS_UNK2',              256);
+define('QUEST_FLAGS_HIDDEN_REWARDS',    512);
+define('QUEST_FLAGS_AUTO_REWARDED',     1024);
+define('QUEST_FLAGS_TBC_RACES',         2048);
+define('QUEST_FLAGS_DAILY',             4096);
+define('QUEST_FLAGS_FLAGS_PVP',         8192);
+define('QUEST_FLAGS_UNK4',              16384);
+define('QUEST_FLAGS_WEEKLY',            32768);
+define('QUEST_FLAGS_AUTOCOMPLETE',      65536);
+define('QUEST_FLAGS_UNK5',              131072);
+define('QUEST_FLAGS_UNK6',              262144);
+define('QUEST_FLAGS_AUTO_ACCEPT',       524288);
 
-define('QUEST_SPECIALFLAGS_NONE',		0);
-define('QUEST_SPECIALFLAGS_REPEATABLE',	1);
-define('QUEST_SPECIALFLAGS_SCRIPTED',	2);
+define('QUEST_SPECIALFLAGS_NONE',       0);
+define('QUEST_SPECIALFLAGS_REPEATABLE', 1);
+define('QUEST_SPECIALFLAGS_SCRIPTED',   2);
+define('QUEST_SPECIALFLAGS_MONTHLY',    4);
 
 // Флаги для GetQuestInfo
-define('QUEST_DATAFLAG_MINIMUM',	1);
-define('QUEST_DATAFLAG_STRINGS',	2);
-define('QUEST_DATAFLAG_SERIES',		4);
-define('QUEST_DATAFLAG_LOCALE',		8); // Специальный флаг, $questcols не требуется
-define('QUEST_DATAFLAG_REWARDS',	16); // Содержит также Req's
-define('QUEST_DATAFLAG_PROPS',		32);
-define('QUEST_DATAFLAG_LISTINGS', (QUEST_DATAFLAG_MINIMUM | QUEST_DATAFLAG_REWARDS | QUEST_DATAFLAG_PROPS));
-define('QUEST_DATAFLAG_AJAXTOOLTIP', (QUEST_DATAFLAG_LISTINGS | QUEST_DATAFLAG_SERIES | QUEST_DATAFLAG_STRINGS | QUEST_DATAFLAG_LOCALE));
+define('QUEST_DATAFLAG_MINIMUM',        1);
+define('QUEST_DATAFLAG_STRINGS',        2);
+define('QUEST_DATAFLAG_SERIES',         4);
+define('QUEST_DATAFLAG_LOCALE',         8); // Специальный флаг, $questcols не требуется
+define('QUEST_DATAFLAG_REWARDS',        16);// Содержит также Req's
+define('QUEST_DATAFLAG_PROPS',          32);
+define('QUEST_DATAFLAG_LISTINGS',       (QUEST_DATAFLAG_MINIMUM | QUEST_DATAFLAG_REWARDS | QUEST_DATAFLAG_PROPS));
+define('QUEST_DATAFLAG_AJAXTOOLTIP',    (QUEST_DATAFLAG_LISTINGS | QUEST_DATAFLAG_SERIES | QUEST_DATAFLAG_STRINGS | QUEST_DATAFLAG_LOCALE));
 
 $questcols[QUEST_DATAFLAG_MINIMUM]	= array('entry', 'Title');
 $questcols[QUEST_DATAFLAG_STRINGS]	= array('Objectives', 'Details', 'RequestItemsText', 'OfferRewardText', 'EndText', 'ObjectiveText1', 'ObjectiveText2', 'ObjectiveText3', 'ObjectiveText4');
@@ -133,24 +140,27 @@ function GetQuestFlagsDetails($data)
 			if ($data['ReqSourceCount'.$i] == 1)
 				$srcitems[] = $data['ReqSourceId'.$i];
 			else
-				$srcitems[] = $data['ReqSourceId'.$i] . "x" . $data['ReqSourceCount'.$i];
+				$srcitems[] = $data['ReqSourceId'.$i] . "x " . $data['ReqSourceCount'.$i];
 
 	// Разные квестовые флаги, и клиентские и серверные
 	if ($data['QuestFlags'])
 	{
-		if ($data['QuestFlags'] & QUEST_FLAGS_STAY_ALIVE)     $result[] = LOCALE_QUEST_FLAGS_STAY_ALIVE;
-		if ($data['QuestFlags'] & QUEST_FLAGS_PARTY_ACCEPT)   $result[] = LOCALE_QUEST_FLAGS_PARTY_ACCEPT;
-		if ($data['QuestFlags'] & QUEST_FLAGS_EXPLORATION)    $result[] = LOCALE_QUEST_FLAGS_EXPLORATION;
-		if ($data['QuestFlags'] & QUEST_FLAGS_SHARABLE)       $result[] = LOCALE_QUEST_FLAGS_SHARABLE;
-		if ($data['QuestFlags'] & QUEST_FLAGS_EPIC)           $result[] = LOCALE_QUEST_FLAGS_EPIC;
-		if ($data['QuestFlags'] & QUEST_FLAGS_RAID)           $result[] = LOCALE_QUEST_FLAGS_RAID;
-		if ($data['QuestFlags'] & QUEST_FLAGS_TBC)            $result[] = LOCALE_QUEST_FLAGS_TBC;
+		if ($data['QuestFlags'] & QUEST_FLAGS_STAY_ALIVE)       $result[] = LOCALE_QUEST_FLAGS_STAY_ALIVE;
+		if ($data['QuestFlags'] & QUEST_FLAGS_EVENT)            $result[] = LOCALE_QUEST_FLAGS_EVENT;
+		if ($data['QuestFlags'] & QUEST_FLAGS_EXPLORATION)      $result[] = LOCALE_QUEST_FLAGS_EXPLORATION;
+		if ($data['QuestFlags'] & QUEST_FLAGS_SHARABLE)         $result[] = LOCALE_QUEST_FLAGS_SHARABLE;
+		if ($data['QuestFlags'] & QUEST_FLAGS_EPIC)             $result[] = LOCALE_QUEST_FLAGS_EPIC;
+		if ($data['QuestFlags'] & QUEST_FLAGS_RAID)             $result[] = LOCALE_QUEST_FLAGS_RAID;
+		if ($data['QuestFlags'] & QUEST_FLAGS_TBC)              $result[] = LOCALE_QUEST_FLAGS_TBC;
 		//if ($data['QuestFlags'] & QUEST_FLAGS_UNK2)           $result[] = LOCALE_QUEST_FLAGS_UNK2;
-		if ($data['QuestFlags'] & QUEST_FLAGS_HIDDEN_REWARDS) $result[] = LOCALE_QUEST_FLAGS_HIDDEN_REWARDS;
-		if ($data['QuestFlags'] & QUEST_FLAGS_AUTO_REWARDED)  $result[] = LOCALE_QUEST_FLAGS_AUTO_REWARDED;
-		if ($data['QuestFlags'] & QUEST_FLAGS_TBC_RACES)      $result[] = LOCALE_QUEST_FLAGS_TBC_RACES;
-		if ($data['QuestFlags'] & QUEST_FLAGS_DAILY)          $result[] = LOCALE_QUEST_FLAGS_DAILY;
-		if ($data['QuestFlags'] & QUEST_FLAGS_UNK5)           $result[] = LOCALE_QUEST_FLAGS_UNK5;
+		if ($data['QuestFlags'] & QUEST_FLAGS_HIDDEN_REWARDS)   $result[] = LOCALE_QUEST_FLAGS_HIDDEN_REWARDS;
+		if ($data['QuestFlags'] & QUEST_FLAGS_AUTO_REWARDED)    $result[] = LOCALE_QUEST_FLAGS_AUTO_REWARDED;
+		if ($data['QuestFlags'] & QUEST_FLAGS_TBC_RACES)        $result[] = LOCALE_QUEST_FLAGS_TBC_RACES;
+		if ($data['QuestFlags'] & QUEST_FLAGS_DAILY)            $result[] = LOCALE_QUEST_FLAGS_DAILY;
+		if ($data['QuestFlags'] & QUEST_FLAGS_FLAGS_PVP)        $result[] = LOCALE_QUEST_FLAGS_FLAGS_PVP;
+		if ($data['QuestFlags'] & QUEST_FLAGS_WEEKLY)           $result[] = LOCALE_QUEST_FLAGS_WEEKLY;
+		if ($data['QuestFlags'] & QUEST_FLAGS_AUTOCOMPLETE)     $result[] = LOCALE_QUEST_FLAGS_AUTOCOMPLETE;
+		if ($data['QuestFlags'] & QUEST_FLAGS_AUTO_ACCEPT)      $result[] = LOCALE_QUEST_FLAGS_AUTO_ACCEPT;
 	}
 
 	// Неявно используемые доп. элементы (интересно, кто назвал эту константу "..._UNK2"?)
@@ -164,8 +174,9 @@ function GetQuestFlagsDetails($data)
 	// Специальные серверные флаги - повторяемость и завершение скриптом
 	if ($data['SpecialFlags'])
 	{
-		if ($data['SpecialFlags'] & QUEST_SPECIALFLAGS_REPEATABLE) $result[] = LOCALE_QUEST_SPECIALFLAGS_REPEATABLE;
-		if ($data['SpecialFlags'] & QUEST_SPECIALFLAGS_SCRIPTED)   $result[] = LOCALE_QUEST_SPECIALFLAGS_SCRIPTED;
+		if ($data['SpecialFlags'] & QUEST_SPECIALFLAGS_REPEATABLE)  $result[] = LOCALE_QUEST_SPECIALFLAGS_REPEATABLE;
+		if ($data['SpecialFlags'] & QUEST_SPECIALFLAGS_SCRIPTED)    $result[] = LOCALE_QUEST_SPECIALFLAGS_SCRIPTED;
+		if ($data['SpecialFlags'] & QUEST_SPECIALFLAGS_MONTHLY)     $result[] = LOCALE_QUEST_SPECIALFLAGS_MONTHLY;
 	}
 
 	// Наличие стартовых и финишных скриптов
@@ -224,12 +235,12 @@ function GetQuestTitle(&$data)
 
 function GetQuestStrings(&$data)
 {
-	$data['Title']				= QuestReplaceStr(				  (localizedName($data, 'Title')));
-	$data['Objectives']			= QuestReplaceStr(htmlspecialchars(localizedName($data, 'Objectives')));
-	$data['Details']			= QuestReplaceStr(htmlspecialchars(localizedName($data, 'Details')));
-	$data['RequestItemsText']	= QuestReplaceStr(htmlspecialchars(localizedName($data, 'RequestItemsText')));
-	$data['OfferRewardText']	= QuestReplaceStr(htmlspecialchars(localizedName($data, 'OfferRewardText')));
-	$data['EndText']			= QuestReplaceStr(htmlspecialchars(localizedName($data, 'EndText')));
+	$data['Title']                 = QuestReplaceStr(                (localizedName($data, 'Title')));
+	$data['Objectives']            = QuestReplaceStr(htmlspecialchars(localizedName($data, 'Objectives')));
+	$data['Details']               = QuestReplaceStr(htmlspecialchars(localizedName($data, 'Details')));
+	$data['RequestItemsText']      = QuestReplaceStr(htmlspecialchars(localizedName($data, 'RequestItemsText')));
+	$data['OfferRewardText']       = QuestReplaceStr(htmlspecialchars(localizedName($data, 'OfferRewardText')));
+	$data['EndText']               = QuestReplaceStr(htmlspecialchars(localizedName($data, 'EndText')));
 
 	for($j=0;$j<=3;++$j)
 		$data['ObjectiveText'][$j] = QuestReplaceStr(htmlspecialchars(localizedName($data, 'ObjectiveText'.$j)));
@@ -255,7 +266,7 @@ function GetQuestReq($id, $count, $type)
 				$id
 			);
 			$name = localizedName($row);
-			return $name.(($count>1)? (' x'.$count): '');
+			return $name.(($count>1)? (' x '.$count): '');
 			break;
 		case 2:
 			$row = $DB->selectRow('
@@ -272,7 +283,7 @@ function GetQuestReq($id, $count, $type)
 				$id
 			);
 			$name = localizedName($row);
-			return $name.(($count>1)? (' x'.$count): '');
+			return $name.(($count>1)? (' x '.$count): '');
 			break;
 	}
 }

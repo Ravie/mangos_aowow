@@ -68,7 +68,7 @@
 							<th{if $cr.icon} align="right" id="iconlist-icon{$cr.icon}"{/if}>
 							{* для ссылок и стандартных записей *}
 							{if !$cr.icon && ($cr.link || $cr.standard)}
-								<ul><li><var>&nbsp;</var></li></ul>
+								<li type="square"><var>&nbsp;</var></li> {*in this place <ul> incorrectly displayed on chrome*}
 							{/if}
 							</th>
 							<td>

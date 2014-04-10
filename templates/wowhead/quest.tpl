@@ -16,37 +16,120 @@
 					<tr><td>
 						<div class="infobox-spacer"></div>
 						<ul>
-							{if $quest.QuestLevel>0}<li><div>{#Level#}: {$quest.QuestLevel}</div></li>{/if}
-							{if $quest.MinLevel>0}<li><div>{#Requires_level#}: {$quest.MinLevel}</div></li>{/if}
-							{if $quest.typename}<li><div>{#Type#}: {$quest.typename}</div></li>{/if}
-							{if isset($quest.side)}<li><div>{#Side#}: <span class="{if ($quest.side.side==1)}alliance{elseif ($quest.side.side==2)}horde{else}both{/if}-icon">{$quest.side.name}</span></div></li>{/if}
-							{strip}{if isset($quest.LimitTime)}
+							{if $quest.QuestLevel>0}
 								<li><div>
-									{#Timer#}:
-									{if isset($quest.LimitTime.h)} {$quest.LimitTime.h} {#hr#}{/if}
-									{if isset($quest.LimitTime.m)} {$quest.LimitTime.m} {#min#}{/if}
-									{if isset($quest.LimitTime.s)} {$quest.LimitTime.s} {#sec#}{/if}
+									{#Level#}: {$quest.QuestLevel}
 								</div></li>
-							{/if}{/strip}
-							{strip}{if isset($quest.start)}
+							{/if}
+							{if $quest.MinLevel>0}
 								<li><div>
-									<span class="icontiny" style="background-image: url(templates/wowhead/images/quest_start.gif)">{#Start#}:
+									{#Requires_level#}: {$quest.MinLevel}
+								</div></li>
+							{/if}
+							{if $quest.typename}
+								<li><div>
+									{#Type#}: {$quest.typename}
+								</div></li>
+							{/if}
+							{if isset($quest.side)}
+								<li><div>
+									{#Side#}:
+										<span class="
+										{if ($quest.side.side==1)}
+											alliance
+										{elseif ($quest.side.side==2)}
+											horde
+										{else}
+											both
+										{/if}
+											-icon">{$quest.side.name}
+										</span>
+								</div></li>
+							{/if}
+							{strip}
+								{if isset($quest.LimitTime)}
+									<li><div>
+										{#Timer#}:
+										{if isset($quest.LimitTime.h)} {$quest.LimitTime.h} {#hr#}{/if}
+										{if isset($quest.LimitTime.m)} {$quest.LimitTime.m} {#min#}{/if}
+										{if isset($quest.LimitTime.s)} {$quest.LimitTime.s} {#sec#}{/if}
+									</div></li>
+								{/if}
+							{/strip}
+							{if isset($quest.start)}
+								<li><div>
+									{if isset($quest.Daily) || isset($quest.Repeatable)}
+										<span class="icontiny" style="background-image: url(templates/wowhead/images/quest_start_daily.gif)">
+									{else}
+										<span class="icontiny" style="background-image: url(templates/wowhead/images/quest_start.gif)">
+									{/if}
+									{#Start#}:
 									{section loop=$quest.start name=i}
 										{if $quest.start[i].side} <span class="{$quest.start[i].side}-icon">{/if}
 										<a href="?{$quest.start[i].type}={$quest.start[i].entry}"
-											{if $quest.start[i].type == 'item'} class="icontiny q{$quest.start[i].quality}" style="background-image: url(images/icons/tiny/{$quest.start[i].iconname}.gif);"{/if}
-										>{$quest.start[i].name}</a></span>
-										{if $quest.start[i].event} <a href="?event={$quest.start[i].event}" class="icontiny q0" style="background-image: url(images/icons/tiny/inv_holiday_christmas_present_01.gif);"> </a>{/if}
-										{if $quest.start[i].side}</span>{/if}
-										{if $smarty.section.i.last}{else}, <br><span style="visibility: hidden;">{#Start#}: </span>{/if}
+											{if $quest.start[i].type == 'item'}
+												class="icontiny q{$quest.start[i].quality}" style="background-image: url(images/icons/tiny/{$quest.start[i].iconname}.gif);"
+											{/if}
+										>{$quest.start[i].name}</a>
+										{if $quest.start[i].event}
+											<a href="?event={$quest.start[i].event}" class="icontiny q0" style="background-image: url(images/icons/tiny/inv_holiday_christmas_present_01.gif);"> </a>
+										{/if}
+										{if $quest.start[i].side}
+											</span>
+										{/if}
+										{if $smarty.section.i.last}
+										{else}
+											, <br>
+												<span style="visibility: hidden;">
+													<span class="icontiny" style="background-image: url(templates/wowhead/images/quest_start.gif)"></span>{#Start#}:
+												</span>
+										{/if}
 									{/section}
+									</span>
 								</div></li>
-							{/if}{/strip}
-							{if isset($quest.end)}<li><div><span class="icontiny" style="background-image: url(templates/wowhead/images/quest_end.gif)">{#End#}: {section loop=$quest.end name=i}{if $quest.end[i].side}<span class="{$quest.start[i].side}-icon">{/if}<a href="?{$quest.end[i].type}={$quest.end[i].entry}">{$quest.end[i].name}</a>{if $quest.end[i].side}</span>{/if}{if $smarty.section.i.last}{else}, <br><span style="visibility: hidden;">{#End#}: </span>{/if}{/section}</span></div></li>{/if}
-							{if isset($quest.reqskill)}<li><div>{#Skill#}: {$quest.reqskill.name} ({$quest.reqskill.value})</div></li>{/if}
-							{if isset($quest.reqclass)}<li><div>{#Class#}: {$quest.reqclass}</div></li>{/if}
-							{if isset($quest.Sharable)}<li><div>{#Sharable#}</div></li>{/if}
-							{if isset($quest.Daily)}<li><div>{#Daily#}</div></li>{elseif isset($quest.Repeatable)}<li><div>{#Repeatable#}</div></li>{/if}
+							{/if}
+							{if isset($quest.end)}
+								<li><div>
+									{if isset($quest.Daily) || isset($quest.Repeatable)}
+										<span class="icontiny" style="background-image: url(templates/wowhead/images/quest_end_daily.gif)">
+									{else}
+										<span class="icontiny" style="background-image: url(templates/wowhead/images/quest_end.gif)">
+									{/if}
+									{#End#}:
+									{section loop=$quest.end name=i}
+										{if $quest.end[i].side}<span class="{$quest.start[i].side}-icon">{/if}
+										<a href="?{$quest.end[i].type}={$quest.end[i].entry}"
+										>{$quest.end[i].name}</a>
+										{if $quest.end[i].side}</span>{/if}
+										{if $smarty.section.i.last}{else}, <br><span style="visibility: hidden;">{#End#}: </span>{/if}
+									{/section}
+									</span>
+								</div></li>
+							{/if}
+							{if isset($quest.reqskill)}
+								<li><div>
+									{#Skill#}: {$quest.reqskill.name} ({$quest.reqskill.value})
+								</div></li>
+							{/if}
+							{if isset($quest.reqclass)}
+								<li><div>
+									{#Class#}: {$quest.reqclass}
+								</div></li>
+							{/if}
+							{if isset($quest.Sharable)}
+								<li><div>
+									{#Sharable#}
+								</div></li>
+							{/if}
+							{if isset($quest.Daily)}
+								<li><div>
+									{#Daily#}
+								</div></li>
+							{elseif isset($quest.Repeatable)}
+								<li><div>
+									{#Repeatable#}
+								</div></li>
+							{/if}
 						</ul>
 					</td></tr>
 {strip}		{* Серия квестов *}
