@@ -188,18 +188,23 @@ background:url(../images/wotlk_icon.gif) right center no-repeat;
 }
 
 .alliance-icon {
-padding-left:12px;
+padding-left:10px;
 background:url(../images/alliance-icon.gif) left center no-repeat;
 }
 
-.alliance2-icon {
-padding-left:18px;
-background:url(../images/alliance-icon.gif) 4px center no-repeat;
+.horde-icon {
+padding-left:16px;
+background:url(../images/horde-icon.gif) left center no-repeat;
 }
 
-.horde-icon {
-padding-left:18px;
-background:url(../images/horde-icon.gif) left center no-repeat;
+.alliance2-icon {
+padding-left:15px;
+background:url(../images/alliance.png) left center no-repeat;
+}
+
+.horde2-icon {
+padding-left:16px;
+background:url(../images/horde.png) left center no-repeat;
 }
 
 .ffapvp-icon {
@@ -889,6 +894,12 @@ line-height:1.5em;
 .icontab-box {
 border-spacing: 0 6px;
 border-collapse: separate;
+}
+
+tbody {
+display: table-row-group;
+vertical-align: middle;
+border-color: inherit;
 }
 
 .icontab-box td {
@@ -2680,11 +2691,6 @@ border-bottom:1px solid #303030;
 .tabs a.selected,.tabs a.selected:hover,.old-tabs a.selected,.tabs a.selected:hover {
 background-color:#404040;
 border-bottom:1px solid #404040;
-}
-
-.iconlist,.icontab {
-border-collapse:collapse;
-margin-top:4px;
 }
 
 .icontab tr,.listview-mode-tiled td.empty-cell:hover {

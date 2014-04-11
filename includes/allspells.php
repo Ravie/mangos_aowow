@@ -999,15 +999,9 @@ function render_spell_tooltip(&$row)
 	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1 || $row['spellcasttimesID'] == 18) && $row['cooldown'])
 		$x .= '</td><th>';
 
-	if(($row['cooldown'] > 0) and ($row['cooldown'] < 60000))
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/1000).' '.LOCALE_SECONDS.'<br />';
-	elseif(($row['cooldown'] >= 60000) and ($row['cooldown'] < 3600000))
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/60000).' '.LOCALE_MINUTES.'<br />';
-	elseif(($row['cooldown'] >= 3600000) and ($row['cooldown'] < 86400000))
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/3600000).' '.LOCALE_HOURS.'<br />';
-	elseif($row['cooldown'] >= 86400000)
-		$x.= LOCALE_COOLDOWN.': '.($row['cooldown']/86400000).' '.LOCALE_DAYS.'<br />';
-
+	if($row['cooldown']>0)
+		$x .= LOCALE_COOLDOWN.': '.sec_to_time($row['cooldown']/1000).'<br />';
+	
 	if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID'] == 1 || $row['spellcasttimesID'] == 18) && $row['cooldown'])
 		$x .= '</th></tr></table>';
 	
@@ -1116,14 +1110,8 @@ function spell_buff_render($row)
 	
 	// Длительность баффа
 	$duration = $DB->selectCell("SELECT durationBase FROM ?_spellduration WHERE durationID=? LIMIT 1", $row['durationID']);
-	if(($duration > 0) and ($duration < 60000))
-		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/1000).' '.LOCALE_SECONDS.' </span>';
-	elseif(($duration >= 60000) and ($duration < 3600000))
-		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/60000).' '.LOCALE_MINUTES.' </span>';
-	elseif(($duration >= 3600000) and ($duration < 86400000))
-		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/3600000).' '.LOCALE_HOURS.' </span>';
-	elseif($duration >= 86400000)
-		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.($duration/86400000).' '.LOCALE_DAYS.' </span>';
+	if($duration>0)
+		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.sec_to_time($duration/1000).' </span>';
 	
 	$x .= '</td></tr></table>';
 	

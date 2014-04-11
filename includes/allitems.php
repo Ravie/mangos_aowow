@@ -213,14 +213,7 @@ function spell_to_bonus($spell_id, $trigger, $charges, $ppmrate, $cooldown, $cat
 
 	if ($cooldown < $catcooldown)
 		$cooldown = $catcooldown;
-	if(($cooldown > 0) and ($cooldown < 60000))
-		$tooltip = $tooltip.' ('.LOCALE_COOLDOWN.': '.($cooldown/1000).' '.LOCALE_SECONDS.')';
-	elseif(($cooldown >= 60000) and ($cooldown < 3600000))
-		$tooltip = $tooltip.' ('.LOCALE_COOLDOWN.': '.($cooldown/60000).' '.LOCALE_MINUTES.')';
-	elseif(($cooldown >= 3600000) and ($cooldown < 86400000))
-		$tooltip = $tooltip.' ('.LOCALE_COOLDOWN.': '.($cooldown/3600000).' '.LOCALE_HOURS.')';
-	elseif($cooldown >= 86400000)
-		$tooltip = $tooltip.' ('.LOCALE_COOLDOWN.': '.($cooldown/86400000).' '.LOCALE_DAYS.')';
+	$tooltip = $tooltip.' ('.LOCALE_COOLDOWN.': '.sec_to_time($cooldown/1000).')';
 		
 	if ($charges == -1)
 		$tooltip = $tooltip . ', ' . LOCALE_GBONUS_EXPENDABLE;

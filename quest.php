@@ -227,16 +227,6 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 		);
 	}
 
-	// Класс, требуемый чтобы получить квест
-	if($quest['RequiredClasses']>0)
-	{
-		$reqclass = array();
-		foreach($classes as $i => $class)
-			if ($quest['RequiredClasses'] & (1<<($i-1)))
-				$reqclass[] = $class;
-		$quest['reqclass'] = implode(", ", $reqclass);
-	}
-
 	// Требуемые отношения с фракциями, что бы начать квест
 	if($quest['RequiredMinRepFaction'])
 		$quest['RequiredMinRep'] = array(

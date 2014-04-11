@@ -23,7 +23,7 @@
 							{/if}
 							{if $quest.MinLevel>0}
 								<li><div>
-									{#Requires_level#}: {$quest.MinLevel} {#Lvl#}
+									{#Requires_level#} {$quest.MinLevel} {#Lvl#}
 								</div></li>
 							{/if}
 							{if $quest.typename}
@@ -34,25 +34,29 @@
 							{if isset($quest.side)}
 								<li><div>
 									{#Side#}:
-										<span class="
 										{if ($quest.side.side==1)}
-											alliance
+											<span class="alliance2-icon">{$quest.side.name}</span>
 										{elseif ($quest.side.side==2)}
-											horde
-										{else}
-											both
+											<span class="horde2-icon">{$quest.side.name}</span>
+										{elseif ($quest.side.side==3)}
+											{$quest.side.name}
 										{/if}
-											-icon">{$quest.side.name}
-										</span>
+								</div></li>
+							{/if}
+							{if isset($quest.race)}
+								<li><div>
+									{#Race#}: {$quest.race}
+								</div></li>
+							{/if}
+							{if isset($quest.class)}
+								<li><div>
+									{#Class#}: {$quest.class}
 								</div></li>
 							{/if}
 							{strip}
 								{if isset($quest.LimitTime)}
 									<li><div>
-										{#Timer#}:
-										{if isset($quest.LimitTime.h)} {$quest.LimitTime.h} {#hr#}{/if}
-										{if isset($quest.LimitTime.m)} {$quest.LimitTime.m} {#min#}{/if}
-										{if isset($quest.LimitTime.s)} {$quest.LimitTime.s} {#sec#}{/if}
+										{#Timer#}: {$quest.LimitTime}
 									</div></li>
 								{/if}
 							{/strip}
@@ -65,8 +69,8 @@
 									{/if}
 									{#Start#}:
 									{section loop=$quest.start name=i}
-                                        {if $quest.start[i].event}
-                                        {else}
+                              {if $quest.start[i].event}
+                              {else}
 										{if $smarty.section.i.last || $smarty.section.i.first}
 										{else}
 											, <br>
@@ -81,7 +85,7 @@
 											{/if}
 										>{$quest.start[i].name}</a>
 										{if $quest.start[i].side}</span>{/if}
-                                        {/if}
+                              {/if}
 									{/section}
 									</span>
 								</div></li>
@@ -111,11 +115,6 @@
 							{if isset($quest.reqskill)}
 								<li><div>
 									{#Skill#}: {$quest.reqskill.name} ({$quest.reqskill.value})
-								</div></li>
-							{/if}
-							{if isset($quest.reqclass)}
-								<li><div>
-									{#Class#}: {$quest.reqclass}
 								</div></li>
 							{/if}
 							{if isset($quest.Sharable)}
@@ -459,7 +458,7 @@
 						<div class="pad"></div>
 						<table class="icontab icontab-box">
 						<tr>
-{section name=j loop=$quest.itemchoices}
+							{section name=j loop=$quest.itemchoices}
 								<th id="icontab-icon{$smarty.section.j.index+1}"></th>
 								<td>
 									<span class="q{$quest.itemchoices[j].quality}">
@@ -468,7 +467,8 @@
 										</a>
 									</span>
 								</td>
-{/section}
+								{if ($smarty.section.j.index+1==2)||($smarty.section.j.index+1==4)}<tr>{/if}
+							{/section}
 						</tr>
 						</table>
 						<script type="text/javascript">
@@ -484,8 +484,8 @@
 						<div class="pad"></div>
 						<table class="icontab icontab-box">
 						<tr>{strip}
-{section name=j loop=$quest.itemrewards}
-								<th id="icontab-icon{$smarty.section.j.index+1}"></th>
+							{section name=j loop=$quest.itemrewards}
+								<th id="icontab-icon{$smarty.section.j.index+7}"></th>
 								<td>
 									<span class="q{$quest.itemrewards[j].quality}">
 										<a href="?item={$quest.itemrewards[j].entry}">
@@ -493,12 +493,13 @@
 										</a>
 									</span>
 								</td>
-{/section}
+								{if ($smarty.section.j.index+1==2)||($smarty.section.j.index+1==4)}<tr>{/if}
+						{/section}
 						</tr>{/strip}
 						</table>
 						<script type="text/javascript">
 						{section name=j loop=$quest.itemrewards}
-							ge('icontab-icon{$smarty.section.j.index+1}').appendChild(g_items.createIcon({$quest.itemrewards[j].entry}, 1, {$quest.itemrewards[j].count}));
+							ge('icontab-icon{$smarty.section.j.index+7}').appendChild(g_items.createIcon({$quest.itemrewards[j].entry}, 1, {$quest.itemrewards[j].count}));
 						{/section}
 						</script>
 {/if}

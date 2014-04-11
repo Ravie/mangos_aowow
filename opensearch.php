@@ -91,7 +91,7 @@ foreach($rows as $i => $row)
 	$found[$row['Title'].' (Quest)'] = array(
 		'type' => 5,
 		'entry'=> $row['entry'],
-		'side' => SideByRace($row['RequiredRaces'])
+		'side' => factions($row['RequiredRaces'])
 	);
 
 // Ищем creature:

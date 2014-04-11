@@ -478,8 +478,10 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM)
 		$data['QuestLevel'] = $data['QuestLevel'];
 		// Требуемый уровень квеста
 		$data['MinLevel'] = $data['MinLevel'];
-		// Доступен расам
-		$data['side'] = races($data['RequiredRaces']);
+		// Доступен фракциям, расам и классам
+		$data['side'] = factions($data['RequiredRaces']);
+		$data['race'] = races($data['RequiredRaces']);
+		$data['class'] = classes($data['RequiredClasses']);
 		// Флаги
 		$data['QuestFlags'] = $data['QuestFlags'];
 		// Ежедневный квест?

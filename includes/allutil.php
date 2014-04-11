@@ -71,7 +71,21 @@ $classes = array(
 	7 => LOCALE_SHAMAN,
 	8 => LOCALE_MAGE,
 	9 => LOCALE_WARLOCK,
-	11 => LOCALE_DRUID
+	11=> LOCALE_DRUID
+);
+
+// Расы персонажей (архив)
+$races = array(
+	1 => LOCALE_HUMAN,
+	2 => LOCALE_ORC,
+	3 => LOCALE_DWARF,
+	4 => LOCALE_NIGHTELF,
+	5 => LOCALE_UNDEAD,
+	6 => LOCALE_TAUREN,
+	7 => LOCALE_GNOME,
+	8 => LOCALE_TROLL,
+	10=> LOCALE_BLOODELF,
+	11=> LOCALE_DRAENEI
 );
 
 define('RACE_HUMAN', 1);
@@ -87,14 +101,14 @@ define('RACE_DRAENEI', 1024);
 
 // Типы разделов
 $types = array(
-	1 => array('npc',		'creature_template',	'entry'			),
-	2 => array('object',	'gameobject_template',	'entry'			),
-	3 => array('item',		'item_template',		'entry'			),
-	4 => array('itemset',	$tableprefix.'itemset',	'itemsetID'		),
-	5 => array('quest',		'quest_template',		'entry'			),
-	6 => array('spell',		$tableprefix.'spell',	'spellID'		),
-	7 => array('zone',		$tableprefix.'zones',	'areatableID'	),
-	8 => array('faction',	$tableprefix.'factions','factionID'		),
+	1 => array('npc',       'creature_template',        'entry'      ),
+	2 => array('object',    'gameobject_template',      'entry'      ),
+	3 => array('item',      'item_template',            'entry'      ),
+	4 => array('itemset',   $tableprefix.'itemset',     'itemsetID'  ),
+	5 => array('quest',     'quest_template',           'entry'      ),
+	6 => array('spell',     $tableprefix.'spell',       'spellID'    ),
+	7 => array('zone',      $tableprefix.'zones',       'areatableID'),
+	8 => array('faction',   $tableprefix.'factions',    'factionID'  ),
 );
 
 // Отношения со фракциями
@@ -129,7 +143,7 @@ $sides = array(
 	2 => LOCALE_HORDE,
 	3 => LOCALE_BOTH_FACTIONS
 );
-// TODO: добавить форму преобразования секунд в строку времени
+
 function sec_to_time($secs)
 {
 	$time = array();
@@ -150,7 +164,16 @@ function sec_to_time($secs)
 	}
 	if($secs>0)
 		$time['s'] = $secs;
-	return $time;
+	if(isset($time['d']))
+		$time['d'] .= ' '.LOCALE_DAYS;
+	if(isset($time['h']))	
+		$time['h'] .= ' '.LOCALE_HOURS;
+	if(isset($time['m']))	
+		$time['m'] .= ' '.LOCALE_MINUTES;
+	if(isset($time['s']))	
+		$time['s'] .= ' '.LOCALE_SECONDS;
+	$string = implode(", ", $time);
+	return $string;
 }
 function money2coins($money)
 {
@@ -197,13 +220,12 @@ function classes($class)
 		if($tmp) $tmp = $tmp.', '.LOCALE_WARLOCK; else $tmp = LOCALE_WARLOCK;
 	if($class & CLASS_DRUID)
 		if($tmp) $tmp = $tmp.', '.LOCALE_DRUID; else $tmp = LOCALE_DRUID;
-	if($tmp == LOCALE_WARRIOR.', '.LOCALE_PALADIN.', '.LOCALE_HUNTER.', '.LOCALE_ROGUE
-		.', '.LOCALE_PRIEST.', '.LOCALE_DEATH_KNIGHT.', '.LOCALE_SHAMAN.', '.LOCALE_MAGE.', '.LOCALE_WARLOCK.', '.LOCALE_DRUID)
+	if($tmp == LOCALE_WARRIOR.', '.LOCALE_PALADIN.', '.LOCALE_HUNTER.', '.LOCALE_ROGUE.', '.LOCALE_PRIEST.', '.LOCALE_DEATH_KNIGHT.', '.LOCALE_SHAMAN.', '.LOCALE_MAGE.', '.LOCALE_WARLOCK.', '.LOCALE_DRUID || $tmp == '')
 		return;
 	else
 		return $tmp;
 }
-function races($race)
+function factions($race)
 {
 	// Простые варианты:
 	if($race == (RACE_HUMAN|RACE_ORC|RACE_DWARF|RACE_NIGHTELF|RACE_UNDEAD|RACE_TAUREN|RACE_GNOME|RACE_TROLL|RACE_BLOODELF|RACE_DRAENEI) || $race == 0)
@@ -214,59 +236,43 @@ function races($race)
 		return array('side' => 1, 'name' => LOCALE_ALLIANCE);
 	else
 	{
-		$races = array('name' => '', 'side' => 0);
-		if($race & RACE_HUMAN)
-		{
-			(($races['side']==2) || ($races['side']==3))? $races['side']=3 : $races['side']=1;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_HUMAN;
-		}
-		if($race & RACE_ORC)
-		{
-			(($races['side']==1) || ($races['side']==3))? $races['side']=3 : $races['side']=2;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_ORC;
-		}
-		if($race & RACE_DWARF)
-		{
-			(($races['side']==2) || ($races['side']==3))? $races['side']=3 : $races['side']=1;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_DWARF;
-		}
-		if($race & RACE_NIGHTELF)
-		{
-			(($races['side']==2) || ($races['side']==3))? $races['side']=3 : $races['side']=1;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_NIGHT_ELF;
-		}
-		if($race & RACE_UNDEAD)
-		{
-			(($races['side']==1) || ($races['side']==3))? $races['side']=3 : $races['side']=2;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_UNDEAD;
-		}
-		if($race & RACE_TAUREN)
-		{
-			(($races['side']==1) || ($races['side']==3))? $races['side']=3 : $races['side']=2;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_TAUREN;
-		}
-		if($race & RACE_GNOME)
-		{
-			(($races['side']==2) || ($races['side']==3))? $races['side']=3 : $races['side']=1;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_GNOME;
-		}
-		if($race & RACE_TROLL)
-		{
-			(($races['side']==1) || ($races['side']==3))? $races['side']=3 : $races['side']=2;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_TROLL;
-		}
-		if($race & RACE_BLOODELF)
-		{
-			(($races['side']==1) || ($races['side']==3))? $races['side']=3 : $races['side']=2;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_BLOOD_ELF;
-		}
-		if($race & RACE_DRAENEI)
-		{
-			(($races['side']==2) || ($races['side']==3))? $races['side']=3 : $races['side']=1;
-			if($races['name']) $races['name'] .= ', '; $races['name'] .= LOCALE_DRAENEI;
-		}
-		return $races;
+		if(($race & RACE_HUMAN)==RACE_HUMAN || ($race & RACE_DWARF)==RACE_DWARF || ($race & RACE_NIGHTELF)==RACE_NIGHTELF || ($race & RACE_GNOME)==RACE_GNOME || ($race & RACE_DRAENEI)==RACE_DRAENEI)
+			return array('side' => 1, 'name' => LOCALE_ALLIANCE);
+		if(($race & RACE_ORC)==RACE_ORC || ($race & RACE_UNDEAD)==RACE_UNDEAD || ($race & RACE_TAUREN)==RACE_TAUREN || ($race & RACE_TROLL)==RACE_TROLL || ($race & RACE_BLOODELF)==RACE_BLOODELF)
+			return array('side' => 2, 'name' => LOCALE_HORDE);
 	}
+}
+function races($race)
+{
+	$temp = '';
+	if($race & RACE_HUMAN)
+		$temp = LOCALE_HUMAN;
+	if($race & RACE_ORC)
+		if($temp) $temp = $temp.', '.LOCALE_ORC; else $temp = LOCALE_ORC;
+	if($race & RACE_DWARF)
+		if($temp) $temp = $temp.', '.LOCALE_DWARF; else $temp = LOCALE_DWARF;
+	if($race & RACE_NIGHTELF)
+		if($temp) $temp = $temp.', '.LOCALE_NIGHTELF; else $temp = LOCALE_NIGHTELF;
+	if($race & RACE_UNDEAD)
+		if($temp) $temp = $temp.', '.LOCALE_UNDEAD; else $temp = LOCALE_UNDEAD;
+	if($race & RACE_TAUREN)
+		if($temp) $temp = $temp.', '.LOCALE_TAUREN; else $temp = LOCALE_TAUREN;
+	if($race & RACE_GNOME)
+		if($temp) $temp = $temp.', '.LOCALE_GNOME; else $temp = LOCALE_GNOME;
+	if($race & RACE_TROLL)
+		if($temp) $temp = $temp.', '.LOCALE_TROLL; else $temp = LOCALE_TROLL;
+	if($race & RACE_BLOODELF)
+		if($temp) $temp = $temp.', '.LOCALE_BLOODELF; else $temp = LOCALE_BLOODELF;
+	if($race & RACE_DRAENEI)
+		if($temp) $temp = $temp.', '.LOCALE_DRAENEI; else $temp = LOCALE_DRAENEI;
+	if($temp == LOCALE_HUMAN.', '.LOCALE_ORC.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_UNDEAD.', '.LOCALE_TAUREN.', '.LOCALE_GNOME.', '.LOCALE_TROLL.', '.LOCALE_BLOODELF.', '.LOCALE_DRAENEI)
+		return;
+	if($temp == LOCALE_HUMAN.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_GNOME.', '.LOCALE_DRAENEI)
+		return;
+	if($temp == LOCALE_ORC.', '.LOCALE_UNDEAD.', '.LOCALE_TAUREN.', '.LOCALE_TROLL.', '.LOCALE_BLOODELF)
+		return;
+	else
+		return $temp;
 }
 function sum_subarrays_by_key( $tab, $key ) {
 	$sum = 0;
@@ -274,23 +280,6 @@ function sum_subarrays_by_key( $tab, $key ) {
 		$sum += $sub_array[$key];
 	}
 	return $sum;
-}
-function SideByRace($race)
-{
-	switch ($race)
-	{
-		case '0':
-			// Для всех?
-			return 3;
-		case '690':
-			// Орда?
-			return 2;
-		case '1101':
-			// Альянс?
-			return 1;
-		default:
-			return 0;
-	}
 }
 function ajax_str_normalize($string)
 {
@@ -444,41 +433,41 @@ function localizedName($arr, $key = 'name')
 /* ================ CACHE ================ */
 $cache_types = array(
 	//    name                  multilocale
-	array('npc_page',			false			),
-	array('npc_listing',		false			),
+	array('npc_page',           false),
+	array('npc_listing',        false),
 
-	array('object_page',		false			),
-	array('object_listing',		false			),
+	array('object_page',        false),
+	array('object_listing',     false),
 
-	array('item_page',			false			),
-	array('item_tooltip',		false			),
-	array('item_listing',		false			),
+	array('item_page',          false),
+	array('item_tooltip',       false),
+	array('item_listing',       false),
 
-	array('itemset_page',		false			),
-	array('itemset_listing',	false			),
+	array('itemset_page',       false),
+	array('itemset_listing',    false),
 
-	array('quest_page',			false			),
-	array('quest_tooltip',		false			),
-	array('quest_listing',		false			),
+	array('quest_page',         false),
+	array('quest_tooltip',      false),
+	array('quest_listing',      false),
 
-	array('spell_page',			false			),
-	array('spell_tooltip',		false			),
-	array('spell_listing',		false			),
+	array('spell_page',         false),
+	array('spell_tooltip',      false),
+	array('spell_listing',      false),
 
-	array('zone_page',			false			),
-	array('zone_listing',		false			),
+	array('zone_page',          false),
+	array('zone_listing',       false),
 
-	array('faction_page',		false			),
-	array('faction_listing',	false			),
+	array('faction_page',       false),
+	array('faction_listing',    false),
 
-	array('talent_data',		false			),
-	array('talent_icon',		true			),
+	array('talent_data',        false),
+	array('talent_icon',        true ),
 
-	array('achievement_page',	false			),
-	array('achievement_tooltip',false			),
-	array('achievement_listing',false			),
+	array('achievement_page',   false),
+	array('achievement_tooltip',false),
+	array('achievement_listing',false),
 
-	array('glyphs',				false			),
+	array('glyphs',             false),
 );
 foreach($cache_types as $id => $cType)
 {
