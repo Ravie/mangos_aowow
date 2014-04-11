@@ -868,6 +868,17 @@ margin-right:4px;
 border:0!important;
 }
 
+td, th {
+display: table-cell;
+vertical-align: inherit;
+}
+
+table {
+border-collapse: separate;
+border-spacing: 6px;
+border-color: gray;
+}
+
 .icontab td {
 padding:0;
 width:10em;
@@ -875,8 +886,28 @@ font-size:12px;
 line-height:1.5em;
 }
 
+.icontab-box {
+border-spacing: 0 6px;
+border-collapse: separate;
+}
+
+.icontab-box td {
+background-color: #141414;
+padding-top: 0px;
+padding-right: 6px;
+padding-bottom: 0px;
+padding-left: 6px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+
 .icontab th {
 padding:0 3px 0 0;
+}
+
+.icontab-box th {
+padding: 0 0 0 4px;
 }
 
 .random-enchantments {

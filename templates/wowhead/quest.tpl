@@ -436,7 +436,7 @@
 {if isset($quest.SrcSpell) and $quest.SrcSpell}
 <div class="pad"></div>
 {#The_following_spell_will_be_cast_on_you#}:
-<table class="icontab">
+<table class="icontab icontab-box">
 	<tr>
 		<th align="right" id="icontab-icon-spl"></th>
 		<td><span class="q1"><a href="?spell={$quest.SrcSpell.entry}">{$quest.SrcSpell.name}</a></span></td>
@@ -457,7 +457,7 @@
 						<div class="pad"></div>
 						{#You_will_be_able_to_choose_one_of_these_rewards#}:
 						<div class="pad"></div>
-						<table class="icontab">
+						<table class="icontab icontab-box">
 						<tr>
 {section name=j loop=$quest.itemchoices}
 								<th id="icontab-icon{$smarty.section.j.index+1}"></th>
@@ -482,7 +482,7 @@
 						<div class="pad"></div>
 						{#You_will_receive#}:
 						<div class="pad"></div>
-						<table class="icontab">
+						<table class="icontab icontab-box">
 						<tr>{strip}
 {section name=j loop=$quest.itemrewards}
 								<th id="icontab-icon{$smarty.section.j.index+1}"></th>
@@ -510,10 +510,9 @@
 {else}
 						{#You_will_learn#}:
 {/if}
-						<table class="icontab">{strip}
+						<table class="icontab icontab-box">{strip}
 						<tr>
 						<th id="icontab-icon20"></th><td><a href="?spell={$quest.spellreward.realentry}">{$quest.spellreward.name}</a></td>
-						<th></th><td></td>
 						</tr>
 						</table>{/strip}
 
