@@ -18,12 +18,12 @@
 						<ul>
 							{if $quest.QuestLevel>0}
 								<li><div>
-									{#Level#}: {$quest.QuestLevel}
+									{#Quest_level#}: {$quest.QuestLevel}
 								</div></li>
 							{/if}
 							{if $quest.MinLevel>0}
 								<li><div>
-									{#Requires_level#}: {$quest.MinLevel}
+									{#Requires_level#}: {$quest.MinLevel} {#Lvl#}
 								</div></li>
 							{/if}
 							{if $quest.typename}
