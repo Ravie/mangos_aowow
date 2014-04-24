@@ -53,10 +53,8 @@
 												{ldelim}
 													label:'$<br>
 													<div class=q0>
-														<small>{#Respawn#}:
-															{if isset($point.r.h)} {$point.r.h}{#hr#}{/if}
-															{if isset($point.r.m)} {$point.r.m}{#min#}{/if}
-															{if isset($point.r.s)} {$point.r.s}{#sec#}{/if}
+														<small>
+                                                            {#Respawn#}: {$point.r}
 															{if isset($point.events)}<br>{$point.events|escape:"quotes"}{/if}
 														</small>
 													</div>',type:'{$point.type}'

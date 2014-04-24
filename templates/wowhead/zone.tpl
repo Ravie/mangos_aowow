@@ -38,12 +38,10 @@
 												[{$point.x},{$point.y},
 												{ldelim}
 													label:'{if isset($point.name)}{$point.name|escape:"html"|escape:"html"}{else}${/if}<br>
-													{if isset($point.r.h) or isset($point.r.m) or isset($point.r.s) or isset($point.events)}
+													{if isset($point.r) or isset($point.events)}
 													<div class=q0>
-														<small>{#Respawn#}:
-															{if isset($point.r.h)} {$point.r.h}{#hr#}{/if}
-															{if isset($point.r.m)} {$point.r.m}{#min#}{/if}
-															{if isset($point.r.s)} {$point.r.s}{#sec#}{/if}
+														<small>
+                                                            {#Respawn#}: {$point.r}
 															{if isset($point.events)}<br>{$point.events|escape:"quotes"}{/if}
 														</small>
 													</div>

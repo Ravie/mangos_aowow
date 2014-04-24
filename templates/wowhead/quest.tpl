@@ -573,12 +573,7 @@
 {/if}
 {if isset($quest.mailrewards)}
 						<li><div>{#Mail_delivery#}
-						{if isset($quest.maildelay)} {#in_time#}
-							{if isset($quest.maildelay.d)} {$quest.maildelay.d} {#day#}{/if}
-							{if isset($quest.maildelay.h)} {$quest.maildelay.h} {#hr#}{/if}
-							{if isset($quest.maildelay.m)} {$quest.maildelay.m} {#min#}{/if}
-							{if isset($quest.maildelay.s)} {$quest.maildelay.s} {#sec#}{/if}
-						{/if}
+						{if isset($quest.maildelay)} {#in_time#} {$quest.maildelay} {/if}
 						</div></li>
 {/if}
 					</ul>{/strip}

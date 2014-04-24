@@ -2252,7 +2252,7 @@ var LANG={
 	lvnpc_horde:"О",
 	lvquest_daily:"Ежедневный $1",
 	lvquest_weekly:"Еженедельный $1",
-	lvquest_pickone:"Возьмите: ",
+	lvquest_pickone:"Награда: ",
 	lvquest_alsoget:"Вы получите: ",
 	lvquest_xp:"$1 очков опыта",
 	lvzone_xman:"на $1 игроков",

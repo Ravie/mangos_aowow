@@ -37,12 +37,7 @@
 					{#Next_start#}: {$event.nextstarttime}<br>
 					{#Next_end#}: {$event.nextendtime}<br>
 					{strip}
-						{#Period#}:
-							{if isset($event.period.d)} {$event.period.d} {#day#}{/if}
-							{if isset($event.period.h)} {$event.period.h} {#hr#}{/if}
-							{if isset($event.period.m)} {$event.period.m} {#min#}{/if}
-							{if isset($event.period.s)} {$event.period.s} {#sec#}{/if}
-						<br>
+						{#Period#}: {$event.period}<br>
 					{/strip}
 
 					<h2>{#Related#}</h2>

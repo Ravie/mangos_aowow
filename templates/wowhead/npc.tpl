@@ -78,10 +78,7 @@
 													<div class=q0>
 														<small>
 															{if isset($point.r)}
-																{#Respawn#}:
-																{if isset($point.r.h)} {$point.r.h}{#hr#}{/if}
-																{if isset($point.r.m)} {$point.r.m}{#min#}{/if}
-																{if isset($point.r.s)} {$point.r.s}{#sec#}{/if}
+																{#Respawn#}: {$point.r}
 															{else}
 																{#Waypoint#}
 															{/if}

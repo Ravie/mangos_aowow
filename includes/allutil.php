@@ -265,7 +265,7 @@ function races($race)
 		if($temp) $temp = $temp.', '.LOCALE_BLOODELF; else $temp = LOCALE_BLOODELF;
 	if($race & RACE_DRAENEI)
 		if($temp) $temp = $temp.', '.LOCALE_DRAENEI; else $temp = LOCALE_DRAENEI;
-	if($temp == LOCALE_HUMAN.', '.LOCALE_ORC.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_UNDEAD.', '.LOCALE_TAUREN.', '.LOCALE_GNOME.', '.LOCALE_TROLL.', '.LOCALE_BLOODELF.', '.LOCALE_DRAENEI)
+	if($temp == LOCALE_HUMAN.', '.LOCALE_ORC.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_UNDEAD.', '.LOCALE_TAUREN.', '.LOCALE_GNOME.', '.LOCALE_TROLL.', '.LOCALE_BLOODELF.', '.LOCALE_DRAENEI || $temp == '')
 		return;
 	if($temp == LOCALE_HUMAN.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_GNOME.', '.LOCALE_DRAENEI)
 		return;
