@@ -328,6 +328,8 @@ function render_item_tooltip(&$Row)
     $x .= '<table><tr><td>';
     // Название и цвет названия
     $x .= '<b class="q'.$Row['quality'].'">'.localizedName($Row).'</b>';
+    // Item Level
+    $x .= '<span style="color: rgb(255, 209, 0);"><br>'.LOCALE_ITEMLVL.': '.$Row['ItemLevel'].'</span>';
     // Биндинг вещи
     $x .= $bond[$Row['bonding']];
 

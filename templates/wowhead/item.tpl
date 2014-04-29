@@ -16,8 +16,6 @@
 					<tr><td>
 						<div class="infobox-spacer"></div>
 						<ul>
-							{* Уровень вещи *}
-							{if $item.level}<li><div>{#level#}: {$item.level}</div></li>{/if}
 							{* Стоимость вещи *}
 							{if $item.buygold or $item.buysilver or $item.buycopper}
 								<li><div>
