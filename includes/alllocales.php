@@ -142,6 +142,30 @@ switch($_SESSION['locale'])
             'LOCALE_ARMOR_LIBRAM'   =>  'Манускрипт',
             'LOCALE_ARMOR_IDOL'     =>  'Идол',
             'LOCALE_ARMOR_TOTEM'    =>  'Тотем',
+            // npc type
+            'LOCALE_TYPENPC_BEAST'      => 'Животное',
+            'LOCALE_TYPENPC_DRAGON'     => 'Дракон',
+            'LOCALE_TYPENPC_DEMON'      => 'Демон',
+            'LOCALE_TYPENPC_ELEM'       => 'Элементаль',
+            'LOCALE_TYPENPC_GIANT'      => 'Великан',
+            'LOCALE_TYPENPC_UNDEAD'     => 'Нежить',
+            'LOCALE_TYPENPC_HUMAN'      => 'Гуманоид',
+            'LOCALE_TYPENPC_CRITTER'    => 'Существо',
+            'LOCALE_TYPENPC_MECHANIC'   => 'Механизм',
+            'LOCALE_TYPENPC_UNCATEGORY' => 'Разное',
+            // npc rank
+            'LOCALE_NORMAL'             => '(Обычный)',
+            'LOCALE_ELITE'              => '(Элита)',
+            'LOCALE_RARE_ELITE'         => '(Редкий Элитный)',
+            'LOCALE_BOSS'               => '(Босс)',
+            'LOCALE_RARE'               => '(Редкий)',
+            // object type
+            'LOCALE_TYPEGO_BOOK'        => 'Книга',
+            'LOCALE_TYPEGO_CONTAINER'   => 'Контейнер',
+            'LOCALE_TYPEGO_FOOTLOCKER'  => 'Сундук',
+            'LOCALE_TYPEGO_HERB'        => 'Растение',
+            'LOCALE_TYPEGO_VEINS'       => 'Руда',
+            'LOCALE_TYPEGO_QUEST'       => 'Задание',
             // weapon type
             'LOCALE_WEAPON_AXE1H'       =>    'Топор',
             'LOCALE_WEAPON_AXE2H'       =>    'Топор',
@@ -223,6 +247,7 @@ switch($_SESSION['locale'])
             'LOCALE_SOCKET_BONUS'   =>    'При соответствии цвета',
 
             // misc
+            'LOCALE_LEVEL'          =>    'Уровень',
             'LOCALE_SPEED'          =>    'Скорость',
             'LOCALE_UNIQUE'         =>    'Уникальный',
             'LOCALE_START_QUEST'    =>    'Позволяет получить новое задание',
@@ -409,6 +434,30 @@ switch($_SESSION['locale'])
             'LOCALE_ARMOR_LIBRAM'     =>    'Buchband',
             'LOCALE_ARMOR_IDOL'       =>    'Götze',
             'LOCALE_ARMOR_TOTEM'      =>    'Totem',
+            // npc type
+            'LOCALE_TYPENPC_BEAST'      => 'Beast',
+            'LOCALE_TYPENPC_DRAGON'     => 'Dragonkin',
+            'LOCALE_TYPENPC_DEMON'      => 'Demon',
+            'LOCALE_TYPENPC_ELEM'       => 'Elemental',
+            'LOCALE_TYPENPC_GIANT'      => 'Giant',
+            'LOCALE_TYPENPC_UNDEAD'     => 'Undead',
+            'LOCALE_TYPENPC_HUMAN'      => 'Humanoid',
+            'LOCALE_TYPENPC_CRITTER'    => 'Critter',
+            'LOCALE_TYPENPC_MECHANIC'   => 'Mechanical',
+            'LOCALE_TYPENPC_UNCATEGORY' => 'Uncategorized',
+            // npc rank
+            'LOCALE_NORMAL'             => '(Normal)',
+            'LOCALE_ELITE'              => '(Elite)',
+            'LOCALE_RARE_ELITE'         => '(Rare Elite)',
+            'LOCALE_BOSS'               => '(Boss)',
+            'LOCALE_RARE'               => '(Rare)',
+            // object type
+            'LOCALE_TYPEGO_BOOK'        => 'Book',
+            'LOCALE_TYPEGO_CONTAINER'   => 'Container',
+            'LOCALE_TYPEGO_FOOTLOCKER'  => 'Footlocker',
+            'LOCALE_TYPEGO_HERB'        => 'Herb',
+            'LOCALE_TYPEGO_VEINS'       => 'Mineral vein',
+            'LOCALE_TYPEGO_QUEST'       => 'Quest',
             // weapon type
             'LOCALE_WEAPON_AXE1H'       =>    'Einhandaxt',
             'LOCALE_WEAPON_AXE2H'       =>    'Zweihandaxt',
@@ -490,6 +539,7 @@ switch($_SESSION['locale'])
             'LOCALE_SOCKET_BONUS'   =>    'Sockelbonus',
             
             // misc
+            'LOCALE_LEVEL'           =>    'Level',
             'LOCALE_SPEED'           =>    'Geschwindigkeit',
             'LOCALE_UNIQUE'          =>    'Einzigartig',
             'LOCALE_START_QUEST'     =>    'Dieser Gegenstand startet eine Quest',
@@ -675,6 +725,30 @@ switch($_SESSION['locale'])
             'LOCALE_ARMOR_LIBRAM'  =>    'Libram',
             'LOCALE_ARMOR_IDOL'    =>    'Idole',
             'LOCALE_ARMOR_TOTEM'   =>    'Totem',
+            // npc type
+            'LOCALE_TYPENPC_BEAST'      => 'Beast',
+            'LOCALE_TYPENPC_DRAGON'     => 'Dragonkin',
+            'LOCALE_TYPENPC_DEMON'      => 'Demon',
+            'LOCALE_TYPENPC_ELEM'       => 'Elemental',
+            'LOCALE_TYPENPC_GIANT'      => 'Giant',
+            'LOCALE_TYPENPC_UNDEAD'     => 'Undead',
+            'LOCALE_TYPENPC_HUMAN'      => 'Humanoid',
+            'LOCALE_TYPENPC_CRITTER'    => 'Critter',
+            'LOCALE_TYPENPC_MECHANIC'   => 'Mechanical',
+            'LOCALE_TYPENPC_UNCATEGORY' => 'Uncategorized',
+            // npc rank
+            'LOCALE_NORMAL'             => '(Normal)',
+            'LOCALE_ELITE'              => '(Elite)',
+            'LOCALE_RARE_ELITE'         => '(Rare Elite)',
+            'LOCALE_BOSS'               => '(Boss)',
+            'LOCALE_RARE'               => '(Rare)',
+            // object type
+            'LOCALE_TYPEGO_BOOK'        => 'Book',
+            'LOCALE_TYPEGO_CONTAINER'   => 'Container',
+            'LOCALE_TYPEGO_FOOTLOCKER'  => 'Footlocker',
+            'LOCALE_TYPEGO_HERB'        => 'Herb',
+            'LOCALE_TYPEGO_VEINS'       => 'Mineral vein',
+            'LOCALE_TYPEGO_QUEST'       => 'Quest',
             // weapon type
             'LOCALE_WEAPON_AXE1H'       =>    'Hache',
             'LOCALE_WEAPON_AXE2H'       =>    'Hache',
@@ -756,6 +830,7 @@ switch($_SESSION['locale'])
             'LOCALE_SOCKET_BONUS'   =>    'Bonus de sertissage',
             
             // misc
+            'LOCALE_LEVEL'          =>    'Level',
             'LOCALE_SPEED'          =>    'Vitesse',
             'LOCALE_UNIQUE'         =>    'Unique',
             'LOCALE_START_QUEST'    =>    'Cet objet démarre une quête',
@@ -941,6 +1016,30 @@ switch($_SESSION['locale'])
             'LOCALE_ARMOR_LIBRAM'   =>    'Libram',
             'LOCALE_ARMOR_IDOL'     =>    'Idol',
             'LOCALE_ARMOR_TOTEM'    =>    'Totem',
+            // npc type
+            'LOCALE_TYPENPC_BEAST'      => 'Beast',
+            'LOCALE_TYPENPC_DRAGON'     => 'Dragonkin',
+            'LOCALE_TYPENPC_DEMON'      => 'Demon',
+            'LOCALE_TYPENPC_ELEM'       => 'Elemental',
+            'LOCALE_TYPENPC_GIANT'      => 'Giant',
+            'LOCALE_TYPENPC_UNDEAD'     => 'Undead',
+            'LOCALE_TYPENPC_HUMAN'      => 'Humanoid',
+            'LOCALE_TYPENPC_CRITTER'    => 'Critter',
+            'LOCALE_TYPENPC_MECHANIC'   => 'Mechanical',
+            'LOCALE_TYPENPC_UNCATEGORY' => 'Uncategorized',
+            // npc rank
+            'LOCALE_NORMAL'             => '(Normal)',
+            'LOCALE_ELITE'              => '(Elite)',
+            'LOCALE_RARE_ELITE'         => '(Rare Elite)',
+            'LOCALE_BOSS'               => '(Boss)',
+            'LOCALE_RARE'               => '(Rare)',
+            // object type
+            'LOCALE_TYPEGO_BOOK'        => 'Book',
+            'LOCALE_TYPEGO_CONTAINER'   => 'Container',
+            'LOCALE_TYPEGO_FOOTLOCKER'  => 'Footlocker',
+            'LOCALE_TYPEGO_HERB'        => 'Herb',
+            'LOCALE_TYPEGO_VEINS'       => 'Mineral vein',
+            'LOCALE_TYPEGO_QUEST'       => 'Quest',
             // weapon type
             'LOCALE_WEAPON_AXE1H'       =>    'Axe',
             'LOCALE_WEAPON_AXE2H'       =>    'Axe',
@@ -1022,6 +1121,7 @@ switch($_SESSION['locale'])
             'LOCALE_SOCKET_BONUS'   =>    'Socket Bonus',
             
             // misc
+            'LOCALE_LEVEL'          =>    'Level',
             'LOCALE_SPEED'          =>    'Speed',
             'LOCALE_UNIQUE'         =>    'Unique',
             'LOCALE_START_QUEST'    =>    'This Item Begins a Quest',

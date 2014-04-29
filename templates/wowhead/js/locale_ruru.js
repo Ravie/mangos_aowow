@@ -2190,7 +2190,7 @@ var LANG={
 	signout:"Выйти",
 	sockets:"Гнёзда",
 	source:"Источник",
-	skill:"Уровень навыка",
+	skill:"Навык",
 	skin:"Окрас",
 	slot:"Слот",
 	slots:"Гнезда",

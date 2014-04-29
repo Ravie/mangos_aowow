@@ -434,9 +434,11 @@ function localizedName($arr, $key = 'name')
 $cache_types = array(
 	//    name                  multilocale
 	array('npc_page',           false),
+    array('npc_tooltip',        false),
 	array('npc_listing',        false),
 
 	array('object_page',        false),
+    array('object_tooltip',     false),
 	array('object_listing',     false),
 
 	array('item_page',          false),
@@ -475,7 +477,7 @@ foreach($cache_types as $id => $cType)
 }
 function save_cache($type, $type_id, $data, $prefix = '')
 {
-	global $cache_types, $allitems, $allspells, $allachievements, $AoWoWconf;
+	global $cache_types, $allitems, $allspells, $allachievements, $npc, $object, $AoWoWconf;
 
 	if($AoWoWconf['debug'])
 		return;
@@ -501,12 +503,16 @@ function save_cache($type, $type_id, $data, $prefix = '')
 	$cache_data .= serialize($allspells);
 	$cache_data .= "\n";
 	$cache_data .= serialize($allachievements);
+    $cache_data .= "\n";
+    $cache_data .= serialize($npc);
+    $cache_data .= "\n";
+    $cache_data .= serialize($object);
 
 	file_put_contents($file, $cache_data);
 }
 function load_cache($type, $type_id, $prefix = '')
 {
-	global $cache_types, $smarty, $allitems, $allspells, $allachievements, $AoWoWconf;
+	global $cache_types, $smarty, $allitems, $allspells, $allachievements, $npc, $object, $AoWoWconf;
 
 	if($AoWoWconf['debug'])
 		return false;
@@ -533,6 +539,10 @@ function load_cache($type, $type_id, $prefix = '')
 		$allspells = unserialize($data[3]);
 	if($data[4])
 		$allachievements = unserialize($data[4]);
+    if($data[5])
+        $npc = unserialize($data[5]);
+    if($data[6])
+        $object = unserialize($data[6]);
 
 	return unserialize($data[1]);
 }
@@ -540,7 +550,7 @@ function load_cache($type, $type_id, $prefix = '')
 // another placeholder
 function ParseTextLinks($text)
 {
-	if(!preg_match_all('/(\[(achievement|item|quest|spell)=(\d+)\])/', $text, $matches))
+	if(!preg_match_all('/(\[(achievement|item|quest|spell|npc|object)=(\d+)\])/', $text, $matches))
 		return;
 
 	$types = $matches[2];
@@ -566,6 +576,14 @@ function ParseTextLinks($text)
 			case 'spell':
 				require_once('includes/allspells.php');
 				allspellsinfo($id);
+				break;
+            case 'npc':
+				require_once('includes/allnpcs.php');
+				creatureinfo($id);
+				break;
+            case 'object':
+				require_once('includes/allobjects.php');
+				objectinfo($id);
 				break;
 		}
 	}

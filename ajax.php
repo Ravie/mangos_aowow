@@ -75,9 +75,50 @@ switch($what)
 			save_cache(ACHIEVEMENT_TOOLTIP, $id, $achievement);
 		}
 		$x .= '$WowheadPower.registerAchievement('.$id.', '.$_SESSION['locale'].',{';
-		$x .= 'name_'.$locales[$_SESSION['locale']].': \''.ajax_str_normalize($achievement['name']).'\',';
-		$x .= 'icon:\''.$achievement['icon'].'\',';
-		$x .= 'tooltip_'.$locales[$_SESSION['locale']].':\''.ajax_str_normalize($achievement['tooltip']).'\'';
+        if($achievement['name'])
+            $x .= 'name_'.$locales[$_SESSION['locale']].': \''.ajax_str_normalize($achievement['name']).'\',';
+        if($achievement['icon'])
+            $x .= 'icon:\''.$achievement['icon'].'\',';
+        if($achievement['tooltip'])
+            $x .= 'tooltip_'.$locales[$_SESSION['locale']].':\''.ajax_str_normalize($achievement['tooltip']).'\'';
+		$x .= '});';
+		break;
+    case 'npc':
+		if(!$creature = load_cache(NPC_TOOLTIP, $id))
+		{
+			require_once('includes/allnpcs.php');
+			$creature = creatureinfo($id, 1);
+			save_cache(NPC_TOOLTIP, $id, $creature);
+		}
+		$x .= '$WowheadPower.registerNpc('.$id.', '.$_SESSION['locale'].',{';
+        if($creature['name'])
+            $x .= 'name_'.$locales[$_SESSION['locale']].': \''.ajax_str_normalize($creature['name']).'\',';
+        if($creature['subname'])
+            $x .= 'subname_'.$locales[$_SESSION['locale']].': \''.ajax_str_normalize($creature['subname']).'\',';
+        if($creature['minlevel'])
+            $x .= 'level:\''.$creature['minlevel'].'\',';
+        if($creature['type'])
+            $x .= 'type:\''.$creature['type'].'\',';
+        if($creature['rank'])
+            $x .= 'rank:\''.$creature['rank'].'\',';
+        if($creature['tooltip'])
+            $x .= 'tooltip_'.$locales[$_SESSION['locale']].':\''.ajax_str_normalize($creature['tooltip']).'\'';
+		$x .= '});';
+		break;
+    case 'object':
+		if(!$object = load_cache(OBJECT_TOOLTIP, $id))
+		{
+			require_once('includes/allobjects.php');
+			$object = objectinfo($id, 1);
+			save_cache(OBJECT_TOOLTIP, $id, $object);
+		}
+		$x .= '$WowheadPower.registerObject('.$id.', '.$_SESSION['locale'].',{';
+        if($object['name'])
+            $x .= 'name_'.$locales[$_SESSION['locale']].': \''.ajax_str_normalize($object['name']).'\',';
+        if($object['type'])
+            $x .= 'type:\''.$object['type'].'\',';
+        if($object['tooltip'])
+            $x .= 'tooltip_'.$locales[$_SESSION['locale']].':\''.ajax_str_normalize($object['tooltip']).'\'';
 		$x .= '});';
 		break;
 	default:

@@ -1,4 +1,5 @@
 <?php
+
 /*
 * AoWoW: MaNGOS Web Interface
 *
@@ -32,7 +33,7 @@ define('GAMEOBJECT_TYPE_DUEL_ARBITER', 16);
 define('GAMEOBJECT_TYPE_FISHINGNODE', 17);
 define('GAMEOBJECT_TYPE_RITUAL', 18);
 define('GAMEOBJECT_TYPE_MAILBOX', 19);
-define('GAMEOBJECT_TYPE_AUCTIONHOUSE', 20);
+define('GAMEOBJECT_TYPE_DONOTUSE', 20);
 define('GAMEOBJECT_TYPE_GUARDPOST', 21);
 define('GAMEOBJECT_TYPE_SPELLCASTER', 22);
 define('GAMEOBJECT_TYPE_MEETINGSTONE', 23);
@@ -44,26 +45,31 @@ define('GAMEOBJECT_TYPE_LOTTERY_KIOSK', 28);
 define('GAMEOBJECT_TYPE_CAPTURE_POINT', 29);
 define('GAMEOBJECT_TYPE_AURA_GENERATOR', 30);
 define('GAMEOBJECT_TYPE_DUNGEON_DIFFICULTY', 31);
-define('GAMEOBJECT_TYPE_UNK', 32);
+define('GAMEOBJECT_TYPE_BARBER_CHAIR', 32);
 define('GAMEOBJECT_TYPE_DESTRUCTIBLE_BUILDING', 33);
 define('GAMEOBJECT_TYPE_GUILD_BANK', 34);
+define('GAMEOBJECT_TYPE_TRAPDOOR', 35);
 
 // Column LockProperties in Lock.dbc
 define('LOCK_PROPERTIES_FOOTLOCK',1);
 define('LOCK_PROPERTIES_HERBALISM',2);
 define('LOCK_PROPERTIES_MINING',3);
 
+require_once('includes/alllocales.php');
+require_once('includes/allquests.php');
+
 // objectinfo required columns
-$object_cols[0] = array('entry', 'name', 'type');
-$object_cols[1] = array('entry', 'name', 'type', 'data0', 'data1', 'data7');
+$object_cols[0] = array('name', 'type');
+$object_cols[1] = array('name', 'type', 'data0', 'data1', 'data7');
+$object_type = array(-5=>LOCALE_TYPEGO_FOOTLOCKER, -4=>LOCALE_TYPEGO_VEINS, -3=>LOCALE_TYPEGO_HERB, 2=>LOCALE_TYPEGO_QUEST, 3=>LOCALE_TYPEGO_CONTAINER, 9=>LOCALE_TYPEGO_BOOK);
 
 // Функция информации об объекте
 function objectinfo($id, $level=0)
 {
 	global $DB;
 	global $object_cols;
-	$row = $DB->selectRow('
-			SELECT g.?#
+	$Row = $DB->selectRow('
+			SELECT g.?#, g.entry
 				{, l.name_loc?d AS `name_loc`}
 			FROM gameobject_template g
 				{LEFT JOIN (locales_gameobject l) ON l.entry=g.entry AND ?d}
@@ -75,7 +81,7 @@ function objectinfo($id, $level=0)
 		($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
 		$id
 	);
-	return objectinfo2($row, $level);
+	return objectinfo2($Row, $level);
 }
 
 // Функция информации об объекте
@@ -83,7 +89,9 @@ function objectinfo($id, $level=0)
 function objectinfo2(&$Row, $level=0)
 {
 	global $DB;
+    global $object_type;
 	// Номер объекта
+    $object = array();
 	$object['entry'] = $Row['entry'];
 	// Название объекта
 	$object['name'] = localizedName($Row);
@@ -273,7 +281,7 @@ function objectinfo2(&$Row, $level=0)
 			case GAMEOBJECT_TYPE_MAILBOX:
 				/* No data data used, all are always 0 */
 				break;
-			case GAMEOBJECT_TYPE_AUCTIONHOUSE:
+			case GAMEOBJECT_TYPE_DONOTUSE:
 				/* data0: actionHouseID (From AuctionHouse.dbc ?) */
 				break;
 			case GAMEOBJECT_TYPE_GUARDPOST:
@@ -359,9 +367,12 @@ function objectinfo2(&$Row, $level=0)
 			case GAMEOBJECT_TYPE_AURA_GENERATOR:
 				/*
 						* data0: startOpen (Boolean flag)
-						* data1: radius (Distance)
-						* data2: auraID1 (Spell Id from spell.dbc)
-						* data3: conditionID1 (Unknown ID)
+                        * data1: radius (Distance)
+                        * data2: auraID1 (Spell.dbc)
+                        * data3: conditionID1 (Unknown ID)
+                        * data4: auraID2 (Spell.dbc)
+                        * data5: conditionID2 (Unknown ID)
+                        * data6: serverOnly 
 				*/
 				break;
 			case GAMEOBJECT_TYPE_DUNGEON_DIFFICULTY:
@@ -370,15 +381,36 @@ function objectinfo2(&$Row, $level=0)
 						* data1: difficulty (0 or 1)
 				*/
 				break;
-			case GAMEOBJECT_TYPE_UNK:
-				/*	Object type not used */
+			case GAMEOBJECT_TYPE_BARBER_CHAIR:
+				/*	    
+                        * data0: chairheight
+                        * data1: heightOffset
+                */
 				break;
 			case GAMEOBJECT_TYPE_DESTRUCTIBLE_BUILDING:
-				/*	Object type not used */
+				/*	
+                        * data0: intactNumHits
+                        * data1: creditProxyCreature
+                        * data3: intactEvent
+                        * data5: damagedNumHits
+                        * data9: damagedEvent
+                        * data14: destroyedEvent
+                        * data16: debuildingTimeSecs
+                        * data18: destructibleData
+                        * data19: rebuildingEvent
+                        * data22: damageEvent
+                */
 				break;
 			case GAMEOBJECT_TYPE_GUILD_BANK:
 				/*	No data data used, all are always 0 */
 				break;
+            case GAMEOBJECT_TYPE_TRAPDOOR:
+                /*
+                        * data0: whenToPause
+                        * data1: startOpen
+                        * data2: autoClose 
+                */
+                break;
 		}
 		// Тип объекта и требуемый уровень скилла, и какого скилла
 		if($object['lockid'])
@@ -475,6 +507,16 @@ function objectinfo2(&$Row, $level=0)
 				unset($object['drop']);
 		}
 	}
+    
+    $x = '';
+	$x .= '<table><tr><td><b class="q">';
+    $x .= htmlspecialchars($object['name']);
+	$x .= '</b></td></tr><tr><td>';
+    if($object['type'])
+        $x .= $object_type[$object['type']];
+    $x .= '</td></tr></table>';
+    $object['tooltip'] = $x;
+    
 	return $object;
 }
 
