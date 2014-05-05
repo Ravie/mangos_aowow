@@ -201,26 +201,53 @@ function classes($class)
 {
 	$tmp = '';
 	if($class & CLASS_WARRIOR)
-		$tmp = LOCALE_WARRIOR;
+		$tmp = '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>';
 	if($class & CLASS_PALADIN)
-		if($tmp) $tmp = $tmp.', '.LOCALE_PALADIN; else $tmp = LOCALE_PALADIN;
+		if($tmp)
+            $tmp = $tmp.', <a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
+        else
+            $tmp = '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
 	if($class & CLASS_HUNTER)
-		if($tmp) $tmp = $tmp.', '.LOCALE_HUNTER; else $tmp = LOCALE_HUNTER;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>'; 
+        else 
+            $tmp = '<a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>';
 	if($class & CLASS_ROGUE)
-		if($tmp) $tmp = $tmp.', '.LOCALE_ROGUE; else $tmp = LOCALE_ROGUE;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>'; 
+        else 
+            $tmp = '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
 	if($class & CLASS_PRIEST)
-		if($tmp) $tmp = $tmp.', '.LOCALE_PRIEST; else $tmp = LOCALE_PRIEST;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>'; 
+        else 
+            $tmp = '<a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>';
 	if($class & CLASS_DEATH_KNIGHT)
-		if($tmp) $tmp = $tmp.', '.LOCALE_DEATH_KNIGHT; else $tmp = LOCALE_DEATH_KNIGHT;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>'; 
+        else 
+            $tmp = '<a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>';
 	if($class & CLASS_SHAMAN)
-		if($tmp) $tmp = $tmp.', '.LOCALE_SHAMAN; else $tmp = LOCALE_SHAMAN;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>'; 
+        else 
+            $tmp = '<a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>';
 	if($class & CLASS_MAGE)
-		if($tmp) $tmp = $tmp.', '.LOCALE_MAGE; else $tmp = LOCALE_MAGE;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>'; 
+        else 
+            $tmp = '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
 	if($class & CLASS_WARLOCK)
-		if($tmp) $tmp = $tmp.', '.LOCALE_WARLOCK; else $tmp = LOCALE_WARLOCK;
+		if($tmp) 
+            $tmp = $tmp.', <a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>'; 
+        else 
+            $tmp = '<a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>';
 	if($class & CLASS_DRUID)
-		if($tmp) $tmp = $tmp.', '.LOCALE_DRUID; else $tmp = LOCALE_DRUID;
-	if($tmp == LOCALE_WARRIOR.', '.LOCALE_PALADIN.', '.LOCALE_HUNTER.', '.LOCALE_ROGUE.', '.LOCALE_PRIEST.', '.LOCALE_DEATH_KNIGHT.', '.LOCALE_SHAMAN.', '.LOCALE_MAGE.', '.LOCALE_WARLOCK.', '.LOCALE_DRUID || $tmp == '')
+		if($tmp) 
+            $tmp = $tmp.', <a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>'; 
+        else 
+            $tmp = '<a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>';
+	if($tmp == '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>, <a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>, <a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>, <a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>, <a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>, <a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>, <a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>, <a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>, <a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>, <a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>' || $tmp == '')
 		return;
 	else
 		return $tmp;
@@ -244,32 +271,28 @@ function factions($race)
 }
 function races($race)
 {
-	$temp = '';
+    $temp = '';
 	if($race & RACE_HUMAN)
-		$temp = LOCALE_HUMAN;
+		$temp = '<span class="human-icon">'.LOCALE_HUMAN.'</span>';
 	if($race & RACE_ORC)
-		if($temp) $temp = $temp.', '.LOCALE_ORC; else $temp = LOCALE_ORC;
+		if($temp) $temp = $temp.', <span class="orc-icon">'.LOCALE_ORC.'</span>'; else $temp = '<span class="orc-icon">'.LOCALE_ORC.'</span>';
 	if($race & RACE_DWARF)
-		if($temp) $temp = $temp.', '.LOCALE_DWARF; else $temp = LOCALE_DWARF;
+		if($temp) $temp = $temp.', <span class="dwarf-icon">'.LOCALE_DWARF.'</span>'; else $temp = '<span class="dwarf-icon">'.LOCALE_DWARF.'</span>';
 	if($race & RACE_NIGHTELF)
-		if($temp) $temp = $temp.', '.LOCALE_NIGHTELF; else $temp = LOCALE_NIGHTELF;
+		if($temp) $temp = $temp.', <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>'; else $temp = '<span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>';
 	if($race & RACE_UNDEAD)
-		if($temp) $temp = $temp.', '.LOCALE_UNDEAD; else $temp = LOCALE_UNDEAD;
+		if($temp) $temp = $temp.', <span class="undead-icon">'.LOCALE_UNDEAD.'</span>'; else $temp = '<span class="undead-icon">'.LOCALE_UNDEAD.'</span>';
 	if($race & RACE_TAUREN)
-		if($temp) $temp = $temp.', '.LOCALE_TAUREN; else $temp = LOCALE_TAUREN;
+		if($temp) $temp = $temp.', <span class="tauren-icon">'.LOCALE_TAUREN.'</span>'; else $temp = '<span class="tauren-icon">'.LOCALE_TAUREN.'</span>';
 	if($race & RACE_GNOME)
-		if($temp) $temp = $temp.', '.LOCALE_GNOME; else $temp = LOCALE_GNOME;
+		if($temp) $temp = $temp.', <span class="gnome-icon">'.LOCALE_GNOME.'</span>'; else $temp = '<span class="gnome-icon">'.LOCALE_GNOME.'</span>';
 	if($race & RACE_TROLL)
-		if($temp) $temp = $temp.', '.LOCALE_TROLL; else $temp = LOCALE_TROLL;
+		if($temp) $temp = $temp.', <span class="troll-icon">'.LOCALE_TROLL.'</span>'; else $temp = '<span class="troll-icon">'.LOCALE_TROLL.'</span>';
 	if($race & RACE_BLOODELF)
-		if($temp) $temp = $temp.', '.LOCALE_BLOODELF; else $temp = LOCALE_BLOODELF;
+		if($temp) $temp = $temp.', <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>'; else $temp = '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
 	if($race & RACE_DRAENEI)
-		if($temp) $temp = $temp.', '.LOCALE_DRAENEI; else $temp = LOCALE_DRAENEI;
-	if($temp == LOCALE_HUMAN.', '.LOCALE_ORC.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_UNDEAD.', '.LOCALE_TAUREN.', '.LOCALE_GNOME.', '.LOCALE_TROLL.', '.LOCALE_BLOODELF.', '.LOCALE_DRAENEI || $temp == '')
-		return;
-	if($temp == LOCALE_HUMAN.', '.LOCALE_DWARF.', '.LOCALE_NIGHTELF.', '.LOCALE_GNOME.', '.LOCALE_DRAENEI)
-		return;
-	if($temp == LOCALE_ORC.', '.LOCALE_UNDEAD.', '.LOCALE_TAUREN.', '.LOCALE_TROLL.', '.LOCALE_BLOODELF)
+		if($temp) $temp = $temp.', <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>'; else $temp = '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
+	if($temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '' || $temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '<span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="troll-icon"'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>')
 		return;
 	else
 		return $temp;

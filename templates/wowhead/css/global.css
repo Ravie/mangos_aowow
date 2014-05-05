@@ -217,6 +217,106 @@ padding-left:19px;
 background:url(../images/instance-icons.gif) no-repeat;
 }
 
+.warrior-icon {
+padding-left:20px;
+background:url(../images/class_warrior.gif) left center no-repeat;
+}
+
+.paladin-icon {
+padding-left:20px;
+background:url(../images/class_paladin.gif) left center no-repeat;
+}
+
+.hunter-icon {
+padding-left:20px;
+background:url(../images/class_hunter.gif) left center no-repeat;
+}
+
+.rogue-icon {
+padding-left:20px;
+background:url(../images/class_rogue.gif) left center no-repeat;
+}
+
+.priest-icon {
+padding-left:20px;
+background:url(../images/class_priest.gif) left center no-repeat;
+}
+
+.deathknight-icon {
+padding-left:20px;
+background:url(../images/class_deathknight.gif) left center no-repeat;
+}
+
+.shaman-icon {
+padding-left:20px;
+background:url(../images/class_shaman.gif) left center no-repeat;
+}
+
+.mage-icon {
+padding-left:20px;
+background:url(../images/class_mage.gif) left center no-repeat;
+}
+
+.warlock-icon {
+padding-left:20px;
+background:url(../images/class_warlock.gif) left center no-repeat;
+}
+
+.druid-icon {
+padding-left:20px;
+background:url(../images/class_druid.gif) left center no-repeat;
+}
+
+.human-icon {
+padding-left:20px;
+background:url(../images/race_human_male.gif) left center no-repeat;
+}
+
+.orc-icon {
+padding-left:20px;
+background:url(../images/race_orc_male.gif) left center no-repeat;
+}
+
+.dwarf-icon {
+padding-left:20px;
+background:url(../images/race_dwarf_male.gif) left center no-repeat;
+}
+
+.nightelf-icon {
+padding-left:20px;
+background:url(../images/race_nightelf_female.gif) left center no-repeat;
+}
+
+.undead-icon {
+padding-left:20px;
+background:url(../images/race_scourge_male.gif) left center no-repeat;
+}
+
+.tauren-icon {
+padding-left:20px;
+background:url(../images/race_tauren_male.gif) left center no-repeat;
+}
+
+.gnome-icon {
+padding-left:20px;
+background:url(../images/race_gnome_male.gif) left center no-repeat;
+}
+
+.troll-icon {
+padding-left:20px;
+background:url(../images/race_troll_male.gif) left center no-repeat;
+}
+
+.bloodelf-icon {
+padding-left:20px;
+background:url(../images/race_bloodelf_female.gif) left center no-repeat;
+}
+
+.draenei-icon {
+padding-left:20px;
+background:url(../images/race_draenei_female.gif) left center no-repeat;
+}
+
 .instance-icon1 {
 background-position:left center;
 }
@@ -635,6 +735,11 @@ white-space:nowrap;
 .infobox ul {
 margin:0;
 padding-left:13px;
+}
+
+.infobox li div {
+width:300px;
+white-space:normal;
 }
 
 #infobox-sticky img {
