@@ -21,7 +21,7 @@
 				</table>
 
 				<div class="text">
-					<a href="http://www.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
+					<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
 					<h1>{$itemset.name}</h1>
 					{$itemset.article}
 					This {$itemset.count}-piece set includes the following items:

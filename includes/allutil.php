@@ -16,6 +16,12 @@ $locales = array(
 	3 => 'dede',
 	8 => 'ruru',
 );
+$lang = array(
+	0 => 'www',
+	2 => 'fr',
+	3 => 'de',
+	8 => 'ru',
+);
 function checklocale()
 {
 	global $AoWoWconf, $locales;
@@ -292,7 +298,7 @@ function races($race)
 		if($temp) $temp = $temp.', <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>'; else $temp = '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
 	if($race & RACE_DRAENEI)
 		if($temp) $temp = $temp.', <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>'; else $temp = '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
-	if($temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '' || $temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '<span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="troll-icon"'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>')
+	if($temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '' || $temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '<span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>')
 		return;
 	else
 		return $temp;

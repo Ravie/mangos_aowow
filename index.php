@@ -22,6 +22,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['shapass']))
 
 $smarty->assign('locale', $_SESSION['locale']);
 $smarty->assign('language', $locales[$_SESSION['locale']]);
+$smarty->assign('lang', $lang[$_SESSION['locale']]);
 $conf_file = $locales[$_SESSION['locale']].'.conf';
 $smarty->assign('conf_file', $conf_file);
 

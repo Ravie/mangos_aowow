@@ -50,7 +50,7 @@
 
 					<a href="javascript:;" class="button-red" onclick="this.blur(); g_getIngameLink('ffffff00','achievement:{$achievement.id}:&quot;..UnitGUID(&quot;player&quot;)..&quot;:0:0:0:0:0:0:0:0', '{$achievement.name|escape:"javascript"}')"><em><b><i>Link</i></b><span>Link</span></em></a>
 					<div id="h1-icon-generic" class="h1-icon"></div>
-					<a href="http://www.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
+					<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
 					<h1 class="h1-icon">{$achievement.name}</h1>
 					<script type="text/javascript">
 					ge('h1-icon-generic').appendChild(Icon.create('{$achievement.iconname|escape:"javascript"}', 1));

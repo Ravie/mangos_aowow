@@ -59,7 +59,7 @@
 						'item:{$item.entry}:0:0:0:0:0:0:0:0', '{$item.name|escape:"javascript"}')">
 					<em><b><i>Link</i></b><span>Link</span></em></a>
 					{/strip}
-					<a href="http://www.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
+					<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
 					<h1>{$item.name}</h1>
 
 					<div id="icon{$item.entry}-generic" style="float: left"></div>

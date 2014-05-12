@@ -289,7 +289,7 @@
 
 				<div class="text">
 					<a href="javascript:;" class="button-red" onclick="this.blur(); g_getIngameLink('ffffff00','quest:{$quest.entry}:{if $quest.QuestLevel>1}{$quest.QuestLevel}{else}1{/if}', '{$quest.Title|escape:"javascript"}')"><em><b><i>Link</i></b><span>Link</span></em></a>
-					<a href="http://www.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
+					<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
 					<h1>{$quest.Title}</h1>
 
 					{if isset($quest.RequiredMinRep) or isset($quest.RequiredMaxRep)}
