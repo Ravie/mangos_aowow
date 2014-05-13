@@ -64,17 +64,17 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 		$spell['rangename'] = $RangeRow['name_loc'.$_SESSION['locale']];
 		// Время каста
 		if($row['basecasttime'] > 0)
-			$spell['casttime'] = ($row['basecasttime'] / 1000).' '.$smarty->get_config_vars('seconds');
+			$spell['casttime'] = sec_to_time($row['basecasttime']/1000);
 		else if($row['ChannelInterruptFlags'])
-			$spell['casttime'] = 'Channeled';
+			$spell['casttime'] = LOCALE_CHANNELED;
 		else
-			$spell['casttime'] = 'Instant';
+			$spell['casttime'] = LOCALE_INSTANT_CAST;
 		// Cooldown
 		if($row['cooldown'] > 0)
-			$spell['cooldown'] = $row['cooldown'] / 1000;
+			$spell['cooldown'] = sec_to_time($row['cooldown']/1000);
 		// Время действия спелла
 		if($row['durationBase'] > 0)
-			$spell['duration'] = ($row['durationBase'] / 1000).' '.$smarty->get_config_vars('seconds');
+			$spell['duration'] = sec_to_time($row['durationBase']/1000);
 		else
 			$spell['duration'] ='<span class="q0">n/a</span>';
 

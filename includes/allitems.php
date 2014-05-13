@@ -541,7 +541,7 @@ function render_item_tooltip(&$Row)
                     $itemset['spells'][$i] = $itemset['spells'][$j];
                     $itemset['spells'][$j] = $tmp;
                 }
-            $x .= '<span>('.$itemset['spells'][$i]['bonus'].') Set: <a href="?spell='.$itemset['spells'][$i]['entry'].'">'.$itemset['spells'][$i]['tooltip'].'</a></span><br />';
+            $x .= '<span>('.$itemset['spells'][$i]['bonus'].') '.LOCALE_SET_BONUS.': <a href="?spell='.$itemset['spells'][$i]['entry'].'">'.$itemset['spells'][$i]['tooltip'].'</a></span><br />';
         }
         $x .= '</span></span>';
     }

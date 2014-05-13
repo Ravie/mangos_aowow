@@ -10,21 +10,27 @@
 							<div style="text-align: center">
 								<select id="maps-ek" onchange="ma_ChooseZone(this)" class="zone-picker" style="margin: 0">
 									<option value="0" style="color: #bbbbbb">{#Eastern_Kingdoms#}</option>
+									<optgroup label="{#Dungeons#}" id="maps-dungeons-ek"></optgroup>
+									<optgroup label="{#Raids#}" id="maps-raids-ek"></optgroup>
+									<optgroup label="{#Zones#}" id="maps-ek"></optgroup>
 								</select>
 								<select id="maps-kalimdor" onchange="ma_ChooseZone(this)" class="zone-picker">
 									<option value="0" style="color: #bbbbbb">{#Kalimdor#}</option>
+									<optgroup label="{#Dungeons#}" id="maps-dungeons-kalimdor"></optgroup>
+									<optgroup label="{#Raids#}" id="maps-raids-kalimdor"></optgroup>
+									<optgroup label="{#Zones#}" id="maps-kalimdor"></optgroup>
 								</select>
 								<select id="maps-outland" onchange="ma_ChooseZone(this)" class="zone-picker">
 									<option value="0" style="color: #bbbbbb">{#Outland#}</option>
+									<optgroup label="{#Dungeons#}" id="maps-dungeons-outland"></optgroup>
+									<optgroup label="{#Raids#}" id="maps-raids-outland"></optgroup>
+									<optgroup label="{#Zones#}" id="maps-outland"></optgroup>
 								</select>
 								<select id="maps-northrend" onchange="ma_ChooseZone(this)" class="zone-picker">
 									<option value="0" style="color: #bbbbbb">{#Northrend#}</option>
-								</select>
-								<div style="padding-bottom: 4px"></div>
-								<select onchange="ma_ChooseZone(this)" class="zone-picker">
-									<option value="0" style="color: #bbbbbb">{#Instances#}</option>
-									<optgroup label="{#Dungeons#}" id="maps-dungeons"></optgroup>
-									<optgroup label="{#Raids#}" id="maps-raids"></optgroup>
+									<optgroup label="{#Dungeons#}" id="maps-dungeons-northrend"></optgroup>
+									<optgroup label="{#Raids#}" id="maps-raids-northrend"></optgroup>
+									<optgroup label="{#Zones#}" id="maps-northrend"></optgroup>
 								</select>
 								<select onchange="ma_ChooseZone(this)" class="zone-picker">
 									<option value="0" style="color: #bbbbbb">{#More#}</option>
