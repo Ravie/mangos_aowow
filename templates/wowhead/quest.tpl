@@ -71,7 +71,7 @@
 									{section loop=$quest.start name=i}
                               {if $quest.start[i].event}
                               {else}
-										{if $smarty.section.i.last || $smarty.section.i.first}
+										{if $smarty.section.i.first}
 										{else}
 											, <br>
 												<span style="visibility: hidden;">
@@ -538,13 +538,13 @@
 {/if}
 
 {if ($quest.RequestItemsText and $quest.Objectives)}
-						<h3>{#Progress#}</h3>
-						{$quest.RequestItemsText}
+						<h3><a href="javascript:;" class="disclosure-off" onclick="return g_disclose(ge('progress'), this)">{#Progress#}</a></h3>
+						<div id="progress" style="display: none">{$quest.RequestItemsText}</div>
 {/if}
 
 {if $quest.OfferRewardText}
-						<h3>{#Completion#}</h3>
-						{$quest.OfferRewardText}
+						<h3><a href="javascript:;" class="disclosure-off" onclick="return g_disclose(ge('completion'), this)">{#Completion#}</a></h3>
+						<div id="completion" style="display: none">{$quest.OfferRewardText}</div>
 {/if}
 
 {if isset($quest.xp) and $quest.xp or isset($quest.reprewards) or isset($quest.titlereward) or isset($quest.mailrewards) or isset($quest.RewHonorAddition) and $quest.RewHonorAddition}

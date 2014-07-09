@@ -5,12 +5,12 @@
   2. http://www.wowhead.com/favicon.gif	->	../images/favicon.gif	(1)
 */
 body {
-background-color:black;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-font-size:13px;
-color:white;
+background: black;
+margin: 0;
+padding: 0;
+font-family: 'Open Sans',Arial,"Helvetica Neue",Helvetica,sans-serif;
+font-size: 14px;
+color: #bbb;
 }
 
 form {
@@ -149,11 +149,20 @@ line-height:1.25em;
 clear:both;
 }
 
-.text h3,.comment-body h3,.forums-post-body h3 {
-color:white;
-font-size:14px;
-padding:0;
-margin:1.5em 0 .5em;
+h1, h2, h3, h4 {
+line-height: 1.1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+color: #fff;
+font-weight: normal;
+margin: 15px 0 5px 0;
+text-shadow: 2px 2px 1px rgba(0,0,0,.4);
+}
+
+h3 {
+font-size: 18px;
+font-weight: 600;
 }
 
 .text h1.first,.text h2.first,.text h3.first {
@@ -2477,8 +2486,10 @@ background-position:-740px center;
 
 a.disclosure-on,a.disclosure-off {
 color:white;
-text-decoration:none;
-font-weight:bold;
+}
+
+a.disclosure-on:hover, a.disclosure-off:hover {
+color: #ffd100!important;
 }
 
 a.captcha {
@@ -2726,7 +2737,7 @@ position:relative;
 margin:0 6px;
 }
 
-.menu-buttons a:hover,.tooltip a:hover,.listview-mode-default tbody a:hover,.comment-header a.q0:hover,.comment-header-bt a.q0:hover,a.disclosure-on:hover,a.disclosure-off:hover {
+.menu-buttons a:hover,.tooltip a:hover,.listview-mode-default tbody a:hover,.comment-header a.q0:hover,.comment-header-bt a.q0:hover {
 text-decoration:underline;
 }
 

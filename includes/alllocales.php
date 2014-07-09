@@ -267,6 +267,12 @@ switch($_SESSION['locale'])
             'LOCALE_REAGENTS'       =>    'Реагенты: ',
             'LOCALE_TOOLS'          =>    'Инструменты: ',
             'LOCALE_HEROIC'         =>    ' (героич.)',
+            'LOCALE_5NORMAL'        =>    ' (5 об)',
+            'LOCALE_5HEROIC'        =>    ' (5 гер)',
+            'LOCALE_10NORMAL'       =>    ' (10 об)',
+            'LOCALE_10HEROIC'       =>    ' (10 гер)',
+            'LOCALE_25NORMAL'       =>    ' (25 об)',
+            'LOCALE_25HEROIC'       =>    ' (25 гер)',
             'LOCALE_CRITERIA'       =>    'Требования',
             //'LOCALE_GLYPH_OF'     =>    'Символ ', // used by locale=0
 
@@ -561,6 +567,12 @@ switch($_SESSION['locale'])
             'LOCALE_REAGENTS'        =>    'Reagenzien: ',
             'LOCALE_TOOLS'           =>    'Hilfsmittel: ',
             'LOCALE_HEROIC'          =>    ' (Heroisch)',
+            'LOCALE_5NORMAL'         =>    ' (5 normal)',
+            'LOCALE_5HEROIC'         =>    ' (5 heroic)',
+            'LOCALE_10NORMAL'        =>    ' (10 normal)',
+            'LOCALE_10HEROIC'        =>    ' (10 heroic)',
+            'LOCALE_25NORMAL'        =>    ' (25 normal)',
+            'LOCALE_25HEROIC'        =>    ' (25 heroic)',
             'LOCALE_CRITERIA'        =>    'Kriterium',
             'LOCALE_GLYPH_OF'        =>    'Glyphe von ',
 
@@ -854,6 +866,12 @@ switch($_SESSION['locale'])
             'LOCALE_REAGENTS'       =>    'Composants: ',
             'LOCALE_TOOLS'          =>    'Outils: ',
             'LOCALE_HEROIC'         =>    ' (Heroïque)',
+            'LOCALE_5NORMAL'        =>    ' (5 normal)',
+            'LOCALE_5HEROIC'        =>    ' (5 heroic)',
+            'LOCALE_10NORMAL'       =>    ' (10 normal)',
+            'LOCALE_10HEROIC'       =>    ' (10 heroic)',
+            'LOCALE_25NORMAL'       =>    ' (25 normal)',
+            'LOCALE_25HEROIC'       =>    ' (25 heroic)',
             'LOCALE_CRITERIA'       =>    'Critères',
             //'LOCALE_GLYPH_OF'     =>    'Glyph of ', // used by locale=0
 
@@ -1147,6 +1165,12 @@ switch($_SESSION['locale'])
             'LOCALE_REAGENTS'       =>    'Reagents: ',
             'LOCALE_TOOLS'          =>    'Tools: ',
             'LOCALE_HEROIC'         =>    ' (Heroic)',
+            'LOCALE_5NORMAL'        =>    ' (5 normal)',
+            'LOCALE_5HEROIC'        =>    ' (5 heroic)',
+            'LOCALE_10NORMAL'       =>    ' (10 normal)',
+            'LOCALE_10HEROIC'       =>    ' (10 heroic)',
+            'LOCALE_25NORMAL'       =>    ' (25 normal)',
+            'LOCALE_25HEROIC'       =>    ' (25 heroic)',
             'LOCALE_CRITERIA'       =>    'Criteria',
             'LOCALE_GLYPH_OF'       =>    'Glyph of ',
 

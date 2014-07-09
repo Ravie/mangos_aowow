@@ -49,7 +49,60 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 	if($row)
 	{
 		$npc = $row;
-		$npc['name'] = localizedName($row);
+		// Full localization of NPC's
+		if($npc['name'] == $npc['name_loc'])
+		{
+			$source_npc = $DB->selectRow('
+						SELECT c.entry, c.name
+						{
+							, l.name_loc?d as `name_loc`
+						}
+						FROM creature_template c
+						{
+							LEFT JOIN (locales_creature l)
+							ON l.entry = c.entry AND ?
+						}
+						WHERE
+							c.difficulty_entry_1 = ?d OR c.difficulty_entry_2 = ?d OR c.difficulty_entry_3 = ?d
+						LIMIT 1
+					',
+					($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
+					($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
+					$npc['entry'], $npc['entry'], $npc['entry']
+				);
+			if($source_npc)
+				$npc['name'] = $source_npc['name_loc'];
+			unset($source_npc);
+		}
+		else
+			$npc['name'] = localizedName($row);
+		// Difficulty_entry
+		if($npc['difficulty_entry_2'] != 0)
+			$npc['name'] .= LOCALE_10NORMAL;
+		elseif($npc['difficulty_entry_1'] != 0)
+			$npc['name'] .= LOCALE_5NORMAL;
+		if(strpos($row['name'],'(1)'))
+		{
+			$npc['name'] = str_replace(' (1)', '', $npc['name']);
+			$tmp = $DB->selectRow('SELECT difficulty_entry_2
+								   FROM creature_template 
+								   WHERE difficulty_entry_1 = ?d LIMIT 1', $npc['entry']);
+			if($tmp['difficulty_entry_2'] != 0)
+				$npc['name'] .= LOCALE_25NORMAL;
+			else
+				$npc['name'] .= LOCALE_5HEROIC;
+			unset($tmp);
+		}
+		if(strpos($row['name'],'(2)'))
+		{
+			$npc['name'] = str_replace(' (2)', '', $npc['name']);
+			$npc['name'] .= LOCALE_10HEROIC;
+		}
+		if(strpos($row['name'],'(3)'))
+		{
+			$npc['name'] = str_replace(' (3)', '', $npc['name']);
+			$npc['name'] .= LOCALE_25HEROIC;
+		}
 		$npc['subname'] = localizedName($row, 'subname');
 		if($npc['rank'] == 3)
 		{
@@ -80,7 +133,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 				$npc['heroic'] = array(
 					'type'	=> 0,
 					'entry'	=> $tmp['entry'],
-					'name'	=> str_replace(LOCALE_HEROIC, '', $tmp['name'])
+					'name'	=> $tmp['name']
 				);
 				
 				unset($tmp);
@@ -404,7 +457,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 		if ($row)
 		{
 			$replevel = array(LOCALE_HATED, LOCALE_HOSTILE, LOCALE_UNFRIENDLY, LOCALE_NEUTRAL,
-			                  LOCALE_FRIENDLY, LOCALE_HONORED, LOCALE_REVERED, LOCALE_EXALTED);
+							  LOCALE_FRIENDLY, LOCALE_HONORED, LOCALE_REVERED, LOCALE_EXALTED);
 			for ($i=1; $i<=2; $i++)
 				if ($row['RewOnKillRepValue'.$i])
 				{
