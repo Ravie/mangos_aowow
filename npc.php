@@ -130,13 +130,33 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			// это нормал НПС, ищем героика
 			if($tmp = creatureinfo($npc['difficulty_entry_1']))
 			{
-				$npc['heroic'] = array(
-					'type'	=> 0,
+				$npc['normal']['de1'] = array(
 					'entry'	=> $tmp['entry'],
 					'name'	=> $tmp['name']
 				);
-				
 				unset($tmp);
+			}
+			if($npc['difficulty_entry_2'])
+			{
+				if($tmp = creatureinfo($npc['difficulty_entry_2']))
+				{
+					$npc['normal']['de2'] = array(
+						'entry'	=> $tmp['entry'],
+						'name'	=> $tmp['name']
+					);
+					unset($tmp);
+				}
+			}
+			if($npc['difficulty_entry_3'])
+			{
+				if($tmp = creatureinfo($npc['difficulty_entry_3']))
+				{
+					$npc['normal']['de3'] = array(
+						'entry'	=> $tmp['entry'],
+						'name'	=> $tmp['name']
+					);
+					unset($tmp);
+				}
 			}
 		}
 		else
@@ -144,7 +164,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			// А может быть героик НПС одним для нескольких нормалов?
 			// считаем что нет
 			$tmp = $DB->selectRow('
-					SELECT c.entry, c.name
+					SELECT c.entry, c.name, c.difficulty_entry_2, c.difficulty_entry_3
 					{
 						, l.name_loc?d as `name_loc`
 					}
@@ -163,12 +183,97 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			);
 			if($tmp)
 			{
-				$npc['heroic'] = array(
-					'type'	=> 1,
+				$npc['de1']['normal'] = array(
 					'entry'	=> $tmp['entry'],
-					'name'	=> localizedName($tmp)
+					'name'	=> $tmp['name_loc']
 				);
-				$npc['name'] = str_replace(' (1)', '', $npc['name']);
+				if($tmp['difficulty_entry_2'] != 0)
+				{
+					$npc['de1']['de2'] = array(
+						'entry'	=> $tmp['difficulty_entry_2'],
+						'name'	=> $tmp['name_loc']
+					);
+					if($tmp['difficulty_entry_3'] != 0)
+					{
+						$npc['de1']['de3'] = array(
+							'entry'	=> $tmp['difficulty_entry_3'],
+							'name'	=> $tmp['name_loc']
+						);
+					}
+				}
+				$normal_entry = $tmp['entry'];
+				unset($tmp);
+			}
+			$tmp = $DB->selectRow('
+					SELECT c.entry, c.name, c.difficulty_entry_1, c.difficulty_entry_3
+					{
+						, l.name_loc?d as `name_loc`
+					}
+					FROM creature_template c
+					{
+						LEFT JOIN (locales_creature l)
+						ON l.entry = c.entry AND ?
+					}
+					WHERE
+						c.difficulty_entry_2 = ?d
+					LIMIT 1
+				',
+				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
+				($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
+				$npc['entry']
+			);
+			if($tmp)
+			{
+				$npc['de2']['normal'] = array(
+					'entry'	=> $tmp['entry'],
+					'name'	=> $tmp['name_loc']
+				);
+				$npc['de2']['de1'] = array(
+					'entry'	=> $tmp['difficulty_entry_1'],
+					'name'	=> $tmp['name_loc']
+				);
+				if($tmp['difficulty_entry_3'] != 0)
+				{
+					$npc['de2']['de3'] = array(
+						'entry'	=> $tmp['difficulty_entry_3'],
+						'name'	=> $tmp['name_loc']
+					);
+				}
+				$normal_entry = $tmp['entry'];
+				unset($tmp);
+			}
+			$tmp = $DB->selectRow('
+					SELECT c.entry, c.name, c.difficulty_entry_1, c.difficulty_entry_2
+					{
+						, l.name_loc?d as `name_loc`
+					}
+					FROM creature_template c
+					{
+						LEFT JOIN (locales_creature l)
+						ON l.entry = c.entry AND ?
+					}
+					WHERE
+						c.difficulty_entry_3 = ?d
+					LIMIT 1
+				',
+				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
+				($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
+				$npc['entry']
+			);
+			if($tmp)
+			{
+				$npc['de3']['normal'] = array(
+					'entry'	=> $tmp['entry'],
+					'name'	=> $tmp['name_loc']
+				);
+				$npc['de3']['de1'] = array(
+					'entry'	=> $tmp['difficulty_entry_1'],
+					'name'	=> $tmp['name_loc']
+				);
+				$npc['de3']['de2'] = array(
+					'entry'	=> $tmp['difficulty_entry_2'],
+					'name'	=> $tmp['name_loc']
+				);
 				$normal_entry = $tmp['entry'];
 				unset($tmp);
 			}

@@ -53,9 +53,99 @@
 				<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
 				<h1>{$npc.name}{if $npc.subname} &lt;{$npc.subname}&gt;{/if}</h1>
 
-{if $npc.heroic}
-				<div>{if $npc.heroic.type == 1}{#This_is_heroic_NPC#}{else}{#This_is_normal_NPC#}{/if} <a href="?npc={$npc.heroic.entry}">{$npc.heroic.name}</a>.</div>
+{if $npc.normal}
+	{if $npc.normal.de1}
+				<div>
+					{if $npc.normal.de2}
+						{#This_is_25normal_NPC#}
+					{else}
+						{#This_is_5heroic_NPC#}
+					{/if} 
+					<a href="?npc={$npc.normal.de1.entry}">{$npc.normal.de1.name}</a>.
+				</div>
 				<div class="pad"></div>
+	{/if}
+	{if $npc.normal.de2}
+				<div>
+					{#This_is_10heroic_NPC#}
+					<a href="?npc={$npc.normal.de2.entry}">{$npc.normal.de2.name}</a>.
+				</div>
+				<div class="pad"></div>
+	{/if}
+	{if $npc.normal.de3}
+				<div>
+					{#This_is_25heroic_NPC#}
+					<a href="?npc={$npc.normal.de3.entry}">{$npc.normal.de3.name}</a>.
+				</div>
+				<div class="pad"></div>
+	{/if}
+{/if}
+
+{if $npc.de1}
+				
+					{if $npc.de1.de2}
+						<div>
+							{#This_is_10normal_NPC#}
+							<a href="?npc={$npc.de1.normal.entry}">{$npc.de1.normal.name}</a>.
+						</div>
+						<div class="pad"></div>
+						<div>
+							{#This_is_10heroic_NPC#}
+							<a href="?npc={$npc.de1.de2.entry}">{$npc.de1.de2.name}</a>.
+						</div>
+						<div class="pad"></div>
+						{if $npc.de1.de3}
+							<div>
+								{#This_is_25heroic_NPC#}
+								<a href="?npc={$npc.de1.de3.entry}">{$npc.de1.de3.name}</a>.
+							</div>
+							<div class="pad"></div>
+						{/if} 
+					{else}
+						<div>
+							{#This_is_5normal_NPC#}
+							<a href="?npc={$npc.de1.normal.entry}">{$npc.de1.normal.name}</a>.
+						</div>
+						<div class="pad"></div>
+					{/if}
+{/if}
+
+{if $npc.de2}
+						<div>
+							{#This_is_10normal_NPC#}
+							<a href="?npc={$npc.de2.normal.entry}">{$npc.de2.normal.name}</a>.
+						</div>
+						<div class="pad"></div>
+						<div>
+							{#This_is_25normal_NPC#}
+							<a href="?npc={$npc.de2.de1.entry}">{$npc.de2.de1.name}</a>.
+						</div>
+						<div class="pad"></div>
+						{if $npc.de2.de3}
+							<div>
+								{#This_is_25heroic_NPC#}
+								<a href="?npc={$npc.de2.de3.entry}">{$npc.de2.de3.name}</a>.
+							</div>
+							<div class="pad"></div>
+						{/if} 
+{/if}
+
+{if $npc.de3}
+						<div>
+							{#This_is_10normal_NPC#}
+							<a href="?npc={$npc.de3.normal.entry}">{$npc.de3.normal.name}</a>.
+						</div>
+						<div class="pad"></div>
+						<div>
+							{#This_is_25normal_NPC#}
+							<a href="?npc={$npc.de3.de1.entry}">{$npc.de3.de1.name}</a>.
+						</div>
+						<div class="pad"></div>
+						<div>
+							{#This_is_10heroic_NPC#}
+							<a href="?npc={$npc.de3.de2.entry}">{$npc.de3.de2.name}</a>.
+						</div>
+						<div class="pad"></div>
 {/if}
 
 {if $npc.position}
