@@ -27,6 +27,7 @@ var mn_items=[
 		[1,"Cloth",,[
 			[16,"Back"],
 			[5,"Chest"],
+			[20,"Robe"],
 			[8,"Feet"],
 			[10,"Hands"],
 			[1,"Head"],
@@ -37,6 +38,7 @@ var mn_items=[
 		]],
 		[2,"Leather",,[
 			[5,"Chest"],
+			[20,"Robe"],
 			[8,"Feet"],
 			[10,"Hands"],
 			[1,"Head"],
@@ -47,6 +49,7 @@ var mn_items=[
 		]],
 		[3,"Mail",,[
 			[5,"Chest"],
+			[20,"Robe"],
 			[8,"Feet"],
 			[10,"Hands"],
 			[1,"Head"],
@@ -72,6 +75,7 @@ var mn_items=[
 			[11,"Rings"],
 			[12,"Trinkets"],
 			[19,"Tabards"],
+			[20,"Robe"],
 			[23,"Off-hand Frills"]
 		]],
 		[,"Relics"],
@@ -1046,6 +1050,7 @@ var g_item_slots={
 	17:"Two-Hand",
 	18:"Bag",
 	19:"Tabard",
+	20:"Robe",
 	21:"Main Hand",
 	22:"Off Hand",
 	23:"Held In Off-hand",

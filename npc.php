@@ -130,20 +130,26 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			// это нормал НПС, ищем героика
 			if($tmp = creatureinfo($npc['difficulty_entry_1']))
 			{
+				$tmp['name'] = str_replace(' (1)', '', $tmp['name']);
 				$npc['normal']['de1'] = array(
 					'entry'	=> $tmp['entry'],
 					'name'	=> $tmp['name']
 				);
+				if($tmp['name'] == $row['name'])
+					$npc['normal']['de1']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
 				unset($tmp);
 			}
 			if($npc['difficulty_entry_2'])
 			{
 				if($tmp = creatureinfo($npc['difficulty_entry_2']))
 				{
+					$tmp['name'] = str_replace(LOCALE_10HEROIC, '', $tmp['name']);
 					$npc['normal']['de2'] = array(
 						'entry'	=> $tmp['entry'],
 						'name'	=> $tmp['name']
 					);
+					if($tmp['name'] == $row['name'])
+						$npc['normal']['de2']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
 					unset($tmp);
 				}
 			}
@@ -151,10 +157,13 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			{
 				if($tmp = creatureinfo($npc['difficulty_entry_3']))
 				{
+					$tmp['name'] = str_replace(LOCALE_25HEROIC, '', $tmp['name']);
 					$npc['normal']['de3'] = array(
 						'entry'	=> $tmp['entry'],
 						'name'	=> $tmp['name']
 					);
+					if($tmp['name'] == $row['name'])
+						$npc['normal']['de3']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
 					unset($tmp);
 				}
 			}

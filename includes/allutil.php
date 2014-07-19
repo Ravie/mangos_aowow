@@ -107,14 +107,14 @@ define('RACE_DRAENEI', 1024);
 
 // Типы разделов
 $types = array(
-	1 => array('npc',       'creature_template',        'entry'      ),
-	2 => array('object',    'gameobject_template',      'entry'      ),
-	3 => array('item',      'item_template',            'entry'      ),
-	4 => array('itemset',   $tableprefix.'itemset',     'itemsetID'  ),
-	5 => array('quest',     'quest_template',           'entry'      ),
-	6 => array('spell',     $tableprefix.'spell',       'spellID'    ),
-	7 => array('zone',      $tableprefix.'zones',       'areatableID'),
-	8 => array('faction',   $tableprefix.'factions',    'factionID'  ),
+	1 => array('npc',	   'creature_template',		'entry'	  ),
+	2 => array('object',	'gameobject_template',	  'entry'	  ),
+	3 => array('item',	  'item_template',			'entry'	  ),
+	4 => array('itemset',   $tableprefix.'itemset',	 'itemsetID'  ),
+	5 => array('quest',	 'quest_template',		   'entry'	  ),
+	6 => array('spell',	 $tableprefix.'spell',	   'spellID'	),
+	7 => array('zone',	  $tableprefix.'zones',	   'areatableID'),
+	8 => array('faction',   $tableprefix.'factions',	'factionID'  ),
 );
 
 // Отношения со фракциями
@@ -209,50 +209,59 @@ function classes($class)
 	if($class & CLASS_WARRIOR)
 		$tmp = '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>';
 	if($class & CLASS_PALADIN)
+	{
 		if($tmp)
-            $tmp = $tmp.', <a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
-        else
-            $tmp = '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
+			$tmp .= ', ';
+		$tmp .= '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
+	}
 	if($class & CLASS_HUNTER)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>'; 
-        else 
-            $tmp = '<a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', ';
+		$tmp .= '<a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>';
+	}
 	if($class & CLASS_ROGUE)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>'; 
-        else 
-            $tmp = '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', '; 
+		$tmp .= '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
+	}
 	if($class & CLASS_PRIEST)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>'; 
-        else 
-            $tmp = '<a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', ';
+		$tmp .= '<a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>';
+	}
 	if($class & CLASS_DEATH_KNIGHT)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>'; 
-        else 
-            $tmp = '<a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', '; 
+		$tmp .= '<a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>';
+	}
 	if($class & CLASS_SHAMAN)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>'; 
-        else 
-            $tmp = '<a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', ';
+		$tmp .= '<a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>';
+	}
 	if($class & CLASS_MAGE)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>'; 
-        else 
-            $tmp = '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', ';
+		$tmp .= '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
+	}
 	if($class & CLASS_WARLOCK)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>'; 
-        else 
-            $tmp = '<a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', ';
+		$tmp .= '<a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>';
+	}
 	if($class & CLASS_DRUID)
-		if($tmp) 
-            $tmp = $tmp.', <a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>'; 
-        else 
-            $tmp = '<a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>';
+	{
+		if($tmp)
+			$tmp .= ', ';
+		$tmp .= '<a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>';
+	}
 	if($tmp == '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>, <a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>, <a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>, <a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>, <a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>, <a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>, <a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>, <a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>, <a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>, <a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>' || $tmp == '')
 		return;
 	else
@@ -277,27 +286,63 @@ function factions($race)
 }
 function races($race)
 {
-    $temp = '';
+	$temp = '';
 	if($race & RACE_HUMAN)
 		$temp = '<span class="human-icon">'.LOCALE_HUMAN.'</span>';
 	if($race & RACE_ORC)
-		if($temp) $temp = $temp.', <span class="orc-icon">'.LOCALE_ORC.'</span>'; else $temp = '<span class="orc-icon">'.LOCALE_ORC.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="orc-icon">'.LOCALE_ORC.'</span>';
+	}
 	if($race & RACE_DWARF)
-		if($temp) $temp = $temp.', <span class="dwarf-icon">'.LOCALE_DWARF.'</span>'; else $temp = '<span class="dwarf-icon">'.LOCALE_DWARF.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="dwarf-icon">'.LOCALE_DWARF.'</span>';
+	}
 	if($race & RACE_NIGHTELF)
-		if($temp) $temp = $temp.', <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>'; else $temp = '<span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>';
+	}
 	if($race & RACE_UNDEAD)
-		if($temp) $temp = $temp.', <span class="undead-icon">'.LOCALE_UNDEAD.'</span>'; else $temp = '<span class="undead-icon">'.LOCALE_UNDEAD.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="undead-icon">'.LOCALE_UNDEAD.'</span>';
+	}
 	if($race & RACE_TAUREN)
-		if($temp) $temp = $temp.', <span class="tauren-icon">'.LOCALE_TAUREN.'</span>'; else $temp = '<span class="tauren-icon">'.LOCALE_TAUREN.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="tauren-icon">'.LOCALE_TAUREN.'</span>';
+	}
 	if($race & RACE_GNOME)
-		if($temp) $temp = $temp.', <span class="gnome-icon">'.LOCALE_GNOME.'</span>'; else $temp = '<span class="gnome-icon">'.LOCALE_GNOME.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="gnome-icon">'.LOCALE_GNOME.'</span>';
+	}
 	if($race & RACE_TROLL)
-		if($temp) $temp = $temp.', <span class="troll-icon">'.LOCALE_TROLL.'</span>'; else $temp = '<span class="troll-icon">'.LOCALE_TROLL.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="troll-icon">'.LOCALE_TROLL.'</span>';
+	}
 	if($race & RACE_BLOODELF)
-		if($temp) $temp = $temp.', <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>'; else $temp = '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
+	}
 	if($race & RACE_DRAENEI)
-		if($temp) $temp = $temp.', <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>'; else $temp = '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
+	{
+		if($temp)
+			$temp .= ', ';
+		$temp .= '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
+	}
 	if($temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '' || $temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '<span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>')
 		return;
 	else
@@ -373,15 +418,15 @@ function php2js($data)
 // from php.net
 function imagetograyscale($img)
 {
-    if(imageistruecolor($img))
-        imagetruecolortopalette($img, false, 256);
+	if(imageistruecolor($img))
+		imagetruecolortopalette($img, false, 256);
 
-    for($i = 0; $i < imagecolorstotal($img); $i++)
+	for($i = 0; $i < imagecolorstotal($img); $i++)
 	{
-        $color = imagecolorsforindex($img, $i);
-        $gray = round(0.299 * $color['red'] + 0.587 * $color['green'] + 0.114 * $color['blue']);
-        imagecolorset($img, $i, $gray, $gray, $gray);
-    }
+		$color = imagecolorsforindex($img, $i);
+		$gray = round(0.299 * $color['red'] + 0.587 * $color['green'] + 0.114 * $color['blue']);
+		imagecolorset($img, $i, $gray, $gray, $gray);
+	}
 }
 function path()
 {
@@ -461,44 +506,44 @@ function localizedName($arr, $key = 'name')
 }
 /* ================ CACHE ================ */
 $cache_types = array(
-	//    name                  multilocale
-	array('npc_page',           false),
-    array('npc_tooltip',        false),
-	array('npc_listing',        false),
+	//	name				  multilocale
+	array('npc_page',		   false),
+	array('npc_tooltip',		false),
+	array('npc_listing',		false),
 
-	array('object_page',        false),
-    array('object_tooltip',     false),
-	array('object_listing',     false),
+	array('object_page',		false),
+	array('object_tooltip',	 false),
+	array('object_listing',	 false),
 
-	array('item_page',          false),
-	array('item_tooltip',       false),
-	array('item_listing',       false),
+	array('item_page',		  false),
+	array('item_tooltip',	   false),
+	array('item_listing',	   false),
 
-	array('itemset_page',       false),
-	array('itemset_listing',    false),
+	array('itemset_page',	   false),
+	array('itemset_listing',	false),
 
-	array('quest_page',         false),
-	array('quest_tooltip',      false),
-	array('quest_listing',      false),
+	array('quest_page',		 false),
+	array('quest_tooltip',	  false),
+	array('quest_listing',	  false),
 
-	array('spell_page',         false),
-	array('spell_tooltip',      false),
-	array('spell_listing',      false),
+	array('spell_page',		 false),
+	array('spell_tooltip',	  false),
+	array('spell_listing',	  false),
 
-	array('zone_page',          false),
-	array('zone_listing',       false),
+	array('zone_page',		  false),
+	array('zone_listing',	   false),
 
-	array('faction_page',       false),
-	array('faction_listing',    false),
+	array('faction_page',	   false),
+	array('faction_listing',	false),
 
-	array('talent_data',        false),
-	array('talent_icon',        true ),
+	array('talent_data',		false),
+	array('talent_icon',		true ),
 
 	array('achievement_page',   false),
 	array('achievement_tooltip',false),
 	array('achievement_listing',false),
 
-	array('glyphs',             false),
+	array('glyphs',			 false),
 );
 foreach($cache_types as $id => $cType)
 {
@@ -532,10 +577,10 @@ function save_cache($type, $type_id, $data, $prefix = '')
 	$cache_data .= serialize($allspells);
 	$cache_data .= "\n";
 	$cache_data .= serialize($allachievements);
-    $cache_data .= "\n";
-    $cache_data .= serialize($npc);
-    $cache_data .= "\n";
-    $cache_data .= serialize($object);
+	$cache_data .= "\n";
+	$cache_data .= serialize($npc);
+	$cache_data .= "\n";
+	$cache_data .= serialize($object);
 
 	file_put_contents($file, $cache_data);
 }
@@ -568,10 +613,10 @@ function load_cache($type, $type_id, $prefix = '')
 		$allspells = unserialize($data[3]);
 	if($data[4])
 		$allachievements = unserialize($data[4]);
-    if($data[5])
-        $npc = unserialize($data[5]);
-    if($data[6])
-        $object = unserialize($data[6]);
+	if($data[5])
+		$npc = unserialize($data[5]);
+	if($data[6])
+		$object = unserialize($data[6]);
 
 	return unserialize($data[1]);
 }
@@ -606,11 +651,11 @@ function ParseTextLinks($text)
 				require_once('includes/allspells.php');
 				allspellsinfo($id);
 				break;
-            case 'npc':
+			case 'npc':
 				require_once('includes/allnpcs.php');
 				creatureinfo($id);
 				break;
-            case 'object':
+			case 'object':
 				require_once('includes/allobjects.php');
 				objectinfo($id);
 				break;

@@ -130,19 +130,23 @@ function b_type($type, $value, $level)
         case 13: $green[] = green_bonus(LOCALE_GBONUS_DODGE, $value, $type, $level);             return;
         case 14: $green[] = green_bonus(LOCALE_GBONUS_PARRY, $value, $type, $level);             return;
         case 15: $green[] = green_bonus(LOCALE_GBONUS_SHIELDBLOCK, $value, $type, $level);       return;
-
+        // cases 16,17 currently not used
         case 18: $green[] = green_bonus(LOCALE_GBONUS_SPELLHIT_RATING, $value, $type, $level);   return;
         case 19: $green[] = green_bonus(LOCALE_GBONUS_MELEECRIT_RATING, $value, $type, $level);  return;
         case 20: $green[] = green_bonus(LOCALE_GBONUS_RANGEDCRIT_RATING, $value, $type, $level); return;
         case 21: $green[] = green_bonus(LOCALE_GBONUS_SPELLCRIT_RATING, $value, $type, $level);  return;
-
+        // cases 22-29 currently not used
         case 30: $green[] = green_bonus(LOCALE_GBONUS_SPELLHASTE_RATING, $value, $type, $level); return;
         case 31: $green[] = green_bonus(LOCALE_GBONUS_HIT_RATING, $value, $type, $level);        return;
         case 32: $green[] = green_bonus(LOCALE_GBONUS_CRIT_RATING, $value, $type, $level);       return;
+        // cases 33,34 currently not used
         case 35: $green[] = green_bonus(LOCALE_GBONUS_RESILIENCE_RATING, $value, $type, $level); return;
         case 36: $green[] = green_bonus(LOCALE_GBONUS_HASTE_RATING, $value, $type, $level);      return;
         case 37: $green[] = green_bonus(LOCALE_GBONUS_EXPERTISE_RATING, $value, $type, $level);  return;
         case 38: $green[] = green_bonus(LOCALE_GBONUS_ATTACKPOWER, $value);                      return;
+        case 39: $green[] = green_bonus(LOCALE_GBONUS_RANGEDATTACKPOWER, $value);                return;
+        case 40: $green[] = green_bonus(LOCALE_GBONUS_FERALATTACKPOWER, $value);                 return;
+        // cases 41,42 currently not used
         case 43: $green[] = green_bonus(LOCALE_GBONUS_RESTOREMANA, $value);                      return;
         case 44: $green[] = green_bonus(LOCALE_GBONUS_ARMORPENETRATION, $value, $type, $level);  return;
         case 45: $green[] = green_bonus(LOCALE_GBONUS_SPELLPOWER, $value);                       return;
@@ -331,6 +335,9 @@ function render_item_tooltip(&$Row)
     // Item Level
     if($Row['ItemLevel']>0)
         $x .= '<span style="color: rgb(255, 209, 0);"><br>'.LOCALE_ITEMLVL.': '.$Row['ItemLevel'].'</span>';
+    // Требуемый уровень
+    if($Row['RequiredLevel']>1)
+        $x .= '<span style="color: rgb(255, 209, 0);"><br>'.LOCALE_REQUIRES_LEVEL1.' '.$Row['RequiredLevel'].' '.LOCALE_REQUIRES_LEVEL2.'</span>';
     // Биндинг вещи
     $x .= $bond[$Row['bonding']];
 
@@ -393,9 +400,9 @@ function render_item_tooltip(&$Row)
         $x .= '('.number_format($dps,1).' '.LOCALE_DPS.')<br />';
     // Кол-во брони
     if($Row['armor'])
-        $x .= $Row['armor'].' '.LOCALE_ARMOR.'<br />';
+        $x .= LOCALE_ARMOR.': '.$Row['armor'].' <br />';
     if($Row['block'])
-        $x .= $Row['block'].' '.LOCALE_BLOCK.'<br />';
+        $x .= LOCALE_BLOCK.': '.$Row['block'].' <br />';
     if($Row['GemProperties'])
         $x .= $DB->selectCell('SELECT ?_itemenchantmet.text_loc'.$_SESSION['locale'].' FROM ?_itemenchantmet, ?_gemproperties WHERE (?_gemproperties.gempropertiesID=?d and ?_itemenchantmet.itemenchantmetID=?_gemproperties.itemenchantmetID)', $Row['GemProperties']).'<br />';
 
@@ -415,7 +422,7 @@ function render_item_tooltip(&$Row)
 
     // Случайные бонусы
     if($Row['RandomProperty'] or $Row['RandomSuffix'])
-        $green[] = 'Random Bonuses';
+        $green[] = LOCALE_RANDOM_BONUSES;
 
     // Сокеты
     for($j=1;$j<=3;$j++)
@@ -430,10 +437,6 @@ function render_item_tooltip(&$Row)
     // Требуемые классы
     if(classes($Row['AllowableClass']))
         $x .= LOCALE_CLASSES.': '.classes($Row['AllowableClass']).'<br />';
-
-    // Требуемый уровень
-    if($Row['RequiredLevel']>1)
-        $x .= LOCALE_REQUIRES_LEVEL.' '.$Row['RequiredLevel'].'<br />';
 
     // Требуемый скилл (755 - Jewecrafting)
     if(($Row['RequiredSkill']) and ($Row['RequiredSkill']!=755))

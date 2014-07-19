@@ -27,6 +27,7 @@ var mn_items=[
 		[1,"Stoff",,[
 			[16,"Umhänge"],
 			[5,"Brust"],
+			[20,"Robe"],
 			[8,"Füße"],
 			[10,"Hände"],
 			[1,"Kopf"],
@@ -37,6 +38,7 @@ var mn_items=[
 		]],
 		[2,"Leder",,[
 			[5,"Brust"],
+			[20,"Robe"],
 			[8,"Füße"],
 			[10,"Hände"],
 			[1,"Kopf"],
@@ -47,6 +49,7 @@ var mn_items=[
 		]],
 		[3,"Schwere Rüstung",,[
 			[5,"Brust"],
+			[20,"Robe"],
 			[8,"Füße"],
 			[10,"Hände"],
 			[1,"Kopf"],
@@ -72,6 +75,7 @@ var mn_items=[
 			[11,"Ringe"],
 			[12,"Schmuckstücke"],
 			[19,"Wappenröcke"],
+			[20,"Robe"],
 			[23,"Nebenhandkitsch"]
 		]],
 		[,"Relikte"],
@@ -1045,6 +1049,7 @@ var g_item_slots={
 	17:"Zweihändig",
 	18:"Tasche",
 	19:"Wappenrock",
+	20:"Robe",
 	21:"Waffenhand",
 	22:"Schildhand",
 	23:"In Schildhand geführt",

@@ -27,6 +27,7 @@ var mn_items=[
 		[1,"Tissu",,[
 			[16,"Capes"],
 			[5,"Torse"],
+			[20,"Robe"],
 			[8,"Pieds"],
 			[10,"Mains"],
 			[1,"Tête"],
@@ -37,6 +38,7 @@ var mn_items=[
 		]],
 		[2,"Cuir",,[
 			[5,"Torse"],
+			[20,"Robe"],
 			[8,"Pieds"],
 			[10,"Mains"],
 			[1,"Tête"],
@@ -47,6 +49,7 @@ var mn_items=[
 		]],
 		[3,"Mailles",,[
 			[5,"Torse"],
+			[20,"Robe"],
 			[8,"Pieds"],
 			[10,"Mains"],
 			[1,"Tête"],
@@ -72,6 +75,7 @@ var mn_items=[
 			[11,"Anneaux"],
 			[12,"Bijoux"],
 			[19,"Tabards"],
+			[20,"Robe"],
 			[23,"Accessoires pour main gauche"],// EDIT IN PATCH
 		]],
 		[,"Reliques"],
@@ -1045,6 +1049,7 @@ var g_item_slots={
 	17:"Deux mains",
 	18:"Sac",
 	19:"Tabard",
+	20:"Robe",
 	21:"Main droite",
 	22:"Main gauche",
 	23:"Tenu en main gauche",
