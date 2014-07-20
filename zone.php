@@ -73,25 +73,25 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 		{
 			$taxies = array(
 				'population' => 0,
-				'name' => 'Flight Masters', // TODO: LOCALIZE!
+				'name' => LOCALE_ZONE_FLIGHT_MASTERS,
 				'atid' => $id,
 				'points' => array()
 			);
 			$inns = array(
 				'population' => 0,
-				'name' => 'Innkeepers', // TODO: LOCALIZE!
+				'name' => LOCALE_ZONE_INNKEEPERS,
 				'atid' => $id,
 				'points' => array()
 			);
 			$repairers = array(
 				'population' => 0,
-				'name' => 'Repairers', // TODO: LOCALIZE!
+				'name' => LOCALE_ZONE_REPAIRERS,
 				'atid' => $id,
 				'points' => array()
 			);
 			$spirithealers = array(
 				'population' => 0,
-				'name' => 'Spirit Healers', // TODO: LOCALIZE!
+				'name' => LOCALE_ZONE_SPIRIT_HEALERS,
 				'atid' => $id,
 				'points' => array()
 			);

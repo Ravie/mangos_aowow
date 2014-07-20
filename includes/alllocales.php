@@ -302,6 +302,12 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'	  	=>  'Лед',
 			'LOCALE_SCHOOL_MASK_SHADOW'	 	=>  'Тьма',
 			'LOCALE_SCHOOL_MASK_ARCANE'	 	=>  'Тайная магия',
+			
+			// zone
+			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Распорядители полётов',
+			'LOCALE_ZONE_INNKEEPERS'		=>	'Хозяева таверн',
+			'LOCALE_ZONE_REPAIRERS'			=>	'Торговцы',
+			'LOCALE_ZONE_SPIRIT_HEALERS'	=>	'Целители душ',
 		));
 		break;
 
@@ -606,6 +612,12 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'   => 'Frost',
 			'LOCALE_SCHOOL_MASK_SHADOW'  => 'Schatten',
 			'LOCALE_SCHOOL_MASK_ARCANE'  => 'Arkan',
+			
+			// zone
+			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Flight masters',
+			'LOCALE_ZONE_INNKEEPERS'		=>	'Innkeepers',
+			'LOCALE_ZONE_REPAIRERS'			=>	'Repairers',
+			'LOCALE_ZONE_SPIRIT_HEALERS'	=>	'Spirit healers',
 		));
 		break;
 	// --- FRENCH LOCALE ---
@@ -909,6 +921,12 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'   => 'Givre',
 			'LOCALE_SCHOOL_MASK_SHADOW'  => 'Ombre',
 			'LOCALE_SCHOOL_MASK_ARCANE'  => 'Arcane',
+			
+			// zone
+			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Flight masters',
+			'LOCALE_ZONE_INNKEEPERS'		=>	'Innkeepers',
+			'LOCALE_ZONE_REPAIRERS'			=>	'Repairers',
+			'LOCALE_ZONE_SPIRIT_HEALERS'	=>	'Spirit healers',
 		));
 		break;
 	// --- ENGLISH default LOCALE ---
@@ -1212,6 +1230,12 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'	=> 'Frost',
 			'LOCALE_SCHOOL_MASK_SHADOW'   => 'Shadow',
 			'LOCALE_SCHOOL_MASK_ARCANE'   => 'Arcane',
+			
+			// zone
+			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Flight masters',
+			'LOCALE_ZONE_INNKEEPERS'		=>	'Innkeepers',
+			'LOCALE_ZONE_REPAIRERS'			=>	'Repairers',
+			'LOCALE_ZONE_SPIRIT_HEALERS'	=>	'Spirit healers',
 		));
 		break;
 }
