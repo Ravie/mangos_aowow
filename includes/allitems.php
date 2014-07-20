@@ -34,7 +34,7 @@ function inv_dmg($min, $max, $delay, $type)
 {
     global $dmg_typez;
     if($delay!=0)
-        return '<table width="100%"><tr><td>'.$min.' - '.$max.LOCALE_DAMAGE_PRE.$dmg_typez[$type].LOCALE_DAMAGE_POST.'</td><th>'.LOCALE_SPEED.' '.number_format($delay,2).'</th></tr></table>';
+        return '<table width="100%"><tr><td>'.LOCALE_DAMAGE_PRE.$min.' - '.$max.' '.$dmg_typez[$type].LOCALE_DAMAGE_POST.'</td><th>'.LOCALE_SPEED.' '.number_format($delay,2).'</th></tr></table>';
     else
         return '+'.$min.' - '.$max.LOCALE_DAMAGE_PRE.$dmg_typez[$type].LOCALE_DAMAGE_POST.'<br />';
 }
@@ -120,11 +120,11 @@ function b_type($type, $value, $level)
     switch($type)
     {
         // белые статы
-        case 3: return '+'.$value.LOCALE_STAT_AGILITY.'<br />';             # 3 - Agility
-        case 4: return '+'.$value.LOCALE_STAT_STRENGTH.'<br />';            # 4 - Strength
-        case 5: return '+'.$value.LOCALE_STAT_INTELLECT.'<br />';           # 5 - Intellect
-        case 6: return '+'.$value.LOCALE_STAT_SPIRIT.'<br />';              # 6 - Spirit
-        case 7: return '+'.$value.LOCALE_STAT_STAMINA.'<br />';             # 7 - Stamina
+        case 3: return LOCALE_STAT_AGILITY.' +'.$value.'<br />';             # 3 - Agility
+        case 4: return LOCALE_STAT_STRENGTH.' +'.$value.'<br />';            # 4 - Strength
+        case 5: return LOCALE_STAT_INTELLECT.' +'.$value.'<br />';           # 5 - Intellect
+        case 6: return LOCALE_STAT_SPIRIT.' +'.$value.'<br />';              # 6 - Spirit
+        case 7: return LOCALE_STAT_STAMINA.' +'.$value.'<br />';             # 7 - Stamina
         // зеленые статы
         case 12: $green[] = green_bonus(LOCALE_GBONUS_DEFENCE, $value, $type, $level);           return;
         case 13: $green[] = green_bonus(LOCALE_GBONUS_DODGE, $value, $type, $level);             return;

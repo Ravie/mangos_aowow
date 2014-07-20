@@ -85,18 +85,21 @@
   }
 
   status("Reading subzones list...");
-  $dbc = dbc2array_("WorldMapOverlay.dbc", "niixxxxxsiiiixxxx");
+  $dbc = dbc2array_("WorldMapOverlay.dbc", "niiiiixxsiiiixxxx");
   $wmo = array();
   foreach ($dbc as $row)
-    if ($row[3])
+    if ($row[6])
       $wmo[$row[1]][] = array
       (
-        "areaid" => $row[2],
-        "name"   => strtolower($row[3]),
-        "width"  => $row[4],
-        "height" => $row[5],
-        "left"   => $row[6],
-        "top"    => $row[7]
+        "areaid0"=> $row[2],
+        "areaid1"=> $row[3],
+        "areaid2"=> $row[4],
+        "areaid3"=> $row[5],
+        "name"   => strtolower($row[6]),
+        "width"  => $row[7],
+        "height" => $row[8],
+        "left"   => $row[9],
+        "top"    => $row[10]
       );
   status(count($dbc) . "\n");
 
@@ -216,7 +219,13 @@
           $zonemap = imagecreatetruecolor(1024, 768);
           imagecopy($zonemap, $map, 0, 0, 0, 0, imagesx($map), imagesy($map));
           imagecopy($zonemap, $row["maskimage"], $row["left"], $row["top"], 0, 0, imagesx($row["maskimage"]), imagesy($row["maskimage"]));
-          saveimage($zonemap, $row["areaid"] . ".jpg", false);
+          saveimage($zonemap, $row["areaid0"] . ".jpg", true);
+          if($row["areaid1"])
+		    saveimage($zonemap, $row["areaid1"] . ".jpg", false);
+          if($row["areaid2"])
+		    saveimage($zonemap, $row["areaid2"] . ".jpg", false);
+          if($row["areaid3"])
+		    saveimage($zonemap, $row["areaid3"] . ".jpg", false);
           imagedestroy($zonemap);
         }
       }
