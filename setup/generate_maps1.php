@@ -19,6 +19,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
   require("config.php");
+  
+  $start = microtime(true);
 
   if (!isset($config["mpq"]))
     die("Path to extracted MPQ files is not configured");
@@ -85,37 +87,69 @@
   }
 
   status("Reading subzones list...");
-  $dbc = dbc2array_("WorldMapOverlay.dbc", "niiiiixxsiiiixxxx");
+  $dbc_ap = dbc2array_("AreaPOI.dbc", "xxxxxxxxxxxxxxxxxisxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+  $dbc_at = dbc2array_("AreaTable.dbc", "ixixxxxxxxxsxxxxxxxxxxxxxxxxxxxxxxxx");
+  $dbc_wmo = dbc2array_("WorldMapOverlay.dbc", "niiiiixxsiiiixxxx");
   $wmo = array();
-  foreach ($dbc as $row)
-    if ($row[6])
-      $wmo[$row[1]][] = array
+  foreach ($dbc_wmo as $row_wmo)
+  {
+    if ($row_wmo[6])
+    {
+      foreach ($dbc_at as $row_at)
+      {
+        
+      }
+      foreach ($dbc_ap as $row_ap)
+        if ($row_wmo[2] == $row_ap[0] && isset($row_ap[1]))
+        {
+          foreach ($dbc_at as $row_at)
+            if ($row_ap[1] == $row_at[2])
+            {
+              $wmo[$row_wmo[1]][] = array
+              (
+                "areaid" => $row_at[0],
+                "poi1"   => 0,
+                "poi2"   => 0,
+                "poi3"   => 0,
+                "name"   => strtolower($row_wmo[6]),
+                "width"  => $row_wmo[7],
+                "height" => $row_wmo[8],
+                "left"   => $row_wmo[9],
+                "top"    => $row_wmo[10]
+              );
+              break;
+            }
+          break;
+        }
+      $wmo[$row_wmo[1]][] = array
       (
-        "areaid0"=> $row[2],
-        "areaid1"=> $row[3],
-        "areaid2"=> $row[4],
-        "areaid3"=> $row[5],
-        "name"   => strtolower($row[6]),
-        "width"  => $row[7],
-        "height" => $row[8],
-        "left"   => $row[9],
-        "top"    => $row[10]
+        "areaid" => $row_wmo[2],
+        "poi1"   => $row_wmo[3],
+        "poi2"   => $row_wmo[4],
+        "poi3"   => $row_wmo[5],
+        "name"   => strtolower($row_wmo[6]),
+        "width"  => $row_wmo[7],
+        "height" => $row_wmo[8],
+        "left"   => $row_wmo[9],
+        "top"    => $row_wmo[10]
       );
-  status(count($dbc) . "\n");
+    }
+  }
+  status(count($dbc_wmo) . "\n");
 
   status("Reading zones list...");
-  $dbc = dbc2array_("WorldMapArea.dbc", "nxisxxxxxxx");
-  status(count($dbc) . "\n");
+  $dbc_wma = dbc2array_("WorldMapArea.dbc", "nxisxxxxxxx");
+  status(count($dbc_wma) . "\n");
 
   $count = 0;
-  foreach ($dbc as $row)
+  foreach ($dbc_wma as $row_wma)
   {
     $count++;
-    if ($row[1])
+    if ($row_wma[1])
     {
-      $zid = $row[0];
-      $mapid = $row[1];
-      $mapname = $row[2];
+      $zid = $row_wma[0];
+      $mapid = $row_wma[1];
+      $mapname = $row_wma[2];
       status($mapname . "[" . $mapid . "]");
       $mapname = strtolower($mapname);
 
@@ -219,22 +253,28 @@
           $zonemap = imagecreatetruecolor(1024, 768);
           imagecopy($zonemap, $map, 0, 0, 0, 0, imagesx($map), imagesy($map));
           imagecopy($zonemap, $row["maskimage"], $row["left"], $row["top"], 0, 0, imagesx($row["maskimage"]), imagesy($row["maskimage"]));
-          saveimage($zonemap, $row["areaid0"] . ".jpg", true);
-          if($row["areaid1"])
-		    saveimage($zonemap, $row["areaid1"] . ".jpg", false);
-          if($row["areaid2"])
-		    saveimage($zonemap, $row["areaid2"] . ".jpg", false);
-          if($row["areaid3"])
-		    saveimage($zonemap, $row["areaid3"] . ".jpg", false);
+          saveimage($zonemap, $row["areaid"] . ".jpg", true);
+          if($row["poi1"])
+            saveimage($zonemap, $row["poi1"] . ".jpg", false);
+          if($row["poi2"])
+            saveimage($zonemap, $row["poi2"] . ".jpg", false);
+          if($row["poi3"])
+            saveimage($zonemap, $row["poi3"] . ".jpg", false);
           imagedestroy($zonemap);
         }
       }
-
+      
+      foreach ($dbc_at as $row_at)
+        if ($row_wma[1] == $row_at[1])
+          saveimage($map, $row_at[0] . ".jpg", false);
+          
       imagedestroy($map);
 
-      status("done (" . intval($count*100/count($dbc)) . "%)\n");
+      status("done (" . intval($count*100/count($dbc_wma)) . "%)\n");
     }
   }
+  
+  echo 'Extracting time: '.(microtime(true) - $start).' sec';
 
 ?>
 </pre>

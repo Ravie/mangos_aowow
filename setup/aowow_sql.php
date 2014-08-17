@@ -464,14 +464,6 @@ CREATE TABLE `aowow_spell` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Spells';
 
 <?php
-//  3.0.9.old: "niiixxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxxiiiiiiiiiiiiiiiiiixxxiiiiiixxxxxxxxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxx"
-//  3.1.3.old: "niiixxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxxiiiiiiiiiiiiiiiiiixxxiiiiiixxxxxxxxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxxx"
-//  3.1.3.new: "niiixxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxxxxxxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxxx"
-//  3.2.2a:    "niiixxxxxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxxxxxxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxxxxxxx"
-//  3.3.2:     "niiixxxxxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxxxxxxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxxxxxxxx"
-//  3.3.3a:    "niiixxxxxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxxxxxxxx"
-//  3.3.5a.old:"niiixxxxxxxxxxxxxxxxxxxxxxxxiixxiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxxxxxxxxxx"
-//  3.3.5a.new:"niiixxxxxxxxxxxxxxxxxxxxxxxxiiixiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxixxxxxxxx"
   $dbc = dbc2array_("Spell.dbc", "niiixxxxxxxxxxxxxxxxxxxxxxxxiiixiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxixxxxxxxx");
   print_insert('INSERT INTO `aowow_spell` VALUES', $dbc);
 ?>
@@ -524,8 +516,6 @@ CREATE TABLE `aowow_itemenchantmet` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 <?php
-  // 3.0.9: "nxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxxxxxxx"
-  // 3.1.3: "nxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxxxxxxxx"
   $dbc = dbc2array_("SpellItemEnchantment.dbc", "nxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxxxxxxxx");
   print_insert('INSERT INTO `aowow_itemenchantmet` VALUES', $dbc);
 ?>
@@ -662,8 +652,6 @@ CREATE TABLE `aowow_factions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 <?php
-//  3.2.2a:    "nixxxxxxxxxxxxxxxxisixxxxxxxxxxxxxxxsxxxxxxxxxxxxxxsx"
-//  3.3.2:     "nixxxxxxxxxxxxxxxxixxxxsixxxxxxxxxxxxxxxsxxxxxxxxxxxxxxsx"
   $dbc = dbc2array_("Faction.dbc", "nixxxxxxxxxxxxxxxxixxxxsixxxxxxxxxxxxxxxsxxxxxxxxxxxxxxsx");
   // Calculate side
   foreach ($dbc as $i => $row)
@@ -681,18 +669,21 @@ CREATE TABLE `aowow_factions` (
   }
   print_insert('INSERT INTO `aowow_factions` VALUES', $dbc);
 ?>
--- WorldMapArea.dbc, Map.dbc, AreaTable.dbc
+-- WorldMapArea.dbc, Map.dbc, AreaTable.dbc, AreaPOI.dbc
 DROP TABLE IF EXISTS `aowow_zones`;
 CREATE TABLE `aowow_zones` (
   `mapID` smallint(3) unsigned NOT NULL COMMENT 'Map Identifier',
   `areatableID`  smallint(3) unsigned NOT NULL COMMENT 'Zone Id',
   `name_loc0` varchar(255) NOT NULL COMMENT 'Map Name',
+  `explevel` smallint(4) unsigned NOT NULL COMMENT 'Zone Level',
   `x_min` float NOT NULL DEFAULT 0.0,
   `y_min` float NOT NULL DEFAULT 0.0,
   `x_max` float NOT NULL DEFAULT 0.0,
   `y_max` float NOT NULL DEFAULT 0.0,
   `type` tinyint(2) unsigned NOT NULL,
   `parent` smallint(4) unsigned NOT NULL COMMENT 'Parent Zone Id',
+  `pointX` float NOT NULL DEFAULT 0.0,
+  `pointY` float NOT NULL DEFAULT 0.0,
   INDEX `idx_mapid`(`mapID`),
   INDEX `idx_areatableid`(`areatableID`),
   INDEX `idx_parent`(`parent`)
@@ -736,9 +727,6 @@ CREATE TABLE `aowow_zones` (
   // Fog added the `type` column for something... So let's get it.
   $maptype = array();
   $areatype = array();
-// 3.1.3.new: nxixsxxxxxxxxxxxxxxxxixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// 3.2.2a:    nxixsxxxxxxxxxxxxxxxxixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// 3.3.2:     nxixxsxxxxxxxxxxxxxxxxixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   $dbc_tmp = dbc2array_("Map.dbc", "nxixxsxxxxxxxxxxxxxxxxixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
   foreach ($dbc_tmp as $row)
   {
@@ -746,20 +734,30 @@ CREATE TABLE `aowow_zones` (
     if ($row[3]) $areatype[$row[0] . "@" . $row[3]] = $row[1];
   }
 
-  $dbc_tmp = dbc2array_("AreaTable.dbc", "niixxxxxxxxsxxxxxxxxxxxxxxxxxxxxxxxx");
-  foreach ($dbc_tmp as $row)
+  $dbc_temp= dbc2array_("AreaPOI.dbc", "xxxxxxxxxxxxffxxxxsxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+  $dbc_tmp = dbc2array_("AreaTable.dbc", "niixxxxxxxisxxxxxxxxxxxxxxxxxxxxxxxx");
+  foreach ($dbc_tmp as $row_tmp)
   {
     $type = 0;
-    if (isset($maptype[$row[1]]))
-      $type = $maptype[$row[1]];
-    if (isset($areatype[$row[1]."@".$row[0]]))
-      $type = $areatype[$row[1]."@".$row[0]];
-    $dbc[$row[0]] = array($row[1], $row[0], $row[3], 0, 0, 0, 0, $type, $row[2]);
+    $pointX = 0;
+    $pointY = 0;
+    if (isset($maptype[$row_tmp[1]]))
+      $type = $maptype[$row_tmp[1]];
+    if (isset($areatype[$row_tmp[1]."@".$row_tmp[0]]))
+      $type = $areatype[$row_tmp[1]."@".$row_tmp[0]];
+    foreach ($dbc_temp as $row_temp)
+    {
+      if (isset($row_temp[2]) && $row_temp[2] == $row_tmp[4])
+      {
+        $pointX = $row_temp[0];
+        $pointY = $row_temp[1];
+        break;
+      }
+    }
+    $dbc[$row_tmp[0]] = array($row_tmp[1], $row_tmp[0], $row_tmp[4], $row_tmp[3], 0, 0, 0, 0, $type, $row_tmp[2], $pointX, $pointY);
   }
 
   // Update data with coords, where available
-// 3.1.3.new: xiisffffxx
-// 3.2.2a:    xiisffffxxx
   $dbc_tmp = dbc2array_("WorldMapArea.dbc", "xiisffffxxx");
   foreach ($dbc_tmp as $row)
   {
@@ -771,7 +769,7 @@ CREATE TABLE `aowow_zones` (
       $dbc[$row[1]][6] = ($row[3]<$row[4]) ? $row[4] : $row[3]; // y_max
     }
   }
-
+  unset($dbc_temp);
   unset($dbc_tmp);
   print_insert('INSERT INTO `aowow_zones` VALUES', $dbc);
 
