@@ -244,7 +244,7 @@ switch($_SESSION['locale'])
 			'LOCALE_COMBAT_RATING'			  	=>	'%s&nbsp;на&nbsp;yp.&nbsp;%d',
 			'LOCALE_RANDOM_BONUSES'				=>	'Случайный бонус',
 			// sockets
-			'LOCALE_SOCKET_META'	=>	'Мета-гнездо',
+			'LOCALE_SOCKET_META'	=>	'Радужное гнездо',
 			'LOCALE_SOCKET_RED'	 	=>	'Красное гнездо',
 			'LOCALE_SOCKET_YELLOW'  =>	'Желтое гнездо',
 			'LOCALE_SOCKET_BLUE'	=>	'Синее гнездо',

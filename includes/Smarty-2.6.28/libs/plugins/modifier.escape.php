@@ -82,10 +82,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
                }
            }
            return $_res;
-		
-		case 'dquotes':
-			return strtr($string, array('"' => '\"', '\'' => '\\\''));
-		
+
         default:
             return $string;
     }

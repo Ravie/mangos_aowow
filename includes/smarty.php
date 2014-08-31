@@ -8,7 +8,7 @@ global $AoWoWconf;
 $cwd = str_replace("\\", "/", getcwd());
 
 // загружаем библиотеку Smarty
-require_once('includes/Smarty-2.6.26/libs/Smarty.class.php');
+require_once('includes/Smarty-2.6.28/libs/Smarty.class.php');
 class Smarty_AoWoW extends Smarty
 {
 	function Smarty_AoWoW()

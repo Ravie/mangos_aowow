@@ -14,7 +14,7 @@
  * @author Dmitry Koterov, http://forum.dklab.ru/users/DmitryKoterov/
  * @author Konstantin Zhinko, http://forum.dklab.ru/users/KonstantinGinkoTit/
  * 
- * @version 2.x $Id: Mysql.php 163 2007-01-10 09:47:49Z dk $
+ * @version 2.x $Id$
  */
 require_once dirname(__FILE__) . '/Generic.php';
 
@@ -37,15 +37,18 @@ class DbSimple_Mysql extends DbSimple_Generic_Database
             return $this->_setLastError("-1", "MySQL extension is not loaded", "mysql_connect");
         }
         $ok = $this->link = @mysql_connect(
-            $p['host'] . (empty($p['port'])? "" : ":".$p['port']),
+            $str = $p['host'] . (empty($p['port'])? "" : ":" . $p['port']),
             $p['user'],
             $p['pass'],
             true
         );
         $this->_resetLastError();
-        if (!$ok) return $this->_setDbError('mysql_connect()');
+        if (!$ok) return $this->_setDbError('mysql_connect("' . $str . '", "' . $p['user'] . '")');
         $ok = @mysql_select_db(preg_replace('{^/}s', '', $p['path']), $this->link);
         if (!$ok) return $this->_setDbError('mysql_select_db()');
+        if (isset($p["charset"])) {
+            $this->query('SET NAMES ?', $p["charset"]);
+        }
     }
 
 
@@ -178,7 +181,11 @@ class DbSimple_Mysql extends DbSimple_Generic_Database
     
     function _setDbError($query)
     {
-        return $this->_setLastError(mysql_errno($this->link), mysql_error($this->link), $query);
+    	if ($this->link) {
+	        return $this->_setLastError(mysql_errno($this->link), mysql_error($this->link), $query);
+	    } else {
+	        return $this->_setLastError(mysql_errno(), mysql_error(), $query);
+	    }
     }
     
     
