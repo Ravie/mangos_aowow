@@ -95,10 +95,6 @@
   {
     if ($row_wmo[6])
     {
-      foreach ($dbc_at as $row_at)
-      {
-        
-      }
       foreach ($dbc_ap as $row_ap)
         if ($row_wmo[2] == $row_ap[0] && isset($row_ap[1]))
         {
