@@ -74,16 +74,16 @@ if($_SESSION['locale']>0)
 	);
 }
 $rows = $DB->select('
-		SELECT ?#, c.entry
+		SELECT ?#, c.Entry
 			{, l.name_loc?d AS `name_loc`,
 			l.subname_loc'.$_SESSION['locale'].' AS `subname_loc`}
 		FROM ?_factiontemplate, creature_template c
-			{LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ?d}
+			{LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ?d}
 		WHERE
-			(name LIKE ?
-			OR subname LIKE ?
-			{OR c.entry IN (?a)})
-			AND factiontemplateID=faction_A
+			(Name LIKE ?
+			OR SubName LIKE ?
+			{OR c.Entry IN (?a)})
+			AND factiontemplateID=FactionAlliance
 	',
 	$npc_cols[0],
 	($m)? $_SESSION['locale']: DBSIMPLE_SKIP,

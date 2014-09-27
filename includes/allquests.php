@@ -253,12 +253,12 @@ function GetQuestReq($id, $count, $type)
 	{
 		case 1:
 			$row = $DB->selectRow('
-					SELECT name
+					SELECT Name
 						{, l.name_loc?d AS name_loc}
 					FROM creature_template c
-						{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
+						{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
 					WHERE
-						c.entry = ?d
+						c.Entry = ?d
 					LIMIT 1
 				',
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,

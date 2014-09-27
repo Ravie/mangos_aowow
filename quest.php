@@ -366,14 +366,14 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	// КВЕСТГИВЕРЫ
 	// НПС
 	$rows = $DB->select('
-		SELECT c.entry, c.name, A, H
+		SELECT c.Entry, c.Name, ft.A, ft.H
 			{, l.name_loc?d AS name_loc}
-		FROM creature_questrelation q, ?_factiontemplate, creature_template c
-			{LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ?}
+		FROM creature_questrelation q, ?_factiontemplate ft, creature_template c
+			{LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ?}
 		WHERE
 			q.quest=?d
-			AND c.entry=q.id
-			AND factiontemplateID=c.faction_A
+			AND c.Entry=q.id
+			AND factiontemplateID=c.FactionAlliance
 		',
 		($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
 		($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
@@ -383,7 +383,7 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	{
 		foreach($rows as $tmp)
 		{
-			$tmp['name'] = localizedName($tmp);
+			$tmp['Name'] = localizedName($tmp);
 			if($tmp['A'] == -1 && $tmp['H'] == 1)
 				$tmp['side'] = 'horde';
 			elseif($tmp['A'] == 1 && $tmp['H'] == -1)
@@ -464,14 +464,14 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	// КВЕСТТЕЙКЕРЫ
 	// НПС
 	$rows = $DB->select('
-		SELECT c.entry, c.name, A, H
+		SELECT c.Entry, c.Name, ft.A, ft.H
 			{, l.name_loc?d AS name_loc}
-		FROM creature_involvedrelation q, ?_factiontemplate, creature_template c
-			{LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ?}
+		FROM creature_involvedrelation q, ?_factiontemplate ft, creature_template c
+			{LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ?}
 		WHERE
 			q.quest=?d
-			AND c.entry=q.id
-			AND factiontemplateID=c.faction_A
+			AND c.Entry=q.id
+			AND factiontemplateID=c.FactionAlliance
 		',
 		($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
 		($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
@@ -481,7 +481,7 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	{
 		foreach($rows as $tmp)
 		{
-			$tmp['name'] = localizedName($tmp);
+			$tmp['Name'] = localizedName($tmp);
 			if($tmp['A'] == -1 && $tmp['H'] == 1)
 				$tmp['side'] = 'horde';
 			elseif($tmp['A'] == 1 && $tmp['H'] == -1)

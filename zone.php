@@ -51,11 +51,11 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 	{
 		// Flight masters
 		$rows = $DB->select('
-			SELECT ct.entry, ct.name, ct.subname, lc.name_loc?d, lc.subname_loc?d, ct.npcflag, position_x, position_y
+			SELECT ct.Entry, ct.Name, ct.SubName, lc.name_loc?d, lc.subname_loc?d, ct.NpcFlags, position_x, position_y
 			FROM creature c, creature_template ct
-			LEFT JOIN locales_creature lc ON ct.entry = lc.entry
-			WHERE c.id = ct.entry
-			  AND ct.npcflag & 126976
+			LEFT JOIN locales_creature lc ON ct.Entry = lc.entry
+			WHERE c.id = ct.Entry
+			  AND ct.NpcFlags & 126976
 			  AND c.map = ?d
 			  AND c.position_x > ?f
 			  AND c.position_x < ?f
@@ -105,27 +105,27 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 				$point = array(
 					'name' => $name,
 					'type' => 0, // affects pin color (style=pin-$type)
-					'url' => '?npc='.$row['entry'],
+					'url' => '?npc='.$row['Entry'],
 					'x' => round(100 - ($row['position_y']-$zone['y_min']) / (($zone['y_max']-$zone['y_min']) / 100), 2),
 					'y' => round(100 - ($row['position_x']-$zone['x_min']) / (($zone['x_max']-$zone['x_min']) / 100), 2)
 				);
 
-				if ($row['npcflag']&8192)
+				if ($row['NpcFlags']&8192)
 				{
 					$taxies['population']++;
 					$taxies['points'][] = $point;
 				}
-				if ($row['npcflag']&65536)
+				if ($row['NpcFlags']&65536)
 				{
 					$inns['population']++;
 					$inns['points'][] = $point;
 				}
-				if ($row['npcflag']&4096)
+				if ($row['NpcFlags']&4096)
 				{
 					$repairers['population']++;
 					$repairers['points'][] = $point;
 				}
-				if ($row['npcflag']&16384 || $row['npcflag']&32768)
+				if ($row['NpcFlags']&16384 || $row['NpcFlags']&32768)
 				{
 					$spirithealers['population']++;
 					$spirithealers['points'][] = $point;

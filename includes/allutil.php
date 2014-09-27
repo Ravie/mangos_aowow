@@ -107,7 +107,7 @@ define('RACE_DRAENEI', 1024);
 
 // Типы разделов
 $types = array(
-	1 => array('npc',	   'creature_template',		'entry'	  ),
+	1 => array('npc',	   'creature_template',		'Entry'	  ),
 	2 => array('object',	'gameobject_template',	  'entry'	  ),
 	3 => array('item',	  'item_template',			'entry'	  ),
 	4 => array('itemset',   $tableprefix.'itemset',	 'itemsetID'  ),

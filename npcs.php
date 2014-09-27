@@ -14,17 +14,17 @@ if(!$npcs = load_cache(NPC_LISTING, $cache_key))
 	unset($npcs);
 
 	$rows = $DB->select('
-		SELECT c.?#, c.entry
+		SELECT c.?#, c.Entry
 		{
 			, l.name_loc?d AS name_loc
 			, l.subname_loc?d AS subname_loc
 		}
 		FROM ?_factiontemplate, creature_template c
-		{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
+		{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
 		WHERE
-			factiontemplateID=faction_A
-			{AND type=?}
-		ORDER BY minlevel DESC, name
+			factiontemplateID=FactionAlliance
+			{AND CreatureType=?}
+		ORDER BY MinLevel DESC, name
 		{LIMIT ?d}
 		',
 		$npc_cols[0],

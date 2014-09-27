@@ -96,23 +96,23 @@ foreach($rows as $i => $row)
 
 // Ищем creature:
 $rows = $DB->select('
-	SELECT entry, ?# as name
+	SELECT Entry, ?# as name
 	FROM ?#
 	WHERE ?# LIKE ?
 	ORDER BY ?#
 	LIMIT 3
 	',
-	$_SESSION['locale'] == 0 ? 'name' : 'name_loc'.$_SESSION['locale'],		// SELECT
+	$_SESSION['locale'] == 0 ? 'Name' : 'name_loc'.$_SESSION['locale'],		// SELECT
 	$_SESSION['locale'] == 0 ? 'creature_template' : 'locales_creature',	// FROM
-	$_SESSION['locale'] == 0 ? 'name' : 'name_loc'.$_SESSION['locale'],		// WHERE1
+	$_SESSION['locale'] == 0 ? 'Name' : 'name_loc'.$_SESSION['locale'],		// WHERE1
 	$search_query,
-	$_SESSION['locale'] == 0 ? 'name' : 'name_loc'.$_SESSION['locale']		// ORDER
+	$_SESSION['locale'] == 0 ? 'Name' : 'name_loc'.$_SESSION['locale']		// ORDER
 );
 
 foreach($rows as $i => $row)
 	$found[$row['name'].' (NPC)'] = array(
 		'type' => 1,
-		'entry' => $row['entry']
+		'entry' => $row['Entry']
 	);
 
 // Если ничего не найдено...

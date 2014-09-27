@@ -31,16 +31,16 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_cr as $lootid => $drop)
 		{
 			$rows = $DB->select('
-				SELECT c.?#, c.entry
+				SELECT c.?#, c.Entry
 				{
 					, l.name_loc?d AS name_loc
 					, l.subname_loc?d AS subname_loc
 				}
 				FROM ?_factiontemplate, creature_template c
-				{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
+				{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
 				WHERE
 					lootid=?d
-					AND factiontemplateID=faction_A
+					AND factiontemplateID=FactionAlliance
 				',
 				$npc_cols[0],
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -106,22 +106,22 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 	}
 	unset($drops_go);
 
-	// Поиск вендеров, которые эту вещь продают
+	// Поиск вендоров, которые эту вещь продают
 	$rows_soldby = $DB->select('
-			SELECT ?#, c.entry, v.ExtendedCost, v.maxcount AS stock
+			SELECT ?#, c.Entry, v.ExtendedCost, ft.A, v.maxcount AS stock
 			{
 				, l.name_loc?d AS name_loc
 				, l.subname_loc?d AS subname_loc
 			}
-			FROM npc_vendor v, ?_factiontemplate, creature_template c
-			{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
+			FROM npc_vendor v, ?_factiontemplate ft, creature_template c
+			{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
 			WHERE
 				v.item=?d
-				AND c.entry=v.entry
-				AND factiontemplateID=faction_A
+				AND c.Entry=v.entry
+				AND factiontemplateID=FactionAlliance
 			ORDER BY 1 DESC, 2 DESC
 		',
-		$npc_cols['0'],
+		$npc_cols[0],
 		($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
 		($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
 		($_SESSION['locale']>0)? 1: DBSIMPLE_SKIP,
@@ -304,16 +304,16 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_pp as $lootid => $drop)
 		{
 			$rows = $DB->select('
-					SELECT c.?#, c.entry
+					SELECT c.?#, c.Entry
 					{
 						, l.name_loc?d AS name_loc
 						, l.subname_loc?d AS subname_loc
 					}
 					FROM ?_factiontemplate, creature_template c
-					{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
+					{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
 					WHERE
-						pickpocketloot=?d
-						AND factiontemplateID=faction_A
+						PickpocketLootId=?d
+						AND factiontemplateID=FactionAlliance
 				',
 				$npc_cols[0],
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -338,16 +338,16 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_sk as $lootid => $drop)
 		{
 			$rows = $DB->select('
-					SELECT c.?#, c.entry
+					SELECT c.?#, c.Entry
 					{
 						, l.name_loc?d AS name_loc
 						, l.subname_loc?d AS subname_loc
 					}
 					FROM ?_factiontemplate, creature_template c
-					{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
+					{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
 					WHERE
-						skinloot=?d
-						AND factiontemplateID=faction_A
+						SkinningLootId=?d
+						AND factiontemplateID=FactionAlliance
 				',
 				$npc_cols[0],
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -636,12 +636,12 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 
 	// Валюта для...
 	$rows_cf = $DB->select('
-		SELECT ?#, i.entry, i.maxcount, n.`maxcount` as `drop-maxcount`, n.ExtendedCost,
+		SELECT ?#, i.entry, i.maxcount, n.`maxcount` as `drop-maxcount`, n.ExtendedCost, ft.A,
 			{l.name_loc?d AS `name_loc`,}
 			reqitem1, reqitem2, reqitem3, reqitem4, reqitem5,
 			reqitemcount1, reqitemcount2, reqitemcount3, reqitemcount4, reqitemcount5,
 			reqhonorpoints, reqarenapoints
-		FROM npc_vendor n, ?_icons, ?_item_extended_cost iec, item_template i
+		FROM npc_vendor n, ?_icons, ?_item_extended_cost iec, item_template i, ?_factiontemplate ft
 			{LEFT JOIN (locales_item l) ON l.entry=i.entry AND ?d}
 		WHERE (iec.reqitem1=?
 		   OR iec.reqitem2=?
@@ -651,6 +651,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		  AND iec.extendedcostID=ABS(n.ExtendedCost)
 		  AND i.entry=n.item
 		  AND id=i.displayid
+		  AND factiontemplateID=FactionAlliance
 		',
 		$item_cols[2],
 		($_SESSION['locale'])? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -671,7 +672,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 				$npc['sells'][$id]['cost']['money'] = $row['BuyPrice'];
 
 			if($row['reqhonorpoints']>0)
-				$item['currencyfor'][$id]['cost']['honor'] =/* ($row['A']==1?1:-1)* */$row['reqhonorpoints']; //FIXME_BUG
+				$item['currencyfor'][$id]['cost']['honor'] = ($row['A'] == 1 ? 1 : -1) * $row['reqhonorpoints'];
 			if($row['reqarenapoints']>0)
 				$item['currencyfor'][$id]['cost']['arena'] = $row['reqarenapoints'];
 			$item['currencyfor'][$id]['cost']['items'] = array();

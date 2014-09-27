@@ -19,10 +19,9 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 	unset($npc);
 
 	// Ищем NPC:
-	$npc = array();
 	$row = $DB->selectRow('
 		SELECT
-			?#, c.entry, c.name,
+			?#, c.Entry, ft.A,
 			{
 				l.name_loc'.$_SESSION['locale'].' as `name_loc`,
 				l.subname_loc'.$_SESSION['locale'].' as `subname_loc`,
@@ -32,11 +31,11 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 		FROM ?_factiontemplate ft, ?_factions f, creature_template c
 		{
 			LEFT JOIN (locales_creature l)
-			ON l.entry = c.entry AND ?
+			ON l.entry = c.Entry AND ?
 		}
 		WHERE
-			c.entry = ?
-			AND ft.factiontemplateID = c.faction_A
+			c.Entry = ?
+			AND ft.factiontemplateID = c.FactionAlliance
 			AND f.factionID = ft.factionID
 		LIMIT 1
 			',
@@ -48,12 +47,34 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 
 	if($row)
 	{
-		$npc = $row;
+		$npc = array
+		(
+			'entry'			=> $row['Entry'],
+			'name'			=> localizedName($row),
+			'subname'		=> localizedName($row, 'subname'),
+			'name_loc'		=> $row['name_loc'],
+			'subname_loc'		=> $row['subname_loc'],
+			'minlevel'		=> $row['MinLevel'],
+			'maxlevel'		=> $row['MaxLevel'],
+			'A'			=> $row['A'],
+			'type'			=> $row['CreatureType'],
+			'rank'			=> $row['Rank'],
+			'minhealth'		=> $row['MinLevelHealth'], 
+			'maxhealth'		=> $row['MaxLevelHealth'], 
+			'minmana'		=> $row['MinLevelMana'], 
+			'maxmana'		=> $row['MaxLevelMana'],
+			'attackpower'		=> $row['MeleeAttackPower'], 
+			'dmg_multiplier'	=> $row['DamageMultiplier'], 
+			'armor'			=> $row['Armor'],
+			'difficulty_entry_1'	=> $row['DifficultyEntry1'],
+			'difficulty_entry_2'	=> $row['DifficultyEntry2'],
+			'difficulty_entry_3'	=> $row['DifficultyEntry3']						
+		);
 		// Full localization of NPC's
 		if($npc['name'] == $npc['name_loc'])
 		{
 			$source_npc = $DB->selectRow('
-						SELECT c.entry, c.name
+						SELECT c.Entry, c.Name
 						{
 							, l.name_loc?d as `name_loc`
 						}
@@ -63,7 +84,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 							ON l.entry = c.entry AND ?
 						}
 						WHERE
-							c.difficulty_entry_1 = ?d OR c.difficulty_entry_2 = ?d OR c.difficulty_entry_3 = ?d
+							c.DifficultyEntry1 = ?d OR c.DifficultyEntry2 = ?d OR c.DifficultyEntry3 = ?d
 						LIMIT 1
 					',
 					($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -81,24 +102,24 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			$npc['name'] .= LOCALE_10NORMAL;
 		elseif($npc['difficulty_entry_1'] != 0)
 			$npc['name'] .= LOCALE_5NORMAL;
-		if(strpos($row['name'],'(1)'))
+		if(strpos($row['Name'],'(1)'))
 		{
 			$npc['name'] = str_replace(' (1)', '', $npc['name']);
-			$tmp = $DB->selectRow('SELECT difficulty_entry_2
+			$tmp = $DB->selectRow('SELECT DifficultyEntry2
 								   FROM creature_template 
-								   WHERE difficulty_entry_1 = ?d LIMIT 1', $npc['entry']);
-			if($tmp['difficulty_entry_2'] != 0)
+								   WHERE DifficultyEntry1 = ?d LIMIT 1', $npc['entry']);
+			if($tmp['DifficultyEntry2'] != 0)
 				$npc['name'] .= LOCALE_25NORMAL;
 			else
 				$npc['name'] .= LOCALE_5HEROIC;
 			unset($tmp);
 		}
-		if(strpos($row['name'],'(2)'))
+		if(strpos($row['Name'],'(2)'))
 		{
 			$npc['name'] = str_replace(' (2)', '', $npc['name']);
 			$npc['name'] .= LOCALE_10HEROIC;
 		}
-		if(strpos($row['name'],'(3)'))
+		if(strpos($row['Name'],'(3)'))
 		{
 			$npc['name'] = str_replace(' (3)', '', $npc['name']);
 			$npc['name'] .= LOCALE_25HEROIC;
@@ -109,8 +130,8 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			$npc['minlevel'] = '??';
 			$npc['maxlevel'] = '??';
 		}
-		$npc['mindmg'] = round(($row['mindmg'] + $row['attackpower']) * $row['dmg_multiplier']);
-		$npc['maxdmg'] = round(($row['maxdmg'] + $row['attackpower']) * $row['dmg_multiplier']);
+		$npc['mindmg'] = round(($row['MinMeleeDmg'] + $row['MeleeAttackPower']) * $row['DamageMultiplier']);
+		$npc['maxdmg'] = round(($row['MaxMeleeDmg'] + $row['MeleeAttackPower']) * $row['DamageMultiplier']);
 		
 		$toDiv = array('minhealth', 'maxmana', 'minmana', 'maxhealth', 'armor', 'mindmg', 'maxdmg');
 		// Разделяем на тысячи (ххххххххх => ххх,ххх,ххх)
@@ -118,11 +139,11 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			$npc[$e] = number_format($npc[$e]);
 
 		$npc['rank'] = $smarty->get_config_vars('rank'.$npc['rank']);
-		// faction_A = faction_H
+		// FactionAlliance = FactionHorde
 		$npc['faction_num'] = $row['factionID'];
 		$npc['faction'] = $row['faction-name'];
 		// Деньги
-		$money = ($row['mingold']+$row['maxgold']) / 2;
+		$money = ($row['MinLootGold']+$row['MaxLootGold']) / 2;
 		$npc = array_merge($npc, money2coins($money));
 		// Героик/нормал копия НПС
 		if($npc['difficulty_entry_1'])
@@ -135,7 +156,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 					'entry'	=> $tmp['entry'],
 					'name'	=> $tmp['name']
 				);
-				if($tmp['name'] == $row['name'])
+				if($tmp['name'] == $row['Name'])
 					$npc['normal']['de1']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
 				unset($tmp);
 			}
@@ -148,7 +169,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 						'entry'	=> $tmp['entry'],
 						'name'	=> $tmp['name']
 					);
-					if($tmp['name'] == $row['name'])
+					if($tmp['name'] == $row['Name'])
 						$npc['normal']['de2']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
 					unset($tmp);
 				}
@@ -162,7 +183,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 						'entry'	=> $tmp['entry'],
 						'name'	=> $tmp['name']
 					);
-					if($tmp['name'] == $row['name'])
+					if($tmp['name'] == $row['Name'])
 						$npc['normal']['de3']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
 					unset($tmp);
 				}
@@ -173,17 +194,17 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			// А может быть героик НПС одним для нескольких нормалов?
 			// считаем что нет
 			$tmp = $DB->selectRow('
-					SELECT c.entry, c.name, c.difficulty_entry_2, c.difficulty_entry_3
+					SELECT c.Entry, c.Name, c.DifficultyEntry2, c.DifficultyEntry3
 					{
 						, l.name_loc?d as `name_loc`
 					}
 					FROM creature_template c
 					{
 						LEFT JOIN (locales_creature l)
-						ON l.entry = c.entry AND ?
+						ON l.entry = c.Entry AND ?
 					}
 					WHERE
-						c.difficulty_entry_1 = ?d
+						c.DifficultyEntry1 = ?d
 					LIMIT 1
 				',
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -193,38 +214,38 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			if($tmp)
 			{
 				$npc['de1']['normal'] = array(
-					'entry'	=> $tmp['entry'],
+					'entry'	=> $tmp['Entry'],
 					'name'	=> $tmp['name_loc']
 				);
-				if($tmp['difficulty_entry_2'] != 0)
+				if($tmp['DifficultyEntry2'] != 0)
 				{
 					$npc['de1']['de2'] = array(
-						'entry'	=> $tmp['difficulty_entry_2'],
+						'entry'	=> $tmp['DifficultyEntry2'],
 						'name'	=> $tmp['name_loc']
 					);
-					if($tmp['difficulty_entry_3'] != 0)
+					if($tmp['DifficultyEntry3'] != 0)
 					{
 						$npc['de1']['de3'] = array(
-							'entry'	=> $tmp['difficulty_entry_3'],
+							'entry'	=> $tmp['DifficultyEntry3'],
 							'name'	=> $tmp['name_loc']
 						);
 					}
 				}
-				$normal_entry = $tmp['entry'];
+				$normal_entry = $tmp['Entry'];
 				unset($tmp);
 			}
 			$tmp = $DB->selectRow('
-					SELECT c.entry, c.name, c.difficulty_entry_1, c.difficulty_entry_3
+					SELECT c.Entry, c.Name, c.DifficultyEntry1, c.DifficultyEntry3
 					{
 						, l.name_loc?d as `name_loc`
 					}
 					FROM creature_template c
 					{
 						LEFT JOIN (locales_creature l)
-						ON l.entry = c.entry AND ?
+						ON l.entry = c.Entry AND ?
 					}
 					WHERE
-						c.difficulty_entry_2 = ?d
+						c.DifficultyEntry2 = ?d
 					LIMIT 1
 				',
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -234,35 +255,35 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			if($tmp)
 			{
 				$npc['de2']['normal'] = array(
-					'entry'	=> $tmp['entry'],
+					'entry'	=> $tmp['Entry'],
 					'name'	=> $tmp['name_loc']
 				);
 				$npc['de2']['de1'] = array(
-					'entry'	=> $tmp['difficulty_entry_1'],
+					'entry'	=> $tmp['DifficultyEntry1'],
 					'name'	=> $tmp['name_loc']
 				);
-				if($tmp['difficulty_entry_3'] != 0)
+				if($tmp['DifficultyEntry3'] != 0)
 				{
 					$npc['de2']['de3'] = array(
-						'entry'	=> $tmp['difficulty_entry_3'],
+						'entry'	=> $tmp['DifficultyEntry3'],
 						'name'	=> $tmp['name_loc']
 					);
 				}
-				$normal_entry = $tmp['entry'];
+				$normal_entry = $tmp['Entry'];
 				unset($tmp);
 			}
 			$tmp = $DB->selectRow('
-					SELECT c.entry, c.name, c.difficulty_entry_1, c.difficulty_entry_2
+					SELECT c.Entry, c.Name, c.DifficultyEntry1, c.DifficultyEntry2
 					{
 						, l.name_loc?d as `name_loc`
 					}
 					FROM creature_template c
 					{
 						LEFT JOIN (locales_creature l)
-						ON l.entry = c.entry AND ?
+						ON l.entry = c.Entry AND ?
 					}
 					WHERE
-						c.difficulty_entry_3 = ?d
+						c.DifficultyEntry3 = ?d
 					LIMIT 1
 				',
 				($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -272,34 +293,38 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			if($tmp)
 			{
 				$npc['de3']['normal'] = array(
-					'entry'	=> $tmp['entry'],
+					'entry'	=> $tmp['Entry'],
 					'name'	=> $tmp['name_loc']
 				);
 				$npc['de3']['de1'] = array(
-					'entry'	=> $tmp['difficulty_entry_1'],
+					'entry'	=> $tmp['DifficultyEntry1'],
 					'name'	=> $tmp['name_loc']
 				);
 				$npc['de3']['de2'] = array(
-					'entry'	=> $tmp['difficulty_entry_2'],
+					'entry'	=> $tmp['DifficultyEntry2'],
 					'name'	=> $tmp['name_loc']
 				);
-				$normal_entry = $tmp['entry'];
+				$normal_entry = $tmp['Entry'];
 				unset($tmp);
 			}
 		}
 		// Дроп
-		$lootid=$row['lootid'];
-		$skinid=$row['skinloot'];
-		$pickpocketid=$row['pickpocketloot'];
+		$lootid = $row['LootId'];
+		$skinid = $row['SkinningLootId'];
+		$pickpocketid = $row['PickpocketLootId'];
 		// Используемые спеллы
 		$npc['ablities'] = array();
 		$tmp = array();
-		for($j=0;$j<=4;++$j)
+		$row_spells = $DB->select
+		('SELECT spell1, spell2, spell3, spell4, spell5, spell6, spell7, spell8
+		  FROM creature_template_spells
+		  WHERE entry=?d', $npc['entry']);
+		for($j=1;$j<8;$j++)
 		{
-			if($row['spell'.$j] && !in_array($row['spell'.$j], $tmp))
+			if($row_spells['spell'.$j] && !in_array($row_spells['spell'.$j], $tmp))
 			{
-				$tmp[] = $row['spell'.$j];
-				if($data = spellinfo($row['spell'.$j], 0))
+				$tmp[] = $row_spells['spell'.$j];
+				if($data = spellinfo($row_spells['spell'.$j], 0))
 				{
 					if($data['name'])
 						$npc['abilities'][] = $data;
@@ -459,7 +484,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 		if(!($npc['pickpocketing'] = loot('pickpocketing_loot_template', $pickpocketid)))
 			unset ($npc['pickpocketing']);
 
-		// Начиниают квесты...
+		// Начинают квесты...
 		$rows_qs = $DB->select('
 			SELECT ?#
 			FROM creature_questrelation c, quest_template q
@@ -479,7 +504,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 		}
 		unset ($rows_qs);
 
-		// Начиниают event-only квесты...
+		// Начинают event-only квесты...
 		$rows_qse = event_find(array('quest_creature_id' => $id));
 		if($rows_qse)
 		{
