@@ -51,10 +51,10 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 	{
 		// Flight masters
 		$rows = $DB->select('
-			SELECT ct.Entry, ct.Name, ct.SubName, lc.name_loc?d, lc.subname_loc?d, ct.NpcFlags, position_x, position_y
+			SELECT ct.entry, ct.name, ct.SubName, lc.name_loc?d, lc.subname_loc?d, ct.NpcFlags, position_x, position_y
 			FROM creature c, creature_template ct
-			LEFT JOIN locales_creature lc ON ct.Entry = lc.entry
-			WHERE c.id = ct.Entry
+			LEFT JOIN locales_creature lc ON ct.entry = lc.entry
+			WHERE c.id = ct.entry
 			  AND ct.NpcFlags & 126976
 			  AND c.map = ?d
 			  AND c.position_x > ?f
@@ -105,7 +105,7 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 				$point = array(
 					'name' => $name,
 					'type' => 0, // affects pin color (style=pin-$type)
-					'url' => '?npc='.$row['Entry'],
+					'url' => '?npc='.$row['entry'],
 					'x' => round(100 - ($row['position_y']-$zone['y_min']) / (($zone['y_max']-$zone['y_min']) / 100), 2),
 					'y' => round(100 - ($row['position_x']-$zone['x_min']) / (($zone['x_max']-$zone['x_min']) / 100), 2)
 				);

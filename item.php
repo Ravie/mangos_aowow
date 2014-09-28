@@ -31,13 +31,13 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_cr as $lootid => $drop)
 		{
 			$rows = $DB->select('
-				SELECT c.?#, c.Entry
+				SELECT c.?#, c.entry
 				{
 					, l.name_loc?d AS name_loc
 					, l.subname_loc?d AS subname_loc
 				}
 				FROM ?_factiontemplate, creature_template c
-				{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
+				{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
 				WHERE
 					lootid=?d
 					AND factiontemplateID=FactionAlliance
@@ -108,16 +108,16 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 
 	// Поиск вендоров, которые эту вещь продают
 	$rows_soldby = $DB->select('
-			SELECT ?#, c.Entry, v.ExtendedCost, ft.A, v.maxcount AS stock
+			SELECT ?#, c.entry, v.ExtendedCost, ft.A, v.maxcount AS stock
 			{
 				, l.name_loc?d AS name_loc
 				, l.subname_loc?d AS subname_loc
 			}
 			FROM npc_vendor v, ?_factiontemplate ft, creature_template c
-			{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
+			{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
 			WHERE
 				v.item=?d
-				AND c.Entry=v.entry
+				AND c.entry=v.entry
 				AND factiontemplateID=FactionAlliance
 			ORDER BY 1 DESC, 2 DESC
 		',
@@ -304,13 +304,13 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_pp as $lootid => $drop)
 		{
 			$rows = $DB->select('
-					SELECT c.?#, c.Entry
+					SELECT c.?#, c.entry
 					{
 						, l.name_loc?d AS name_loc
 						, l.subname_loc?d AS subname_loc
 					}
 					FROM ?_factiontemplate, creature_template c
-					{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
+					{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
 					WHERE
 						PickpocketLootId=?d
 						AND factiontemplateID=FactionAlliance
@@ -338,13 +338,13 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_sk as $lootid => $drop)
 		{
 			$rows = $DB->select('
-					SELECT c.?#, c.Entry
+					SELECT c.?#, c.entry
 					{
 						, l.name_loc?d AS name_loc
 						, l.subname_loc?d AS subname_loc
 					}
 					FROM ?_factiontemplate, creature_template c
-					{ LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ? }
+					{ LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ? }
 					WHERE
 						SkinningLootId=?d
 						AND factiontemplateID=FactionAlliance

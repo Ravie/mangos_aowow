@@ -366,13 +366,13 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	// КВЕСТГИВЕРЫ
 	// НПС
 	$rows = $DB->select('
-		SELECT c.Entry, c.Name, ft.A, ft.H
+		SELECT c.entry, c.name, ft.A, ft.H
 			{, l.name_loc?d AS name_loc}
 		FROM creature_questrelation q, ?_factiontemplate ft, creature_template c
-			{LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ?}
+			{LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ?}
 		WHERE
 			q.quest=?d
-			AND c.Entry=q.id
+			AND c.entry=q.id
 			AND factiontemplateID=c.FactionAlliance
 		',
 		($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -383,7 +383,7 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	{
 		foreach($rows as $tmp)
 		{
-			$tmp['Name'] = localizedName($tmp);
+			$tmp['name'] = localizedName($tmp);
 			if($tmp['A'] == -1 && $tmp['H'] == 1)
 				$tmp['side'] = 'horde';
 			elseif($tmp['A'] == 1 && $tmp['H'] == -1)
@@ -464,13 +464,13 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	// КВЕСТТЕЙКЕРЫ
 	// НПС
 	$rows = $DB->select('
-		SELECT c.Entry, c.Name, ft.A, ft.H
+		SELECT c.entry, c.name, ft.A, ft.H
 			{, l.name_loc?d AS name_loc}
 		FROM creature_involvedrelation q, ?_factiontemplate ft, creature_template c
-			{LEFT JOIN (locales_creature l) ON l.entry=c.Entry AND ?}
+			{LEFT JOIN (locales_creature l) ON l.entry=c.entry AND ?}
 		WHERE
 			q.quest=?d
-			AND c.Entry=q.id
+			AND c.entry=q.id
 			AND factiontemplateID=c.FactionAlliance
 		',
 		($_SESSION['locale']>0)? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -481,7 +481,7 @@ if(!$quest = load_cache(QUEST_PAGE, $cache_key))
 	{
 		foreach($rows as $tmp)
 		{
-			$tmp['Name'] = localizedName($tmp);
+			$tmp['name'] = localizedName($tmp);
 			if($tmp['A'] == -1 && $tmp['H'] == 1)
 				$tmp['side'] = 'horde';
 			elseif($tmp['A'] == 1 && $tmp['H'] == -1)

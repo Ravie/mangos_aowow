@@ -22,7 +22,7 @@ switch($_GET['latest'])
 			switch($row['type'])
 			{
 				case 1: // NPC
-					$comments[$i]['subject'] = $DB->selectCell('SELECT name FROM creature_template WHERE Entry=?d LIMIT 1', $row['typeID']);
+					$comments[$i]['subject'] = $DB->selectCell('SELECT name FROM creature_template WHERE entry=?d LIMIT 1', $row['typeID']);
 					break;
 				case 2: // GO
 					$comments[$i]['subject'] = $DB->selectCell('SELECT name FROM gameobject_template WHERE entry=?d LIMIT 1', $row['typeID']);

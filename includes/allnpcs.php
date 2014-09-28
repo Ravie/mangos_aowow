@@ -1,8 +1,8 @@
 <?php
 require_once('includes/alllocales.php');
 // Для списка creatureinfo()
-$npc_cols[0] = array('Name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'DifficultyEntry1', 'DifficultyEntry2');
-$npc_cols[1] = array('Name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'MinLevelHealth', 'MaxLevelHealth', 'MinLevelMana', 'MaxLevelMana', 'MinLootGold', 'MaxLootGold', 'LootId', 'SkinningLootId', 'PickpocketLootId', 'MinMeleeDmg', 'MaxMeleeDmg', 'MeleeAttackPower', 'DamageMultiplier', 'Armor', 'DifficultyEntry1', 'DifficultyEntry2', 'DifficultyEntry3');
+$npc_cols[0] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'DifficultyEntry1', 'DifficultyEntry2');
+$npc_cols[1] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'MinLevelHealth', 'MaxLevelHealth', 'MinLevelMana', 'MaxLevelMana', 'MinLootGold', 'MaxLootGold', 'LootId', 'SkinningLootId', 'PickpocketLootId', 'MinMeleeDmg', 'MaxMeleeDmg', 'MeleeAttackPower', 'DamageMultiplier', 'Armor', 'DifficultyEntry1', 'DifficultyEntry2', 'DifficultyEntry3');
 $npc_type = array('',LOCALE_TYPENPC_BEAST,LOCALE_TYPENPC_DRAGON,LOCALE_TYPENPC_DEMON,LOCALE_TYPENPC_ELEM,LOCALE_TYPENPC_GIANT,LOCALE_TYPENPC_UNDEAD,LOCALE_TYPENPC_HUMAN,LOCALE_TYPENPC_CRITTER,LOCALE_TYPENPC_MECHANIC,LOCALE_TYPENPC_UNCATEGORY);
 $npc_rank = array(LOCALE_NORMAL,LOCALE_ELITE,LOCALE_RARE_ELITE,LOCALE_BOSS,LOCALE_RARE);
 
@@ -11,7 +11,7 @@ function creatureinfo2($Row, $level = 0)
 {
 	global $npc_type, $npc_rank;
 	$creature = array(
-		'entry'			=> $Row['Entry'],
+		'entry'			=> $Row['entry'],
 		'name'			=> localizedName($Row),
 		'subname'		=> localizedName($Row, 'subname'),
 		'minlevel'		=> $Row['MinLevel'],
@@ -68,7 +68,7 @@ function creatureinfo($id, $level = 0)
 	global $DB;
 	global $npc_cols;
 	$Row = $DB->selectRow('
-			SELECT ?#, c.Entry, ft.A, ft.H
+			SELECT ?#, c.entry, ft.A, ft.H
 			{
 				, l.name_loc'.$_SESSION['locale'].' as `name_loc`
 				, l.subname_loc'.$_SESSION['locale'].' as `subname_loc`
@@ -77,10 +77,10 @@ function creatureinfo($id, $level = 0)
 			FROM ?_factiontemplate ft, creature_template c
 			{
 				LEFT JOIN (locales_creature l)
-				ON l.entry=c.Entry AND ?
+				ON l.entry=c.entry AND ?
 			}
 			WHERE
-				c.Entry = ?d
+				c.entry = ?d
 				AND factiontemplateID = FactionAlliance
 			LIMIT 1
 		',
