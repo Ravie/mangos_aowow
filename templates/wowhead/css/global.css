@@ -187,14 +187,14 @@ padding-left:18px;
 background:url(../images/rss.gif) no-repeat left center;
 }
 
-.bc-icon {
-padding-right:34px;
-background:url(../images/bc_icon.gif) right center no-repeat;
+.tbc-icon {
+padding-left:40px;
+background:url(../images/bc_icon.gif) left center no-repeat;
 }
 
 .wotlk-icon {
-padding-right:41px;
-background:url(../images/wotlk_icon.gif) right center no-repeat;
+padding-left:40px;
+background:url(../images/wotlk_icon.gif) left center no-repeat;
 }
 
 .alliance-icon {

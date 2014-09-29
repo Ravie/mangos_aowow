@@ -1,8 +1,8 @@
 <?php
 require_once('includes/alllocales.php');
 // Для списка creatureinfo()
-$npc_cols[0] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'DifficultyEntry1', 'DifficultyEntry2');
-$npc_cols[1] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'MinLevelHealth', 'MaxLevelHealth', 'MinLevelMana', 'MaxLevelMana', 'MinLootGold', 'MaxLootGold', 'LootId', 'SkinningLootId', 'PickpocketLootId', 'MinMeleeDmg', 'MaxMeleeDmg', 'MeleeAttackPower', 'DamageMultiplier', 'Armor', 'DifficultyEntry1', 'DifficultyEntry2', 'DifficultyEntry3');
+$npc_cols[0] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'DifficultyEntry1', 'DifficultyEntry2', 'Expansion');
+$npc_cols[1] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'MinLevelHealth', 'MaxLevelHealth', 'MinLevelMana', 'MaxLevelMana', 'MinLootGold', 'MaxLootGold', 'LootId', 'SkinningLootId', 'PickpocketLootId', 'MinMeleeDmg', 'MaxMeleeDmg', 'MeleeAttackPower', 'DamageMultiplier', 'Armor', 'DifficultyEntry1', 'DifficultyEntry2', 'DifficultyEntry3', 'Expansion');
 $npc_type = array('',LOCALE_TYPENPC_BEAST,LOCALE_TYPENPC_DRAGON,LOCALE_TYPENPC_DEMON,LOCALE_TYPENPC_ELEM,LOCALE_TYPENPC_GIANT,LOCALE_TYPENPC_UNDEAD,LOCALE_TYPENPC_HUMAN,LOCALE_TYPENPC_CRITTER,LOCALE_TYPENPC_MECHANIC,LOCALE_TYPENPC_UNCATEGORY);
 $npc_rank = array(LOCALE_NORMAL,LOCALE_ELITE,LOCALE_RARE_ELITE,LOCALE_BOSS,LOCALE_RARE);
 
@@ -12,16 +12,23 @@ function creatureinfo2($Row, $level = 0)
 	global $npc_type, $npc_rank;
 	$creature = array(
 		'entry'			=> $Row['entry'],
-		'name'			=> localizedName($Row),
 		'subname'		=> localizedName($Row, 'subname'),
 		'minlevel'		=> $Row['MinLevel'],
 		'maxlevel'		=> $Row['MaxLevel'],
 		'react'			=> $Row['A'].','.$Row['H'],
 		'type'			=> $Row['CreatureType'],
-		'classification'	=> $Row['Rank'],
-		'diffentry1'		=> $Row['DifficultyEntry1'],
-		'diffentry2'		=> $Row['DifficultyEntry2']
+		'classification'=> $Row['Rank'],
+		'diffentry1'	=> $Row['DifficultyEntry1'],
+		'diffentry2'	=> $Row['DifficultyEntry2'],
+		'expansion'		=> $Row['Expansion']
 	);
+	if ($creature['expansion'] == 1)
+		$creature['expansion'] = '<span class="tbc-icon"></span>';
+	elseif ($creature['expansion'] == 2)
+		$creature['expansion'] = '<span class="wotlk-icon"></span>';
+	else
+		$creature['expansion'] = '';
+	$creature['name'] = localizedName($Row);
 	//entry
 	if($creature['diffentry2'] != 0)
 		$creature['name'] .= LOCALE_10NORMAL;
@@ -37,7 +44,7 @@ function creatureinfo2($Row, $level = 0)
 		$creature['name'] = str_replace(' (3)', LOCALE_25HEROIC, $creature['name']);
 	
 	$x = '';
-	$x .= '<table><tr><td><b class="q">';
+	$x .= '<table><tr><td>'.$creature['expansion'].'<b class="q">';
 	$x .= htmlspecialchars($creature['name']);
 	$x .= '</b></td></tr><tr><td>';
 	if($creature['subname'])

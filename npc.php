@@ -49,27 +49,28 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 	{
 		$npc = array
 		(
-			'entry'			=> $row['entry'],
-			'name'			=> localizedName($row),
-			'subname'		=> localizedName($row, 'subname'),
-			'name_loc'		=> $row['name_loc'],
+			'entry'				=> $row['entry'],
+			'name'				=> localizedName($row),
+			'subname'			=> localizedName($row, 'subname'),
+			'name_loc'			=> $row['name_loc'],
 			'subname_loc'		=> $row['subname_loc'],
-			'minlevel'		=> $row['MinLevel'],
-			'maxlevel'		=> $row['MaxLevel'],
-			'A'			=> $row['A'],
-			'H'			=> $row['H'],
-			'type'			=> $row['CreatureType'],
-			'rank'			=> $row['Rank'],
-			'minhealth'		=> $row['MinLevelHealth'], 
-			'maxhealth'		=> $row['MaxLevelHealth'], 
-			'minmana'		=> $row['MinLevelMana'], 
-			'maxmana'		=> $row['MaxLevelMana'],
+			'minlevel'			=> $row['MinLevel'],
+			'maxlevel'			=> $row['MaxLevel'],
+			'A'					=> $row['A'],
+			'H'					=> $row['H'],
+			'type'				=> $row['CreatureType'],
+			'rank'				=> $row['Rank'],
+			'minhealth'			=> $row['MinLevelHealth'], 
+			'maxhealth'			=> $row['MaxLevelHealth'], 
+			'minmana'			=> $row['MinLevelMana'], 
+			'maxmana'			=> $row['MaxLevelMana'],
 			'attackpower'		=> $row['MeleeAttackPower'], 
 			'dmg_multiplier'	=> $row['DamageMultiplier'], 
-			'armor'			=> $row['Armor'],
-			'difficulty_entry_1'	=> $row['DifficultyEntry1'],
-			'difficulty_entry_2'	=> $row['DifficultyEntry2'],
-			'difficulty_entry_3'	=> $row['DifficultyEntry3']						
+			'armor'				=> $row['Armor'],
+			'difficulty_entry_1'=> $row['DifficultyEntry1'],
+			'difficulty_entry_2'=> $row['DifficultyEntry2'],
+			'difficulty_entry_3'=> $row['DifficultyEntry3'],
+			'expansion'			=> $row['Expansion']
 		);
 		// Full localization of NPC's
 		if($npc['name'] == $npc['name_loc'])
@@ -125,6 +126,12 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			$npc['name'] = str_replace(' (3)', '', $npc['name']);
 			$npc['name'] .= LOCALE_25HEROIC;
 		}
+		if ($npc['expansion'] == 1)
+			$npc['expansion'] = '<span class="tbc-icon"></span>';
+		elseif ($npc['expansion'] == 2)
+			$npc['expansion'] = '<span class="wotlk-icon"></span>';
+		else
+			$npc['expansion'] = '';
 		$npc['subname'] = localizedName($row, 'subname');
 		if($npc['rank'] == 3)
 		{

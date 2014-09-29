@@ -51,7 +51,7 @@
 
 			<div class="text">
 				<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
-				<h1>{$npc.name}{if $npc.subname} &lt;{$npc.subname}&gt;{/if}</h1>
+				<h1>{$npc.expansion}{$npc.name}{if $npc.subname} &lt;{$npc.subname}&gt;{/if}</h1>
 
 {if $npc.normal}
 	{if $npc.normal.de1}
