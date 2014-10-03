@@ -4582,7 +4582,7 @@ Listview.funcBox = {
 		if (a > 0) {
 			return g_zones[a]
 		} else {
-			return g_quest_sorts[ - a]
+			return g_quest_sorts[a]
 		}
 	},
 	getFactionCategory: function (b, a) {

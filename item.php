@@ -636,12 +636,12 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 
 	// Валюта для...
 	$rows_cf = $DB->select('
-		SELECT ?#, i.entry, i.maxcount, n.`maxcount` as `drop-maxcount`, n.ExtendedCost, ft.A,
+		SELECT ?#, i.entry, i.maxcount, n.`maxcount` as `drop-maxcount`, n.ExtendedCost,
 			{l.name_loc?d AS `name_loc`,}
 			reqitem1, reqitem2, reqitem3, reqitem4, reqitem5,
 			reqitemcount1, reqitemcount2, reqitemcount3, reqitemcount4, reqitemcount5,
 			reqhonorpoints, reqarenapoints
-		FROM npc_vendor n, ?_icons, ?_item_extended_cost iec, item_template i, ?_factiontemplate ft
+		FROM npc_vendor n, ?_icons, ?_item_extended_cost iec, item_template i
 			{LEFT JOIN (locales_item l) ON l.entry=i.entry AND ?d}
 		WHERE (iec.reqitem1=?
 		   OR iec.reqitem2=?
@@ -651,7 +651,6 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		  AND iec.extendedcostID=ABS(n.ExtendedCost)
 		  AND i.entry=n.item
 		  AND id=i.displayid
-		  AND factiontemplateID=FactionAlliance
 		',
 		$item_cols[2],
 		($_SESSION['locale'])? $_SESSION['locale']: DBSIMPLE_SKIP,
@@ -671,8 +670,8 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 			if($row['BuyPrice']>0)
 				$npc['sells'][$id]['cost']['money'] = $row['BuyPrice'];
 
-			if($row['reqhonorpoints']>0)
-				$item['currencyfor'][$id]['cost']['honor'] = ($row['A'] == 1 ? 1 : -1) * $row['reqhonorpoints'];
+			//if($row['reqhonorpoints']>0)
+				//$item['currencyfor'][$id]['cost']['honor'] = ($row['A'] == 1 ? 1 : -1) * $row['reqhonorpoints'];
 			if($row['reqarenapoints']>0)
 				$item['currencyfor'][$id]['cost']['arena'] = $row['reqarenapoints'];
 			$item['currencyfor'][$id]['cost']['items'] = array();
