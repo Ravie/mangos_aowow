@@ -1,6 +1,6 @@
 ========== AoWoW README ==========
 
-AoWoW is MaNGOS database web interface written in PHP.
+AoWoW is CMaNGOS database web interface written in PHP.
 AoWoW supports World of Warcraft 3.3.5a version.
 
 ---------- Information ----------
@@ -15,7 +15,12 @@ AoWoW supports World of Warcraft 3.3.5a version.
 
 ---------- How To Install ----------
 
- - You can download maps,icons and sql's from <http://yadi.sk/d/c52rJ9jZK9uPN>
+ - You can find resources and sql-files on:
+	- dropbox.com/sh/43mgzfthln4zqc2/AADjm-hQQmUlOoGMMw5rD0LWa
+	- 1drv.ms/1CJqyrF
+	- yadi.sk/d/c52rJ9jZK9uPN
+	- mediafire.com/folder/f1gjv6bx6vrh2/
+	- drive.google.com/folderview?id=0B6BtWKlDsQyiQ3BHazhOellNV0E&usp=sharing
  - Configure AoWoW by editing configs/config.php.in file.
  - Rename configs/config.php.in to configs/config.php.
  - Execute the following sql files into your database:
