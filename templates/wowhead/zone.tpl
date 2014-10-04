@@ -10,7 +10,19 @@
 				var g_pageInfo = {ldelim}type: {$page.type}, typeId: {$page.typeid}, name: '{$zone.name|escape:"quotes"}'{rdelim};
 				g_initPath({$page.path});
 			</script>
-
+			
+			
+			{if $zone.explevel}
+				<table class="infobox">
+					<tr><th>{#Quick_Facts#}</th></tr>
+					<tr><td><div class="infobox-spacer"></div>
+						<ul>
+							<li><div>{#Level#}: {$zone.explevel|escape:"quotes"}</div></li>
+						</ul>
+					</td></tr>
+				</table>
+			{/if}
+			
 			<div class="text">
 
 				<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
@@ -79,7 +91,7 @@
 <script type="text/javascript">
 var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($zone.fishing)}{include file='bricks/item_table.tpl' id='fishing' name='fishing' tabsid='tabsRelated' data=$zone.fishing}{/if}
-{if isset($zone.subzones)}{include file='bricks/zone_table.tpl' id='zones' tabsid='tabsRelated' data=$zone.subzones name='zones'}{/if}
+{if isset($zone.subzones)}{include file='bricks/zone_table.tpl' id='zones' name='zones' tabsid='tabsRelated' data=$zone.subzones}{/if}
 
 new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();

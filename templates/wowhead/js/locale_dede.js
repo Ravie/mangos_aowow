@@ -1942,6 +1942,7 @@ var LANG={
 	dps:"DPS",
 	earned:"Errungen",
 	enchant:"Verzaubern",
+	explevel:"Location level",
 	faction:"Fraktion",
 	gains:"Belohnungen",
 	gems:"Edelsteine",

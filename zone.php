@@ -18,6 +18,8 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 	// Данные об объекте:
 	$zone = $DB->selectRow('SELECT * FROM ?_zones WHERE areatableID = ?d', $id);
 	$zone['name'] = localizedName($zone);
+	if($zone['explevel'] > 80)
+		$zone['explevel'] = NULL;
 
 	if(!($zone['fishing'] = loot('fishing_loot_template', $id)))
 		unset($zone['fishing']);
@@ -37,10 +39,15 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
 	{
 		$zone['subzones'] = array();
 		foreach($rows as $row)
+		{
 			$zone['subzones'][] = array(
 				'id' => $row['areatableID'],
-				'name' => localizedName($row)
+				'name' => localizedName($row),
+				'explevel' => $row['explevel']
 			);
+			if($zone['subzones']['explevel'] > 80)
+				$zone['subzones']['explevel'] = NULL;
+		}
 	}
 	unset($rows);
 

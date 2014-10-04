@@ -1942,6 +1942,7 @@ var LANG={
 	dps:"DPS",
 	earned:"Accomplis",
 	enchant:"Enchanter",
+	explevel:"Location level",
 	faction:"Faction",
 	gains:"Gains",
 	gems:"Gemmes",

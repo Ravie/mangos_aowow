@@ -1942,6 +1942,7 @@ var LANG={
 	dps:"УВС",
 	earned:"Заработано",
 	enchant:"Чары",
+	explevel:"Уровень локации",
 	faction:"Фракция",
 	gains:"Бонус",
 	gems:"Камни",

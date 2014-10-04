@@ -564,7 +564,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		{
 			// Обычные локации
 			$row = $DB->selectRow('
-					SELECT name_loc'.$_SESSION['locale'].' AS name, areatableID as id
+					SELECT name_loc'.$_SESSION['locale'].' AS name, areatableID as id, explevel
 					FROM ?_zones
 					WHERE
 						areatableID=?d
@@ -573,6 +573,8 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 				',
 				$lootid
 			);
+			if($row['explevel'] > 80)
+				$row['explevel'] = NULL;
 			if($row)
 			{
 				$item['fishedin'][] = array_merge($row, $drop);
@@ -581,7 +583,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 			{
 				// Инсты
 				$row = $DB->selectRow('
-						SELECT name_loc'.$_SESSION['locale'].' AS name, mapID as id
+						SELECT name_loc'.$_SESSION['locale'].' AS name, mapID as id, explevel
 						FROM ?_zones
 						WHERE
 							areatableID=?d
@@ -589,6 +591,8 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 					',
 					$lootid
 				);
+				if($row['explevel'] > 80)
+					$row['explevel'] = NULL;
 				if($row)
 					$item['fishedin'][] = array_merge($row, $drop);
 			}
