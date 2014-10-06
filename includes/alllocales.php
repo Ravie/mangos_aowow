@@ -143,6 +143,7 @@ switch($_SESSION['locale'])
 			'LOCALE_ARMOR_IDOL'	 	=>  'Идол',
 			'LOCALE_ARMOR_TOTEM'	=>  'Тотем',
 			// npc type
+			'LOCALE_TYPENPC_UNDEFINED'	=> 'Неизвестный тип',
 			'LOCALE_TYPENPC_BEAST'	  	=> 'Животное',
 			'LOCALE_TYPENPC_DRAGON'	 	=> 'Дракон',
 			'LOCALE_TYPENPC_DEMON'	 	=> 'Демон',
@@ -153,6 +154,9 @@ switch($_SESSION['locale'])
 			'LOCALE_TYPENPC_CRITTER'	=> 'Существо',
 			'LOCALE_TYPENPC_MECHANIC'   => 'Механизм',
 			'LOCALE_TYPENPC_UNCATEGORY' => 'Разное',
+			'LOCALE_TYPENPC_TOTEM'		=> 'Тотем',
+			'LOCALE_TYPENPC_COMPANION'	=> 'Спутник',
+			'LOCALE_TYPENPC_GAS_CLOUD'	=> 'Облако газа',
 			// npc rank
 			'LOCALE_NORMAL'		=> '(Обычный)',
 			'LOCALE_ELITE'		=> '(Элита)',
@@ -453,6 +457,7 @@ switch($_SESSION['locale'])
 			'LOCALE_ARMOR_IDOL'	   =>	'Götze',
 			'LOCALE_ARMOR_TOTEM'	  =>	'Totem',
 			// npc type
+			'LOCALE_TYPENPC_UNDEFINED'	=> 'Unknown type',
 			'LOCALE_TYPENPC_BEAST'	  => 'Beast',
 			'LOCALE_TYPENPC_DRAGON'	 => 'Dragonkin',
 			'LOCALE_TYPENPC_DEMON'	  => 'Demon',
@@ -463,6 +468,9 @@ switch($_SESSION['locale'])
 			'LOCALE_TYPENPC_CRITTER'	=> 'Critter',
 			'LOCALE_TYPENPC_MECHANIC'   => 'Mechanical',
 			'LOCALE_TYPENPC_UNCATEGORY' => 'Uncategorized',
+			'LOCALE_TYPENPC_TOTEM'		=> 'Totem',
+			'LOCALE_TYPENPC_COMPANION'	=> 'Companion',
+			'LOCALE_TYPENPC_GAS_CLOUD'	=> 'Gas cloud',
 			// npc rank
 			'LOCALE_NORMAL'			 => '(Normal)',
 			'LOCALE_ELITE'			  => '(Elite)',
@@ -762,6 +770,7 @@ switch($_SESSION['locale'])
 			'LOCALE_ARMOR_IDOL'	=>	'Idole',
 			'LOCALE_ARMOR_TOTEM'   =>	'Totem',
 			// npc type
+			'LOCALE_TYPENPC_UNDEFINED'	=> 'Unknown type',
 			'LOCALE_TYPENPC_BEAST'	  => 'Beast',
 			'LOCALE_TYPENPC_DRAGON'	 => 'Dragonkin',
 			'LOCALE_TYPENPC_DEMON'	  => 'Demon',
@@ -772,6 +781,9 @@ switch($_SESSION['locale'])
 			'LOCALE_TYPENPC_CRITTER'	=> 'Critter',
 			'LOCALE_TYPENPC_MECHANIC'   => 'Mechanical',
 			'LOCALE_TYPENPC_UNCATEGORY' => 'Uncategorized',
+			'LOCALE_TYPENPC_TOTEM'		=> 'Totem',
+			'LOCALE_TYPENPC_COMPANION'	=> 'Companion',
+			'LOCALE_TYPENPC_GAS_CLOUD'	=> 'Gas cloud',
 			// npc rank
 			'LOCALE_NORMAL'			 => '(Normal)',
 			'LOCALE_ELITE'			  => '(Elite)',
@@ -1071,6 +1083,7 @@ switch($_SESSION['locale'])
 			'LOCALE_ARMOR_IDOL'	 =>	'Idol',
 			'LOCALE_ARMOR_TOTEM'	=>	'Totem',
 			// npc type
+			'LOCALE_TYPENPC_UNDEFINED'	=> 'Unknown type',
 			'LOCALE_TYPENPC_BEAST'	  => 'Beast',
 			'LOCALE_TYPENPC_DRAGON'	 => 'Dragonkin',
 			'LOCALE_TYPENPC_DEMON'	  => 'Demon',
@@ -1081,6 +1094,9 @@ switch($_SESSION['locale'])
 			'LOCALE_TYPENPC_CRITTER'	=> 'Critter',
 			'LOCALE_TYPENPC_MECHANIC'   => 'Mechanical',
 			'LOCALE_TYPENPC_UNCATEGORY' => 'Uncategorized',
+			'LOCALE_TYPENPC_TOTEM'		=> 'Totem',
+			'LOCALE_TYPENPC_COMPANION'	=> 'Companion',
+			'LOCALE_TYPENPC_GAS_CLOUD'	=> 'Gas cloud',
 			// npc rank
 			'LOCALE_NORMAL'			 => '(Normal)',
 			'LOCALE_ELITE'			  => '(Elite)',

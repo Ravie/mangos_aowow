@@ -168,6 +168,10 @@ var mn_items=[
 		[7,"Simple"],
 		[8,"Prismatique"]
 	]],
+	[13,"Keys",,[
+		[0,"Keys"],
+		[1,"Lockpicks"]
+	]],
 	[15,"Divers",,[
 		[3,"Évènement"],
 		[0,"Camelote"],
@@ -177,8 +181,7 @@ var mn_items=[
 		[4,"Autre"]
 	]],
 	[10,"Monnaies"],
-	[12,"Quête"],
-	[13,"Clés"]
+	[12,"Quête"]
 ];
 var mn_itemSets=[
 	[6,"Chevalier de la mort"],
@@ -193,16 +196,20 @@ var mn_itemSets=[
 	[1,"Guerrier"]
 ];
 var mn_npcs=[
+	[0,"No type"],
 	[1,"Bêtes"],
-	[8,"Bestioles"],
-	[3,"Démons"],
 	[2,"Draconien"],
+	[3,"Démons"],
 	[4,"Élémentaires"],
 	[5,"Géants"],
-	[7,"Humanoïdes"],
-	[9,"Mécaniques"],
 	[6,"Mort-vivant"],
-	[10,"Non classés"]
+	[7,"Humanoïdes"],
+	[8,"Bestioles"],
+	[9,"Mécaniques"],
+	[10,"Non classés"],
+	[11,"Totems"],
+	[12,"Companions"],
+	[13,"Gas clouds"]
 ];
 var mn_objects=[
 	[9,"Livres"],
@@ -1007,11 +1014,15 @@ var g_item_subclasses={
 		6:"Armes d'hast",
 		7:"Épée à une main",
 		8:"Épée à deux mains",
+		9:"Obsolete",
 		10:"Bâton",
+		11:"One-Handed Exotics",
+		12:"Two-Handed Exotics",
 		13:"Arme de pugilat",
 		14:"Divers (Armes)",
 		15:"Dague",
 		16:"Armes de jet",
+		17:"Spear",
 		18:"Arbalète",
 		19:"Baguette",
 		20:"Canne à pêche"
@@ -1085,6 +1096,10 @@ var g_item_subclasses={
 		2:"Carquois",
 		3:"Giberne"
 	},
+	13:{
+		0:"Key",
+		1:"Lockpick"
+	},
 	15:{
 		"-7":"Monture volante",
 		"-6":"Familier de combat",
@@ -1097,16 +1112,16 @@ var g_item_subclasses={
 		5:"Monture"
 	},
 	16:{
-		6:"Glyphe de chevalier de la mort",
-		11:"Glyphe de druide",
-		3:"Glyphe de chasseur",
-		8:"Glyphe de mage",
+		1:"Glyphe de guerrier",
 		2:"Glyphe de paladin",
-		5:"Glyphe de prêtre",
+		3:"Glyphe de chasseur",
 		4:"Glyphe de voleur",
+		5:"Glyphe de prêtre",
+		6:"Glyphe de chevalier de la mort",
 		7:"Glyphe de chaman",
+		8:"Glyphe de mage",
 		9:"Glyphe de démoniste",
-		1:"Glyphe de guerrier "
+		11:"Glyphe de druide"
 	}
 };
 var g_item_subsubclasses={
@@ -1171,6 +1186,7 @@ var g_npc_classifications={
 	4:"Rare"
 };
 var g_npc_types={
+	0:"Unknown type",
 	1:"Bête",
 	8:"Bestiole",
 	3:"Démon",
@@ -1180,7 +1196,10 @@ var g_npc_types={
 	7:"Humanoïde",
 	9:"Mécanique",
 	6:"Mort-vivant",
-	10:"Non classés"
+	10:"Non classés",
+	11:"Totem",
+	12:"Companion",
+	13:"Gas cloud"
 };
 var g_pet_families={
 	"1":"Loup",
@@ -1763,6 +1782,8 @@ var g_zone_territories={
 };
 var g_faction_categories={
 	"0":"Autre",
+	"948":"Autre",
+	"949":"Autre",
 	"469":"Alliance",
 	"1037":"Avant-garde de l'Alliance",
 	"1117":"Bassin de Sholazar",

@@ -20,9 +20,9 @@ new Listview({ldelim}
 	data:[
 		{section name=i loop=$data}
 			{ldelim}
-				{* Название обекта, обязательно *}
+				{* Название объекта, обязательно *}
 				name:'{$data[i].name|escape:"quotes"}',
-				{* Тип обекта, обязательно *}
+				{* Тип объекта, обязательно *}
 				type:{$data[i].type},
 				{* Процент дропа *}
 				{if $percent}

@@ -168,6 +168,10 @@ var mn_items=[
 		[7,"Simple"],
 		[8,"Prismatic"]
 	]],
+	[13,"Keys",,[
+		[0,"Keys"],
+		[1,"Lockpicks"]
+	]],
 	[15,"Miscellaneous",,[
 		[3,"Holiday"],
 		[0,"Junk"],
@@ -177,8 +181,7 @@ var mn_items=[
 		[4,"Other"]
 	]],
 	[10,"Currency"],
-	[12,"Quest"],
-	[13,"Keys"]
+	[12,"Quest"]
 ];
 var mn_itemSets=[
 	[6,"Death Knight"],
@@ -193,16 +196,20 @@ var mn_itemSets=[
 	[1,"Warrior"]
 ];
 var mn_npcs=[
+	[0,"No type"],
 	[1,"Beasts"],
-	[8,"Critters"],
-	[3,"Demons"],
 	[2,"Dragonkin"],
+	[3,"Demons"],
 	[4,"Elementals"],
 	[5,"Giants"],
-	[7,"Humanoids"],
-	[9,"Mechanicals"],
 	[6,"Undead"],
-	[10,"Uncategorized"]
+	[7,"Humanoids"],
+	[8,"Critters"],
+	[9,"Mechanicals"],
+	[10,"Uncategorized"],
+	[11,"Totems"],
+	[12,"Companions"],
+	[13,"Gas clouds"]
 ];
 var mn_objects=[
 	[9,"Books"],
@@ -981,7 +988,7 @@ var g_item_subclasses={
 		3:"Flask",
 		4:"Scroll",
 		5:"Food & Drink",
-		6:"Perm. Enhancement",
+		6:"Item Enhancement",
 		"-3":"Temp. Enhancement",
 		7:"Bandage",
 		8:"Other (Consumables)"
@@ -1007,11 +1014,15 @@ var g_item_subclasses={
 		6:"Polearm",
 		7:"One-Handed Sword",
 		8:"Two-Handed Sword",
+		9:"Obsolete",
 		10:"Staff",
+		11:"One-Handed Exotics",
+		12:"Two-Handed Exotics",
 		13:"Fist Weapon",
 		14:"Misc. (Weapons)",
 		15:"Dagger",
 		16:"Thrown",
+		17:"Spear",
 		18:"Crossbow",
 		19:"Wand",
 		20:"Fishing Pole"
@@ -1085,28 +1096,32 @@ var g_item_subclasses={
 		2:"Quiver",
 		3:"Ammo Pouch"
 	},
+	13:{
+		0:"Key",
+		1:"Lockpick"
+	},
 	15:{
 		"-7":"Flying Mount",
 		"-6":"Combat Pet",
 		"-2":"Armor Token",
 		0:"Junk",
 		1:"Reagent",
-		2:"Companion",
+		2:"Pet",
 		3:"Holiday",
-		4:"Other (Miscellaneous)",
+		4:"Other",
 		5:"Mount"
 	},
 	16:{
-		6:"Death Knight Glyph",
-		11:"Druid Glyph",
-		3:"Hunter Glyph",
-		8:"Mage Glyph",
+		1:"Warrior Glyph",
 		2:"Paladin Glyph",
-		5:"Priest Glyph",
+		3:"Hunter Glyph",
 		4:"Rogue Glyph",
+		5:"Priest Glyph",
+		6:"Death Knight Glyph",
 		7:"Shaman Glyph",
+		8:"Mage Glyph",
 		9:"Warlock Glyph",
-		1:"Warrior Glyph"
+		11:"Druid Glyph"
 	}
 };
 var g_item_subsubclasses={
@@ -1171,6 +1186,7 @@ var g_npc_classifications={
 	4:"Rare"
 };
 var g_npc_types={
+	0:"Unknown type",
 	1:"Beast",
 	8:"Critter",
 	3:"Demon",
@@ -1180,7 +1196,10 @@ var g_npc_types={
 	7:"Humanoid",
 	9:"Mechanical",
 	6:"Undead",
-	10:"Uncategorized"
+	10:"Uncategorized",
+	11:"Totem",
+	12:"Companion",
+	13:"Gas cloud"
 };
 var g_pet_families={
 	"1":"Wolf",
@@ -1763,6 +1782,8 @@ var g_zone_territories={
 };
 var g_faction_categories={
 	"0":"Other",
+	"948":"Other",
+	"949":"Other",
 	"469":"Alliance",
 	"891":"Alliance Forces",
 	"1037":"Alliance Vanguard",

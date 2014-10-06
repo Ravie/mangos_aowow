@@ -168,6 +168,10 @@ var mn_items=[
 		[7,"Einfach"],
 		[8,"Prismatisch"]
 	]],
+	[13,"Keys",,[
+		[0,"Keys"],
+		[1,"Lockpicks"]
+	]],
 	[15,"Verschiedenes",,[
 		[3,"Feiertag"],
 		[0,"Plunder"],
@@ -177,8 +181,7 @@ var mn_items=[
 		[4,"Anderes"]
 	]],
 	[10,"Währung"],
-	[12,"Quest"],
-	[13,"Schlüssel"]
+	[12,"Quest"]
 ];
 var mn_itemSets=[
 	[6,"Todesritter"],
@@ -193,16 +196,20 @@ var mn_itemSets=[
 	[1,"Krieger"]
 ];
 var mn_npcs=[
+	[0,"No type"],
 	[1,"Wildtiere"],
-	[8,"Tiere"],
-	[3,"Dämonen"],
 	[2,"Drachkin"],
+	[3,"Dämonen"],
 	[4,"Elementare"],
 	[5,"Riesen"],
-	[7,"Humanoide"],
-	[9,"Mechanisch"],
 	[6,"Untot"],
-	[10,"Nicht kategorisiert"]
+	[7,"Humanoide"],
+	[8,"Tiere"],
+	[9,"Mechanisch"],
+	[10,"Nicht kategorisiert"],
+	[11,"Totems"],
+	[12,"Companions"],
+	[13,"Gas clouds"]
 ];
 var mn_objects=[
 	[9,"Bücher"],
@@ -1007,11 +1014,15 @@ var g_item_subclasses={
 		6:"Stangenwaffe",
 		7:"Einhandschwert",
 		8:"Zweihandschwert",
+		9:"Obsolete",
 		10:"Stab",
+		11:"One-Handed Exotics",
+		12:"Two-Handed Exotics",
 		13:"Faustwaffe",
 		14:"Versch. (Waffen)",
 		15:"Dolch",
 		16:"Wurfwaffe",
+		17:"Spear",
 		18:"Armbrust",
 		19:"Zauberstab",
 		20:"Angelrute"
@@ -1085,6 +1096,10 @@ var g_item_subclasses={
 		2:"Köcher",
 		3:"Munitionsbeutel"
 	},
+	13:{
+		0:"Key",
+		1:"Lockpick"
+	},
 	15:{
 		"-7":"Flugtier",
 		"-6":"Wächter",
@@ -1097,16 +1112,16 @@ var g_item_subclasses={
 		5:"Reittier"
 	},
 	16:{
-		6:"Todesritterglyphe",
-		11:"Druidenglyphe",
-		3:"Jägerglyphe",
-		8:"Magierglyphe",
+		1:"Kriegerglyphe",
 		2:"Paladinglyphe",
-		5:"Priesterglyphe",
+		3:"Jägerglyphe",
 		4:"Schurkenglyphe",
+		5:"Priesterglyphe",
+		6:"Todesritterglyphe",
 		7:"Schamanenglyphe",
+		8:"Magierglyphe",
 		9:"Hexenmeisterglyphe",
-		1:"Kriegerglyphe"
+		11:"Druidenglyphe"
 	}
 };
 var g_item_subsubclasses={
@@ -1171,6 +1186,7 @@ var g_npc_classifications={
 	4:"Rar"
 };
 var g_npc_types={
+	0:"Unknown type",
 	1:"Wildtier",
 	8:"Tier",
 	3:"Dämon",
@@ -1180,7 +1196,10 @@ var g_npc_types={
 	7:"Humanoid",
 	9:"Mechanisch",
 	6:"Untot",
-	10:"Nicht kategorisiert"
+	10:"Nicht kategorisiert",
+	11:"Totem",
+	12:"Companion",
+	13:"Gas cloud"
 };
 var g_pet_families={
 	"1":"Wolf",
@@ -1763,6 +1782,8 @@ var g_zone_territories={
 };
 var g_faction_categories={
 	"0":"Anderes",
+	"948":"Anderes",
+	"949":"Anderes",
 	"469":"Allianz",
 	"1118":"Classic",
 	"169":"Dampfdruckkartell",
