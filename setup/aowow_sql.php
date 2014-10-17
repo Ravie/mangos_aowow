@@ -675,13 +675,13 @@ CREATE TABLE `aowow_zones` (
   `mapID` smallint(3) unsigned NOT NULL COMMENT 'Map Identifier',
   `areatableID`  smallint(3) unsigned NOT NULL COMMENT 'Zone Id',
   `name_loc0` varchar(255) NOT NULL COMMENT 'Map Name',
-  `explevel` smallint(4) unsigned NOT NULL COMMENT 'Zone Level',
   `x_min` float NOT NULL DEFAULT 0.0,
   `y_min` float NOT NULL DEFAULT 0.0,
   `x_max` float NOT NULL DEFAULT 0.0,
   `y_max` float NOT NULL DEFAULT 0.0,
   `type` tinyint(2) unsigned NOT NULL,
   `parent` smallint(4) unsigned NOT NULL COMMENT 'Parent Zone Id',
+  `explevel` smallint(4) unsigned NOT NULL COMMENT 'Zone Level',
   `pointX` float NOT NULL DEFAULT 0.0,
   `pointY` float NOT NULL DEFAULT 0.0,
   INDEX `idx_mapid`(`mapID`),
@@ -754,7 +754,7 @@ CREATE TABLE `aowow_zones` (
         break;
       }
     }
-    $dbc[$row_tmp[0]] = array($row_tmp[1], $row_tmp[0], $row_tmp[4], $row_tmp[3], 0, 0, 0, 0, $type, $row_tmp[2], $pointX, $pointY);
+    $dbc[$row_tmp[0]] = array($row_tmp[1], $row_tmp[0], $row_tmp[4], 0, 0, 0, 0, $type, $row_tmp[2], $row_tmp[3], $pointX, $pointY);
   }
 
   // Update data with coords, where available

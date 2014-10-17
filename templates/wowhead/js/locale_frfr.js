@@ -168,10 +168,6 @@ var mn_items=[
 		[7,"Simple"],
 		[8,"Prismatique"]
 	]],
-	[13,"Keys",,[
-		[0,"Keys"],
-		[1,"Lockpicks"]
-	]],
 	[15,"Divers",,[
 		[3,"Évènement"],
 		[0,"Camelote"],
@@ -181,7 +177,8 @@ var mn_items=[
 		[4,"Autre"]
 	]],
 	[10,"Monnaies"],
-	[12,"Quête"]
+	[12,"Quête"],
+	[13,"Keys"]
 ];
 var mn_itemSets=[
 	[6,"Chevalier de la mort"],
@@ -976,6 +973,7 @@ var g_item_slots={
 };
 var g_item_classes={
 	5:"Composant",
+	8:"Generic",
 	10:"Monnaies",
 	12:"Quête",
 	13:"Clé"
@@ -1095,10 +1093,6 @@ var g_item_subclasses={
 	11:{
 		2:"Carquois",
 		3:"Giberne"
-	},
-	13:{
-		0:"Key",
-		1:"Lockpick"
 	},
 	15:{
 		"-7":"Monture volante",

@@ -168,10 +168,6 @@ var mn_items=[
 		[7,"Einfach"],
 		[8,"Prismatisch"]
 	]],
-	[13,"Keys",,[
-		[0,"Keys"],
-		[1,"Lockpicks"]
-	]],
 	[15,"Verschiedenes",,[
 		[3,"Feiertag"],
 		[0,"Plunder"],
@@ -181,7 +177,8 @@ var mn_items=[
 		[4,"Anderes"]
 	]],
 	[10,"Währung"],
-	[12,"Quest"]
+	[12,"Quest"],
+	[13,"Keys"]
 ];
 var mn_itemSets=[
 	[6,"Todesritter"],
@@ -976,6 +973,7 @@ var g_item_slots={
 };
 var g_item_classes={
 	5:"Reagenz",
+	8:"Generic",
 	10:"Währung",
 	12:"Quest",
 	13:"Schlüssel"
@@ -1095,10 +1093,6 @@ var g_item_subclasses={
 	11:{
 		2:"Köcher",
 		3:"Munitionsbeutel"
-	},
-	13:{
-		0:"Key",
-		1:"Lockpick"
 	},
 	15:{
 		"-7":"Flugtier",

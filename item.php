@@ -573,8 +573,6 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 				',
 				$lootid
 			);
-			if($row['explevel'] > 80)
-				$row['explevel'] = NULL;
 			if($row)
 			{
 				$item['fishedin'][] = array_merge($row, $drop);
@@ -591,8 +589,6 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 					',
 					$lootid
 				);
-				if($row['explevel'] > 80)
-					$row['explevel'] = NULL;
 				if($row)
 					$item['fishedin'][] = array_merge($row, $drop);
 			}

@@ -168,10 +168,6 @@ var mn_items=[
 		[7,"Simple"],
 		[8,"Prismatic"]
 	]],
-	[13,"Keys",,[
-		[0,"Keys"],
-		[1,"Lockpicks"]
-	]],
 	[15,"Miscellaneous",,[
 		[3,"Holiday"],
 		[0,"Junk"],
@@ -181,7 +177,8 @@ var mn_items=[
 		[4,"Other"]
 	]],
 	[10,"Currency"],
-	[12,"Quest"]
+	[12,"Quest"],
+	[13,"Keys"]
 ];
 var mn_itemSets=[
 	[6,"Death Knight"],
@@ -976,6 +973,7 @@ var g_item_slots={
 };
 var g_item_classes={
 	5:"Reagent",
+	8:"Generic",
 	10:"Currency",
 	12:"Quest",
 	13:"Key"
@@ -1095,10 +1093,6 @@ var g_item_subclasses={
 	11:{
 		2:"Quiver",
 		3:"Ammo Pouch"
-	},
-	13:{
-		0:"Key",
-		1:"Lockpick"
 	},
 	15:{
 		"-7":"Flying Mount",
