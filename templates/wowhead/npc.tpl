@@ -17,7 +17,7 @@
 					<ul>
 						<li><div>{#Level#}: {if $npc.minlevel<>$npc.maxlevel}{$npc.minlevel} - {/if}{$npc.maxlevel}</div></li>
 						<li><div>{#Classification#}: {$npc.rank}</div></li>
-						<li><div>{#React#}: <span class="q{if $npc.A==-1}10{elseif $npc.A==1}2{else}{/if}">A</span> <span class="q{if $npc.H==-1}10{elseif $npc.H==1}2{else}{/if}">H</span></div></li>
+						<li><div>{#React#}: <span class="q{if $npc.A==-1}10{elseif $npc.A==1}2{else}{/if}">{#A#}</span> <span class="q{if $npc.H==-1}10{elseif $npc.H==1}2{else}{/if}">{#H#}</span></div></li>
 						<li><div>{#Faction#}: <a href="?faction={$npc.faction_num}">{$npc.faction}</a></div></li>
 						<li><div>{#Health#}: {if $npc.minhealth<>$npc.maxhealth}{$npc.minhealth} - {/if}{$npc.maxhealth}</div></li>
 						{if ($npc.minmana or $npc.maxmana)}
@@ -25,8 +25,8 @@
 						{/if}
 						{if ($npc.moneysilver>0) or ($npc.moneygold>0) or ($npc.moneycopper>0)}
 							<li><div>{#Wealth#}:
-							{if ($npc.moneygold>0)}]<span class="moneygold">{$npc.moneygold}</span>{/if}
-							{if ($npc.moneysilver>0)}]<span class="moneysilver">{$npc.moneysilver}</span>{/if}
+							{if ($npc.moneygold>0)}<span class="moneygold">{$npc.moneygold}</span>{/if}
+							{if ($npc.moneysilver>0)}<span class="moneysilver">{$npc.moneysilver}</span>{/if}
 							{if ($npc.moneycopper>0)}<span class="moneycopper">{$npc.moneycopper}</span>{/if}
 						</div></li>{/if}
 						{if $npc.mindmg > 0 and $npc.maxdmg > 0}

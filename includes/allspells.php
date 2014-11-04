@@ -627,7 +627,7 @@ function spell_desc2($spellRow, $type='tooltip')
 			case 'o':
 				if($lookup > 0 && $exprData[0])
 				{
-					$spell = $DB->selectRow('SELECT effect'.$exprData[0].'BasePoints, effect'.$exprData[0].'Amplitude, effect'.$exprData[0].'DieSides FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
+					$spell = $DB->selectRow('SELECT durationID, effect'.$exprData[0].'BasePoints, effect'.$exprData[0].'Amplitude, effect'.$exprData[0].'DieSides FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
 					$lastduration = $DB->selectRow('SELECT * FROM ?_spellduration WHERE durationID=? LIMIT 1', $spell['durationID']);
 				}
 				else

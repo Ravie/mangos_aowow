@@ -1,10 +1,10 @@
 <?php
 require_once('includes/alllocales.php');
 // Для списка creatureinfo()
-$npc_cols[0] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'DifficultyEntry1', 'DifficultyEntry2', 'Expansion');
+$npc_cols[0] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'DifficultyEntry1', 'DifficultyEntry2', 'DifficultyEntry3', 'Expansion');
 $npc_cols[1] = array('name', 'SubName', 'MinLevel', 'MaxLevel', 'CreatureType', 'Rank', 'MinLevelHealth', 'MaxLevelHealth', 'MinLevelMana', 'MaxLevelMana', 'MinLootGold', 'MaxLootGold', 'LootId', 'SkinningLootId', 'PickpocketLootId', 'MinMeleeDmg', 'MaxMeleeDmg', 'MeleeAttackPower', 'DamageMultiplier', 'Armor', 'DifficultyEntry1', 'DifficultyEntry2', 'DifficultyEntry3', 'Expansion');
 $npc_type = array(LOCALE_TYPENPC_UNDEFINED,LOCALE_TYPENPC_BEAST,LOCALE_TYPENPC_DRAGON,LOCALE_TYPENPC_DEMON,LOCALE_TYPENPC_ELEM,LOCALE_TYPENPC_GIANT,LOCALE_TYPENPC_UNDEAD,LOCALE_TYPENPC_HUMAN,LOCALE_TYPENPC_CRITTER,LOCALE_TYPENPC_MECHANIC,LOCALE_TYPENPC_UNCATEGORY,LOCALE_TYPENPC_TOTEM,LOCALE_TYPENPC_COMPANION,LOCALE_TYPENPC_GAS_CLOUD);
-$npc_rank = array(LOCALE_NORMAL,LOCALE_ELITE,LOCALE_RARE_ELITE,LOCALE_BOSS,LOCALE_RARE);
+$npc_rank = array(LOCALE_NORMAL,LOCALE_ELITE,LOCALE_RARE_ELITE,LOCALE_BOSS,LOCALE_RARE,LOCALE_UNKNOWN);
 
 // Функция информации о создании
 function creatureinfo2($Row, $level = 0)
@@ -12,7 +12,10 @@ function creatureinfo2($Row, $level = 0)
 	global $npc_type, $npc_rank;
 	$creature = array(
 		'entry'			=> $Row['entry'],
+		'source_name'	=> $Row['name'],
 		'subname'		=> localizedName($Row, 'subname'),
+		'name_loc'		=> $Row['name_loc'],
+		'subname_loc'	=> $Row['subname_loc'],
 		'minlevel'		=> $Row['MinLevel'],
 		'maxlevel'		=> $Row['MaxLevel'],
 		'react'			=> $Row['A'].','.$Row['H'],
@@ -29,6 +32,7 @@ function creatureinfo2($Row, $level = 0)
 	else
 		$creature['expansion'] = '';
 	$creature['name'] = localizedName($Row);
+	/*
 	//entry
 	if($creature['diffentry2'] != 0)
 		$creature['name'] .= LOCALE_10NORMAL;
@@ -42,7 +46,7 @@ function creatureinfo2($Row, $level = 0)
 	//DifficultyEntry3
 	if(strpos($creature['name'],'(3)'))
 		$creature['name'] = str_replace(' (3)', LOCALE_25HEROIC, $creature['name']);
-	
+	*/
 	$x = '';
 	$x .= '<table><tr><td>'.$creature['expansion'].'<b class="q">';
 	$x .= htmlspecialchars($creature['name']);

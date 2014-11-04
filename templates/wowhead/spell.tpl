@@ -11,7 +11,7 @@
 			g_initPath({$page.path});
 		</script>
 
-		<table class="infobox">
+		{if $spell.level}<table class="infobox">
 			<tr><th>{#Quick_Facts#}</th></tr>
 			<tr><td>
 				<div class="infobox-spacer"></div>
@@ -22,8 +22,7 @@
 					</ul>
 				</td></tr>
 			<tr><td><div class="infobox-spacer"></div><div id="infobox-sticky"></div></td></tr>
-
-		</table>
+		</table>{/if}
 
 		<div class="text">
 			<a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>

@@ -163,6 +163,7 @@ switch($_SESSION['locale'])
 			'LOCALE_RARE_ELITE'	=> '(Редкий Элитный)',
 			'LOCALE_BOSS'		=> '(Босс)',
 			'LOCALE_RARE'		=> '(Редкий)',
+			'LOCALE_UNKNOWN'	=> '(Неизвестный ранг)',
 			// object type
 			'LOCALE_TYPEGO_BOOK'		=> 'Книга',
 			'LOCALE_TYPEGO_CONTAINER'   => 'Контейнер',
@@ -477,6 +478,7 @@ switch($_SESSION['locale'])
 			'LOCALE_RARE_ELITE'		 => '(Rare Elite)',
 			'LOCALE_BOSS'			   => '(Boss)',
 			'LOCALE_RARE'			   => '(Rare)',
+			'LOCALE_UNKNOWN'	=> '(Unknown rank)',
 			// object type
 			'LOCALE_TYPEGO_BOOK'		=> 'Book',
 			'LOCALE_TYPEGO_CONTAINER'   => 'Container',
@@ -790,6 +792,7 @@ switch($_SESSION['locale'])
 			'LOCALE_RARE_ELITE'		 => '(Rare Elite)',
 			'LOCALE_BOSS'			   => '(Boss)',
 			'LOCALE_RARE'			   => '(Rare)',
+			'LOCALE_UNKNOWN'		=> '(Unknown rank)',
 			// object type
 			'LOCALE_TYPEGO_BOOK'		=> 'Book',
 			'LOCALE_TYPEGO_CONTAINER'   => 'Container',
@@ -1103,6 +1106,7 @@ switch($_SESSION['locale'])
 			'LOCALE_RARE_ELITE'		 => '(Rare Elite)',
 			'LOCALE_BOSS'			   => '(Boss)',
 			'LOCALE_RARE'			   => '(Rare)',
+			'LOCALE_UNKNOWN'		=> '(Unknown rank)',
 			// object type
 			'LOCALE_TYPEGO_BOOK'		=> 'Book',
 			'LOCALE_TYPEGO_CONTAINER'   => 'Container',
