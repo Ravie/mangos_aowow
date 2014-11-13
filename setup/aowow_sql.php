@@ -385,6 +385,7 @@ CREATE TABLE `aowow_spell` (
   `procCharges` mediumint(11) unsigned NOT NULL,
   `levelspell` mediumint(11) unsigned NOT NULL, 
   `durationID` smallint(3) unsigned NOT NULL,
+  `powerType` smallint(3) unsigned NOT NULL,
   `manacost` mediumint(11) unsigned NOT NULL, 
   `rangeID` tinyint(3) unsigned NOT NULL,
   `stack` mediumint(11) unsigned NOT NULL,
@@ -460,11 +461,12 @@ CREATE TABLE `aowow_spell` (
   `dmg_multiplier2` float NOT NULL,
   `dmg_multiplier3` float NOT NULL,
   `schoolMask` int(11) NOT NULL,
+  `runeCostID` mediumint(11) unsigned NOT NULL,
   PRIMARY KEY  (`spellID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Spells';
 
 <?php
-  $dbc = dbc2array_("Spell.dbc", "niiixxxxxxxxxxxxxxxxxxxxxxxxiiixiixiixxiixixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxixxxxxxxx");
+  $dbc = dbc2array_("Spell.dbc", "niiixxxxxxxxxxxxxxxxxxxxxxxxiiixiixiixxiiiixxxixxiiiiiiiiiiiiiiiiiiixxxiiiiiixxxiiixxxiiiiiiiiiiiiiiifffiiiiiiiiixxxiiifffxxxxxxxxxxxixxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxsxxxxxxxxxxxxxxxxixxixxxxixxxfffxxxxxxiixxxxxxx");
   print_insert('INSERT INTO `aowow_spell` VALUES', $dbc);
 ?>
 -- SpellDuration.dbc
@@ -506,6 +508,21 @@ CREATE TABLE `aowow_spellradius` (
 <?php
   $dbc = dbc2array_("SpellRadius.dbc", "nfxx");
   print_insert('INSERT INTO `aowow_spellradius` VALUES', $dbc);
+?>
+-- SpellRuneCost.dbc
+DROP TABLE IF EXISTS `aowow_spellrunecost`;
+CREATE TABLE `aowow_spellrunecost` (
+  `runeID` smallint(4) unsigned NOT NULL,
+  `BloodRuneCost` tinyint(2) unsigned NOT NULL,
+  `UnholyRuneCost` tinyint(2) unsigned NOT NULL,
+  `FrostRuneCost` tinyint(2) unsigned NOT NULL,
+  `RunePowerGain` smallint(4) unsigned NOT NULL,
+  PRIMARY KEY  (`runeID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+<?php
+  $dbc = dbc2array_("SpellRuneCost.dbc", "niiii");
+  print_insert('INSERT INTO `aowow_spellrunecost` VALUES', $dbc);
 ?>
 -- SpellItemEnchantment.dbc
 DROP TABLE IF EXISTS `aowow_itemenchantmet`;
