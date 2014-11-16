@@ -108,7 +108,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 
 	// Поиск вендоров, которые эту вещь продают
 	$rows_soldby = $DB->select('
-			SELECT ?#, c.entry, v.ExtendedCost, ft.A, v.maxcount AS stock
+			SELECT ?#, c.entry, v.ExtendedCost, ft.A, ft.H, v.maxcount AS stock
 			{
 				, l.name_loc?d AS name_loc
 				, l.subname_loc?d AS subname_loc
@@ -151,7 +151,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 						$item['soldby'][$i]['cost']['items'][] = array('item' => $extcost['reqitem'.$j], 'count' => $extcost['reqitemcount'.$j]);
 					}
 			}
-			else
+			if($item['BuyPrice'] > 0)
 				$item['soldby'][$i]['cost']['money'] = $item['BuyPrice'];
 		}
 		unset($extcost);
@@ -639,8 +639,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		SELECT ?#, i.entry, i.maxcount, n.`maxcount` as `drop-maxcount`, n.ExtendedCost,
 			{l.name_loc?d AS `name_loc`,}
 			reqitem1, reqitem2, reqitem3, reqitem4, reqitem5,
-			reqitemcount1, reqitemcount2, reqitemcount3, reqitemcount4, reqitemcount5,
-			reqhonorpoints, reqarenapoints
+			reqitemcount1, reqitemcount2, reqitemcount3, reqitemcount4, reqitemcount5, reqarenapoints
 		FROM npc_vendor n, ?_icons, ?_item_extended_cost iec, item_template i
 			{LEFT JOIN (locales_item l) ON l.entry=i.entry AND ?d}
 		WHERE (iec.reqitem1=?
@@ -668,22 +667,19 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 			$item['currencyfor'][$id]['maxcount'] = $row['drop-maxcount'];
 			$item['currencyfor'][$id]['cost'] = array();
 			if($row['BuyPrice']>0)
-				$npc['sells'][$id]['cost']['money'] = $row['BuyPrice'];
-
-			//if($row['reqhonorpoints']>0)
-				//$item['currencyfor'][$id]['cost']['honor'] = ($row['A'] == 1 ? 1 : -1) * $row['reqhonorpoints'];
+				$item['currencyfor'][$id]['cost']['money'] = $row['BuyPrice'];
 			if($row['reqarenapoints']>0)
 				$item['currencyfor'][$id]['cost']['arena'] = $row['reqarenapoints'];
 			$item['currencyfor'][$id]['cost']['items'] = array();
 			for($j=1; $j<=5; $j++)
-			if(($row['reqitem'.$j]>0) and ($row['reqitemcount'.$j]>0))
-			{
-				allitemsinfo($row['reqitem'.$j], 0);
-				$item['currencyfor'][$id]['cost']['items'][] = array(
-					'item' => $row['reqitem'.$j],
-					'count' => $row['reqitemcount'.$j]
-				);
-			}
+				if(($row['reqitem'.$j]>0) and ($row['reqitemcount'.$j]>0))
+				{
+				    allitemsinfo($row['reqitem'.$j], 0);
+				    $item['currencyfor'][$id]['cost']['items'][] = array(
+				        'item' => $row['reqitem'.$j],
+				        'count' => $row['reqitemcount'.$j]
+				    );
+				}
 		}
 	}
 	unset($rows_cf);

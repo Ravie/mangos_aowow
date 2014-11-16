@@ -535,7 +535,7 @@ class DbSimple_Generic_Database extends DbSimple_Generic_LastError
             $fetchTime = $firstFetchTime = 0;
             $qStart    = $this->_microtime();
             $cacheData = $this->_cache($hash);
-            $queryTime = $this->_microtime() - $qStart;
+            $queryTime = round($this->_microtime() - $qStart, 5);
 
             $storeTime  = isset($cacheData['storeTime'])  ? $cacheData['storeTime']  : null;
             $invalCache = isset($cacheData['invalCache']) ? $cacheData['invalCache'] : null;
@@ -609,7 +609,7 @@ class DbSimple_Generic_Database extends DbSimple_Generic_LastError
             } else {
                 $rows = $result;
             }
-            $queryTime = $this->_microtime() - $qStart;
+            $queryTime = round($this->_microtime() - $qStart, 5);
 
             // Log query statistics.
             $this->_logQueryStat($queryTime, $fetchTime, $firstFetchTime, $rows);

@@ -186,7 +186,7 @@ function req_spell($spell_id)
     return $DB->selectCell('SELECT spellname_loc'.$_SESSION['locale'].' FROM ?_spell WHERE spellID=?d LIMIT 1', $spell_id);
 }
 
-function spell_to_bonus($spell_id, $trigger, $charges, $ppmrate, $cooldown, $catcooldown)
+function spell_to_bonus($spell_id, $trigger, $ppmrate, $cooldown, $catcooldown)
 {
     $tooltip = spell_desc($spell_id);
     if($tooltip == '_empty_')
@@ -219,13 +219,7 @@ function spell_to_bonus($spell_id, $trigger, $charges, $ppmrate, $cooldown, $cat
         $cooldown = $catcooldown;
     if($cooldown > 0)
         $tooltip = $tooltip.' ('.LOCALE_COOLDOWN.': '.sec_to_time($cooldown/1000).')';
-        
-    if ($charges == -1)
-        $tooltip = $tooltip . ', ' . LOCALE_GBONUS_EXPENDABLE;
-    elseif ($charges < 0)
-        $tooltip = $tooltip . ', ' . (-$charges) . ' ' . LOCALE_GBONUS_CHARGES . ', ' . LOCALE_GBONUS_EXPENDABLE;
-    elseif ($charges > 0)
-        $tooltip = $tooltip . ', ' . $charges . ' ' . LOCALE_GBONUS_CHARGES;
+    
     return $tooltip;
 }
 
@@ -466,8 +460,7 @@ function render_item_tooltip(&$Row)
     for($j=1;$j<=5;$j++)
     {
         if($Row['spellid_'.$j])
-            $green[]=spell_to_bonus($Row['spellid_'.$j], $Row['spelltrigger_'.$j],
-                $Row['spellcharges_'.$j], $Row['spellppmRate_'.$j],
+            $green[]=spell_to_bonus($Row['spellid_'.$j], $Row['spelltrigger_'.$j], $Row['spellppmRate_'.$j],
                 $Row['spellcooldown_'.$j], $Row['spellcategorycooldown_'.$j]);
     }
 
@@ -559,7 +552,7 @@ function iteminfo2(&$Row, $level=0)
     global $allitems;
     global $spell_cols;
     global $object_cols;
-
+    
     $item = array();
     // Номер вещи
     $item['entry'] = $Row['entry'];
@@ -621,6 +614,15 @@ function iteminfo2(&$Row, $level=0)
         // Навык энчанта для разборки вещи
         if($Row['RequiredDisenchantSkill']!=-1)
             $item['disenchantskill'] = $Row['RequiredDisenchantSkill'];
+        for($j=1;$j<=5;$j++)
+        {
+            if ($Row['spellid_'.$j] && $Row['spellcharges_'.$j] == -1)
+                $item['charges'][$j] = LOCALE_GBONUS_EXPENDABLE.' ('.$Row['spellid_'.$j].')';
+            elseif ($Row['spellid_'.$j] && $Row['spellcharges_'.$j] < 0)
+                $item['charges'][$j] = (-$Row['spellcharges_'.$j]).' '.LOCALE_GBONUS_CHARGES.', '.LOCALE_GBONUS_EXPENDABLE.' ('.$Row['spellid_'.$j].')';
+            elseif ($Row['spellid_'.$j] && $Row['spellcharges_'.$j] > 0)
+                $item['charges'][$j] = $Row['spellcharges_'.$j].' '.LOCALE_GBONUS_CHARGES.' ('.$Row['spellid_'.$j].')';
+        }
         // Цена на продажу
         $item['sellgold'] = floor($Row['SellPrice']/10000);
         $item['sellsilver'] = floor($Row['SellPrice']%10000/100);

@@ -33,8 +33,23 @@
 									{if $item.sellcopper}<span class="moneycopper">{$item.sellcopper}</span>{/if}
 								</div></li>
 							{/if}
-							{if isset($item.disenchantskill)}<li><div>{#Disenchantable#} (<span class="tip" onmouseover="Tooltip.showAtCursor(event, LANG.tooltip_reqenchanting, 0, 0, 'q')" onmousemove="Tooltip.cursorUpdate(event)" onmouseout="Tooltip.hide()">{$item.disenchantskill}</span>)</div></li>{/if}
-							{if isset($item.key)}<li><div>{#Can_be_placed_in_the_keyring#}</div></li>{/if}
+							{if isset($item.disenchantskill)}
+								<li><div>
+									{#Disenchantable#} (<span class="tip" onmouseover="Tooltip.showAtCursor(event, LANG.tooltip_reqenchanting, 0, 0, 'q')" onmousemove="Tooltip.cursorUpdate(event)" onmouseout="Tooltip.hide()">{$item.disenchantskill}</span>)
+								</div></li>
+							{/if}
+							{if isset($item.key)}
+								<li><div>
+									{#Can_be_placed_in_the_keyring#}
+								</div></li>
+							{/if}
+							{if isset($item.charges)}
+								{if $item.charges.1}<li><div>{$item.charges.1}</div></li>{/if}
+								{if $item.charges.2}<li><div>{$item.charges.2}</div></li>{/if}
+								{if $item.charges.3}<li><div>{$item.charges.3}</div></li>{/if}
+								{if $item.charges.4}<li><div>{$item.charges.4}</div></li>{/if}
+								{if $item.charges.5}<li><div>{$item.charges.5}</div></li>{/if}
+							{/if}
 						</ul>
 					</td></tr>
 				</table>

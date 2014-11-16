@@ -385,7 +385,7 @@ CREATE TABLE `aowow_spell` (
   `procCharges` mediumint(11) unsigned NOT NULL,
   `levelspell` mediumint(11) unsigned NOT NULL, 
   `durationID` smallint(3) unsigned NOT NULL,
-  `powerType` smallint(3) unsigned NOT NULL,
+  `powerType` tinyint(1) unsigned NOT NULL,
   `manacost` mediumint(11) unsigned NOT NULL, 
   `rangeID` tinyint(3) unsigned NOT NULL,
   `stack` mediumint(11) unsigned NOT NULL,
@@ -461,7 +461,7 @@ CREATE TABLE `aowow_spell` (
   `dmg_multiplier2` float NOT NULL,
   `dmg_multiplier3` float NOT NULL,
   `schoolMask` int(11) NOT NULL,
-  `runeCostID` mediumint(11) unsigned NOT NULL,
+  `runeCostID` smallint(4) unsigned NOT NULL,
   PRIMARY KEY  (`spellID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Spells';
 

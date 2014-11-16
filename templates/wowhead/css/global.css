@@ -1114,6 +1114,11 @@ padding-right:18px;
 background-image:url(../images/socket_blue.gif);
 }
 
+.err {
+color:#ffffff!important;
+background-color:#ff0000;
+}
+
 .q {
 color:#ffd100!important;
 }

@@ -286,9 +286,10 @@ switch($_SESSION['locale'])
 			//'LOCALE_GLYPH_OF'	 		=>	'Символ ', // used by locale=0
 
 			// spells
-			'LOCALE_MANA'				   	=>  'ед. маны',
+			'LOCALE_MANA'				   	=>  'Мана',
 			'LOCALE_BASE_MANA'			  	=>  'от базовой маны',
 			'LOCALE_RANGE'				  	=>  'Радиус действия',
+			'LOCALE_UNLIMITED_DISTANCE'		=>  'Неограниченное расстояние',
 			'LOCALE_YARDS'				  	=>  'м',
 			'LOCALE_CHANNELED'			  	=>  'Направляемое',
 			'LOCALE_CASTTIME'			  	=>  'Применение',
@@ -604,6 +605,7 @@ switch($_SESSION['locale'])
 			'LOCALE_MANA'				=> 'units of mana',
 			'LOCALE_BASE_MANA'		   => 'of base mana',
 			'LOCALE_RANGE'			   => 'Range',
+			'LOCALE_UNLIMITED_DISTANCE'	=>  'Unlimited distance',
 			'LOCALE_YARDS'			   => 'yards',
 			'LOCALE_CHANNELED'		   => 'Channeled',
 			'LOCALE_CASTTIME'			=> 'Cast time',
@@ -918,6 +920,7 @@ switch($_SESSION['locale'])
 			'LOCALE_MANA'				=> 'units of mana',
 			'LOCALE_BASE_MANA'		   => 'of base mana',
 			'LOCALE_RANGE'			   => 'Range',
+			'LOCALE_UNLIMITED_DISTANCE'	=>  'Unlimited distance',
 			'LOCALE_YARDS'			   => 'yards',
 			'LOCALE_CHANNELED'		   => 'Channeled',
 			'LOCALE_CASTTIME'			=> 'Cast time',
@@ -1232,6 +1235,7 @@ switch($_SESSION['locale'])
 			'LOCALE_MANA'				 => 'units of mana',
 			'LOCALE_BASE_MANA'			=> 'of base mana',
 			'LOCALE_RANGE'				=> 'Range',
+			'LOCALE_UNLIMITED_DISTANCE'	=>  'Unlimited distance',
 			'LOCALE_YARDS'				=> 'yards',
 			'LOCALE_CHANNELED'			=> 'Channeled',
 			'LOCALE_CASTTIME'			 => 'Cast time',

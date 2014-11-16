@@ -157,27 +157,22 @@ function sec_to_time($secs)
 	{
 		$time['d'] = floor($secs/3600/24);
 		$secs = $secs - $time['d']*3600*24;
+		$time['d'] .= ' '.LOCALE_DAYS;
 	}
 	if($secs>=3600)
 	{
 		$time['h'] = floor($secs/3600);
 		$secs = $secs - $time['h']*3600;
+		$time['h'] .= ' '.LOCALE_HOURS;
 	}
 	if($secs>=60)
 	{
 		$time['m'] = floor($secs/60);
 		$secs = $secs - $time['m']*60;
+		$time['m'] .= ' '.LOCALE_MINUTES;
 	}
 	if($secs>0)
-		$time['s'] = $secs;
-	if(isset($time['d']))
-		$time['d'] .= ' '.LOCALE_DAYS;
-	if(isset($time['h']))	
-		$time['h'] .= ' '.LOCALE_HOURS;
-	if(isset($time['m']))	
-		$time['m'] .= ' '.LOCALE_MINUTES;
-	if(isset($time['s']))	
-		$time['s'] .= ' '.LOCALE_SECONDS;
+		$time['s'] = $secs.' '.LOCALE_SECONDS;
 	$string = implode(", ", $time);
 	return $string;
 }
@@ -588,7 +583,7 @@ function load_cache($type, $type_id, $prefix = '')
 {
 	global $cache_types, $smarty, $allitems, $allspells, $allachievements, $npc, $object, $AoWoWconf;
 
-	if($AoWoWconf['debug'])
+	if($AoWoWconf['debug'] || $AoWoWconf['disable_cache'])
 		return false;
 
 	$type_str = $cache_types[$type][0];
@@ -602,7 +597,7 @@ function load_cache($type, $type_id, $prefix = '')
 
 	$data = explode("\n", $data);
 
-	@list($time, $rev) = explode(' ', $data[0]);
+	list($time, $rev) = explode(' ', $data[0]);
 	$expire_time = $time + $AoWoWconf['aowow']['cache_time'];
 	if($expire_time <= time() || $rev < AOWOW_REVISION)
 		return false;

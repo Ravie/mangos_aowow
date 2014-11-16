@@ -2,6 +2,8 @@
 
 require_once('includes/allitems.php');
 
+define('SPELL_MAX_DISTANCE', 50000);
+
 // Названия аур
 $spell_aura_names = array(
 	0 => 'None',
@@ -472,20 +474,8 @@ $pet_skill_categories = array(
 );
 
 $spell_cols[0] = array('spellID', 'iconname', 'effect1itemtype', 'effect1Aura', 'spellname_loc'.$_SESSION['locale']);
-$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'levelspell', 'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
+$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'],  'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
 $spell_cols[2] = array('spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'levelspell', 'schoolMask', 'effect1itemtype', 'effect2itemtype', 'effect3itemtype', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'iconname', 'effect1Aura', 'effect2Aura', 'effect3Aura');
-
-function spell_duration($base)
-{
-	if(($base > 0) and ($base < 60000))
-		return round($base/1000).' '.LOCALE_SECONDS;
-	elseif(($base >= 60000) and ($base < 3600000))
-		return round($base/60000).' '.LOCALE_MINUTES;
-	elseif(($base >= 3600000) and ($base < 86400000))
-		return round($base/3600000).' '.LOCALE_HOURS;
-	elseif($base >= 86400000)
-		return round($base/86400000).' '.LOCALE_DAYS;
-}
 
 function spell_schoolmask($schoolMask)
 {
@@ -541,6 +531,7 @@ function spell_desc2($spellRow, $type='tooltip')
 
 	$pos = 0;
 	$str = '';
+	$replace = true;
 	while(false!==($npos=strpos($data, '$', $pos)))
 	{
 		if($npos!=$pos)
@@ -554,23 +545,36 @@ function spell_desc2($spellRow, $type='tooltip')
 			continue;
 		}
 
-		if(!preg_match('/^((([+\-\/*])(\d+);)?(\d*)(?:([lg].*?:.*?);|(\w\d*)))/', substr($data, $pos), $result))
+		if(!preg_match('/^(((([+\-\/*])(\d+);)?(\d*)(?:([lgLG].*?:.*?);|(\w\d*)))|(\<([^\>]+)\>)|(\w{2,}))/', substr($data, $pos), $result))
 			continue;
 
-		if(empty($exprData[0]))
-			$exprData[0] = 1;
-
-		$op = $result[3];
-		$oparg = $result[4];
-		$lookup = $result[5];
-		$var = $result[6] ? $result[6] : $result[7];
+		$op = $result[4];
+		$oparg = $result[5];
+		$lookup = $result[6];
+		$var = $result[7] ? $result[7] : $result[8];
+		if($result[9])
+		{
+			$str .= $result[10];
+			$replace = false;
+		}
+		elseif($result[11])
+		{
+			$str .= $result[11];
+			$replace = false;
+		}
 		$pos += strlen($result[0]);
 
 		if(!$var)
 			continue;
 
+		if(ctype_upper(substr($var, 0, 1))) // only case 'M' from uppercase is implemented
+			$exprUpperCase = true;
+		else
+			$exprUpperCase = false;
 		$exprType = strtolower(substr($var, 0, 1));
 		$exprData = explode(':', substr($var, 1));
+		if(empty($exprData[0]))
+			$exprData[0] = 1;
 		switch($exprType)
 		{
 			case 'r':
@@ -585,6 +589,7 @@ function spell_desc2($spellRow, $type='tooltip')
 					eval("\$base = $equation;");
 				}
 				$str .= $base;
+				$lastvalue = $base;
 				break;
 			case 'z':
 				$str .= htmlspecialchars('<Home>');
@@ -612,17 +617,24 @@ function spell_desc2($spellRow, $type='tooltip')
 				else
 					$spell = $spellRow;
 
-				if(!$exprData[0]) $exprData[0]=1;
-					@$base = $spell['effect'.$exprData[0].'BasePoints']+1;
+				$base = $spell['effect'.$exprData[0].'BasePoints']+1;
 
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
 				{
 					$equation = $base.$op.$oparg;
 					eval("\$base = $equation;");
 				}
-
-				@$str .= abs($base).($spell['effect'.$exprData[0].'DieSides'] > 1 ? LOCALE_VALUE_DELIM.abs(($base+$spell['effect'.$exprData[0].'DieSides'])) : '');
-				$lastvalue = $base;
+				
+				if($base == $base-1+$spell['effect'.$exprData[0].'DieSides'])
+				{
+					$str .= abs($base);
+					$lastvalue = abs($base);
+				}
+				else
+				{
+					$str .= '<NOBR>'.abs($base).LOCALE_VALUE_DELIM.abs($base-1+$spell['effect'.$exprData[0].'DieSides']).'</NOBR>';
+					$lastvalue = abs($base-1+$spell['effect'.$exprData[0].'DieSides']);
+				}
 				break;
 			case 'o':
 				if($lookup > 0 && $exprData[0])
@@ -633,12 +645,27 @@ function spell_desc2($spellRow, $type='tooltip')
 				else
 					$spell = $spellRow;
 
-				if(!$exprData[0]) $exprData[0] = 1;
 				$base = $spell['effect'.$exprData[0].'BasePoints']+1;
-
-				if($spell['effect'.$exprData[0].'Amplitude'] <= 0) $spell['effect'.$exprData[0].'Amplitude'] = 5000;
-
-				$str .= (($lastduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude']) * abs($base).($spell['effect'.$exprData[0].'DieSides'] > 1 ? '-'.abs(($base+$spell['effect'.$exprData[0].'DieSides'])) : ''));
+				if($spell['effect'.$exprData[0].'Amplitude'] <= 0)
+					$spell['effect'.$exprData[0].'Amplitude'] = 5000;
+				$factor = $lastduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'];
+				
+				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
+				{
+					$equation = $base.$op.$oparg;
+					eval("\$base = $equation;");
+				}
+				
+				if($base == $base-1+$spell['effect'.$exprData[0].'DieSides'])
+				{
+					$str .= $factor * abs($base);
+					$lastvalue = $factor * abs($base);
+				}
+				else
+				{
+					$str .= '<NOBR>'.$factor * abs($base).' - '.$factor * abs($base-1+$spell['effect'.$exprData[0].'DieSides']).'</NOBR>';
+					$lastvalue = $factor * abs($base-1+$spell['effect'.$exprData[0].'DieSides']);
+				}
 				break;
 			case 't':
 				if($lookup > 0 && $exprData[0])
@@ -646,12 +673,7 @@ function spell_desc2($spellRow, $type='tooltip')
 				else
 					$spell = $spellRow;
 
-				if(!$exprData[0]) $exprData[0]=1;
-					$base = $spell['effect'.$exprData[0].'Amplitude']/1000;
-
-				// TODO!!
-				if($base==0)	$base=1;
-				// !!TODO
+				$base = $spell['effect'.$exprData[0].'Amplitude']/1000;
 
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
 				{
@@ -663,19 +685,19 @@ function spell_desc2($spellRow, $type='tooltip')
 				break;
 			case 'm':
 				if($lookup > 0 && $exprData[0])
-					$spell = $DB->selectRow('SELECT effect'.$exprData[0].'BasePoints FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
+					$spell = $DB->selectRow('SELECT effect'.$exprData[0].'BasePoints, effect'.$exprData[0].'DieSides FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
 				else
 					$spell = $spellRow;
-
-				// TODO!!
-				if(!$exprData[0]) $exprData[0] = 1;
-
-				$base = $spell['effect'.$exprData[0].'BasePoints']+1;
+					
+				if($exprUpperCase)
+					$base = $spell['effect'.$exprData[0].'BasePoints']+($spell['effect'.$exprData[0].'DieSides']>0 ? $spell['effect'.$exprData[0].'DieSides'] : 1);
+				else
+					$base = $spell['effect'.$exprData[0].'BasePoints']+1;
 
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
 				{
 					$equation = $base.$op.$oparg;
-					eval("\$base = $equation;");
+					eval("\$base = round($equation, 1);");
 				}
 				$str .= abs($base);
 				$lastvalue = $base;
@@ -702,8 +724,6 @@ function spell_desc2($spellRow, $type='tooltip')
 				else
 					$spell = $spellRow;
 
-				if(!($exprData[0]))
-					$exprData[0]=1;
 				$base = $spell['effect'.$exprData[0].'MiscValue'];
 
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
@@ -720,7 +740,6 @@ function spell_desc2($spellRow, $type='tooltip')
 				else
 					$spell = $spellRow;
 
-				$exprData[0] = 1; // TODO
 				$radius = $DB->selectCell('SELECT radiusBase FROM ?_spellradius WHERE radiusID=? LIMIT 1', $spell['effect'.$exprData[0].'radius']);
 				$base = $radius;
 
@@ -780,17 +799,35 @@ function spell_desc2($spellRow, $type='tooltip')
 				if($lookup > 0)
 				{
 					$spell = $DB->selectRow('SELECT durationBase FROM ?_spell a, ?_spellduration b WHERE a.durationID = b.durationID AND a.spellID=? LIMIT 1', $lookup);
-					@$base = ($spell['durationBase'] > 0 ? $spell['durationBase'] + 1 : 0);
+					if(isset($spell['durationBase']))
+						$base = ($spell['durationBase'] > 0) ? $spell['durationBase']+1 : 0;
+					else
+						unset($base);
 				}
+				elseif(isset($lastduration['durationBase']))
+					$base = ($lastduration['durationBase'] > 0) ? $lastduration['durationBase']+1 : 0;
 				else
-					$base = ($lastduration['durationBase'] > 0 ? $lastduration['durationBase'] + 1 : 0);
+					unset($base);
 
 				if($op && is_numeric($oparg) && is_numeric($base))
 				{
 					$equation = $base.$op.$oparg;
 					eval("\$base = $equation;");
 				}
-				$str .= spell_duration($base);
+				if(!isset($base))
+					$str .= '<span class="err">broken spell</span>';
+				if('.' == substr($data, $pos, 1))
+					$str .= sec_to_time(round($base/1000));
+				elseif(($base > 0) and ($base < 60000))
+				{
+					$str .= round($base/1000);
+					$lastvalue = round($base/1000);
+				}
+				elseif(($base >= 60000) and ($base < 3600000))
+				{
+					$str .= round($base/60000);
+					$lastvalue = round($base/60000);
+				}
 				break;
 			case 'i':
 				$base = $spellRow['spellTargets'];
@@ -815,7 +852,6 @@ function spell_desc2($spellRow, $type='tooltip')
 					$equation = $base.$op.$oparg;
 					eval("\$base = $equation;");
 				}
-
 				$str .= $base;
 				$lastvalue = $base;
 				break;
@@ -830,14 +866,12 @@ function spell_desc2($spellRow, $type='tooltip')
 				$str .= $base;
 				break; 
 			case 'u':
-				if($lookup > 0 && $exprData[0])
-					$spell = $DB->selectRow('SELECT effect'.$exprData[0].'MiscValue FROM ?_spell WHERE spellID=?d LIMIT 1', $lookup);
+				if($lookup > 0)
+					$spell = $DB->selectRow('SELECT stack FROM ?_spell WHERE spellID=?d LIMIT 1', $lookup);
 				else
 					$spell = $spellRow;
 					
-				// $base = $spell['effect_'.$exprData[0].'_misc_value'];
-				if(isset($spell['effect'.$exprData[0].'MiscValue']))
-					$base = $spell['effect'.$exprData[0].'MiscValue'];
+				$base = $spell['stack'];
 
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
 				{
@@ -864,23 +898,49 @@ function spell_desc2($spellRow, $type='tooltip')
 				$lastvalue = $base;
 				break;
 			case 'l':
-				if($lastvalue > 1)
-					$str .= $exprData[1];
+				if(isset($exprData[2]))
+				{
+					$tmp = $lastvalue;
+					while($tmp >= 10)
+						$tmp = $tmp % 10;
+					if($tmp == 1)
+						$str .= $exprData[0];
+					elseif($tmp > 1 && $tmp < 5)
+						$str .= $exprData[1];
+					else
+						$str .= $exprData[2];
+				}
 				else
-					$str .= $exprData[0];
+				{
+					if($lastvalue > 1)
+						$str .= $exprData[1];
+					else
+						$str .= $exprData[0];
+				}
 				break;
 			case 'g':
-				$str .= $exprData[0];
+				$str .= $exprData[0].'/'.$exprData[1];
 				break;
 			default:
 				$str .= "[{$var} ($op::$oparg::$lookup::$exprData[0])]";
 		}
 	}
 	$str .= substr($data, $pos);
-
-	$str = @preg_replace_callback("|\{([^\}]+)\}|", create_function('$matches', 'return eval("return abs(".$matches[1].");");'), $str);
-
+	
+	if($replace)
+		$str = preg_replace_callback("|\{([^\}]+)\}(\.([1-2]{1}))*|", "spellregexp", $str);
+	else
+		$str = preg_replace("|\{([^\}]+)\}(\.([1-2]{1}))*|", "$1", $str);
+	
 	return $str;
+}
+
+function spellregexp($matches)
+{
+	if(isset($matches[2]))
+		return eval("return abs(round(".$matches[1].", ".$matches[3]."));");
+	else
+		return eval("return abs(".$matches[1].");");
 }
 
 function render_spell_tooltip(&$row)
@@ -961,7 +1021,7 @@ function render_spell_tooltip(&$row)
 		$x .= '<table width="100%"><tr><td>';
 
 	if($row['manacost'] >0)
-		$x .= $row['manacost'].' '.LOCALE_MANA.'<br />';
+		$x .= LOCALE_MANA.': '.$row['manacost'].' <br />';
 
 	if($row['manacostpercent']>0)
 		$x .= $row['manacostpercent']."% ".LOCALE_BASE_MANA."<br />";
@@ -969,7 +1029,9 @@ function render_spell_tooltip(&$row)
 	if($range && (($row['manacost'] >0) || ($row['manacostpercent']>0)))
 		$x .= '</td><th>';
 
-	if($range)
+	if($range == SPELL_MAX_DISTANCE)
+		$x .= LOCALE_UNLIMITED_DISTANCE.'<br />';
+	elseif($range)
 		$x .= LOCALE_RANGE.': '.$range.' '.LOCALE_YARDS.'<br />';
 
 	if($range && ($row['manacost'] > 0 || $row['manacostpercent'] > 0))

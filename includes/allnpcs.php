@@ -13,16 +13,13 @@ function creatureinfo2($Row, $level = 0)
 	$creature = array(
 		'entry'			=> $Row['entry'],
 		'source_name'	=> $Row['name'],
+		'name'			=> localizedName($Row),
 		'subname'		=> localizedName($Row, 'subname'),
-		'name_loc'		=> $Row['name_loc'],
-		'subname_loc'	=> $Row['subname_loc'],
 		'minlevel'		=> $Row['MinLevel'],
 		'maxlevel'		=> $Row['MaxLevel'],
 		'react'			=> $Row['A'].','.$Row['H'],
 		'type'			=> $Row['CreatureType'],
 		'classification'=> $Row['Rank'],
-		'diffentry1'	=> $Row['DifficultyEntry1'],
-		'diffentry2'	=> $Row['DifficultyEntry2'],
 		'expansion'		=> $Row['Expansion']
 	);
 	if ($creature['expansion'] == 1)
@@ -31,7 +28,6 @@ function creatureinfo2($Row, $level = 0)
 		$creature['expansion'] = '<span class="wotlk-icon"></span>';
 	else
 		$creature['expansion'] = '';
-	$creature['name'] = localizedName($Row);
 	/*
 	//entry
 	if($creature['diffentry2'] != 0)
