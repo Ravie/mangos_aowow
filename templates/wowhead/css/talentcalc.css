@@ -34,6 +34,7 @@ background-image:url(../images/icon16-help.gif);
 
 a.talentcalc-button-lock {
 float:left;
+background-position:-110px center;
 background-image:url(../../../images/talent/lock.gif);
 }
 

@@ -928,7 +928,7 @@ function spell_desc2($spellRow, $type='tooltip')
 	$str .= substr($data, $pos);
 	
 	if($replace)
-		$str = preg_replace_callback("|\{([^\}]+)\}(\.([1-2]{1}))*|", "spellregexp", $str);
+		$str = @preg_replace_callback("|\{([^\}]+)\}(\.([1-2]{1}))*|", "spellregexp", $str);
 	else
 		$str = preg_replace("|\{([^\}]+)\}(\.([1-2]{1}))*|", "$1", $str);
 	

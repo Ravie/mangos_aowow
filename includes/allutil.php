@@ -597,7 +597,7 @@ function load_cache($type, $type_id, $prefix = '')
 
 	$data = explode("\n", $data);
 
-	list($time, $rev) = explode(' ', $data[0]);
+	@list($time, $rev) = explode(' ', $data[0]);
 	$expire_time = $time + $AoWoWconf['aowow']['cache_time'];
 	if($expire_time <= time() || $rev < AOWOW_REVISION)
 		return false;
