@@ -385,7 +385,7 @@ CREATE TABLE `aowow_spell` (
   `procCharges` mediumint(11) unsigned NOT NULL,
   `levelspell` mediumint(11) unsigned NOT NULL, 
   `durationID` smallint(3) unsigned NOT NULL,
-  `powerType` tinyint(1) unsigned NOT NULL,
+  `powerType` tinyint(1) NOT NULL,
   `manacost` mediumint(11) unsigned NOT NULL, 
   `rangeID` tinyint(3) unsigned NOT NULL,
   `stack` mediumint(11) unsigned NOT NULL,

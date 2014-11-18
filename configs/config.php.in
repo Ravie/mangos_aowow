@@ -36,6 +36,8 @@ $AoWoWconf['limit'] = 300;
 $AoWoWconf['debug'] = false;
 // Disable cache
 $AoWoWconf['disable_cache'] = false;
+// Disable comments
+$AoWoWconf['disable_comments'] = true;
 // Map object grouping factor. Meters = 10^param.
 // 0 to disable.
 // 1 is default and highly recommended.

@@ -1,9 +1,10 @@
 <?php
 require_once('includes/allevents.php');
-require_once('includes/allcomments.php');
 require_once('includes/allnpcs.php');
 require_once('includes/allobjects.php');
 require_once('includes/allquests.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 $smarty->config_load($conf_file, 'event');
 
@@ -50,12 +51,16 @@ $page = array(
 	'tab' => 0,
 	'type' => 11,
 	'typeid' => $event['id'],
-	'path' => path(0, 11)
+	'path' => path(0, 11),
+	'comment' => true
 );
-$smarty->assign('page', $page);
 
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 // Статистика выполнения mysql запросов
 $smarty->assign('mysql', $DB->getStatistics());
 $smarty->assign('event', $event);

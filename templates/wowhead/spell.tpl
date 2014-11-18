@@ -181,20 +181,20 @@
 		<div id="listview-generic" class="listview"></div>
 <script type="text/javascript">
 var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
-{if isset($spell.taughtbynpc)}{include			file='bricks/creature_table.tpl'		id='taught-by-npc'		tabsid='tabsRelated' data=$spell.taughtbynpc		name='taughtby'		}{/if}
-{if isset($spell.taughtbyitem)}{include			file='bricks/item_table.tpl'			id='taught-by-item'		tabsid='tabsRelated' data=$spell.taughtbyitem		name='taughtby'		}{/if}
-{if isset($spell.taughtbyquest)}{include		file='bricks/quest_table.tpl'			id='taught-by-quest'	tabsid='tabsRelated' data=$spell.taughtbyquest		name='taughtby'		}{/if}
-{if isset($spell.questreward)}{include			file='bricks/quest_table.tpl'			id='reward-for-quest'	tabsid='tabsRelated' data=$spell.questreward		name='rewardfrom'	}{/if}
-{if isset($spell.usedbynpc)}{include			file='bricks/creature_table.tpl'		id='used-by-npc'		tabsid='tabsRelated' data=$spell.usedbynpc			name='usedby'		}{/if}
-{if isset($spell.usedbyitem)}{include			file='bricks/item_table.tpl'			id='used-by-item'		tabsid='tabsRelated' data=$spell.usedbyitem			name='usedby'		}{/if}
-{if isset($spell.usedbyitemset)}{include		file='bricks/itemset_table.tpl'			id='itemsets'			tabsid='tabsRelated' data=$spell.usedbyitemset		name='usedby'		}{/if}
-{if isset($spell.contains)}{include			file='bricks/item_table.tpl'			id='contains'                   tabsid='tabsRelated' data=$spell.contains		name='contains'}{/if}
-{if isset($spell.seealso)}{include				file='bricks/spell_table.tpl'			id='see-also-ability'	tabsid='tabsRelated' data=$spell.seealso			name='seealso'		}{/if}
-{if isset($spell.criteria_of)}{include 			file='bricks/achievement_table.tpl' 	id='criteria-of'		tabsid='tabsRelated' data=$spell.criteria_of		name='criteriaof'	}{/if}
+{if isset($spell.taughtbynpc)}{include		file='bricks/creature_table.tpl'		id='taught-by-npc'		tabsid='tabsRelated' data=$spell.taughtbynpc		name='taughtby'		}{/if}
+{if isset($spell.taughtbyitem)}{include		file='bricks/item_table.tpl'			id='taught-by-item'		tabsid='tabsRelated' data=$spell.taughtbyitem		name='taughtby'		}{/if}
+{if isset($spell.taughtbyquest)}{include	file='bricks/quest_table.tpl'			id='taught-by-quest'	tabsid='tabsRelated' data=$spell.taughtbyquest		name='taughtby'		}{/if}
+{if isset($spell.questreward)}{include		file='bricks/quest_table.tpl'			id='reward-for-quest'	tabsid='tabsRelated' data=$spell.questreward		name='rewardfrom'	}{/if}
+{if isset($spell.usedbynpc)}{include		file='bricks/creature_table.tpl'		id='used-by-npc'		tabsid='tabsRelated' data=$spell.usedbynpc			name='usedby'		}{/if}
+{if isset($spell.usedbyitem)}{include		file='bricks/item_table.tpl'			id='used-by-item'		tabsid='tabsRelated' data=$spell.usedbyitem			name='usedby'		}{/if}
+{if isset($spell.usedbyitemset)}{include	file='bricks/itemset_table.tpl'			id='itemsets'			tabsid='tabsRelated' data=$spell.usedbyitemset		name='usedby'		}{/if}
+{if isset($spell.contains)}{include			file='bricks/item_table.tpl'			id='contains'           tabsid='tabsRelated' data=$spell.contains			name='contains'		}{/if}
+{if isset($spell.seealso)}{include			file='bricks/spell_table.tpl'			id='see-also-ability'	tabsid='tabsRelated' data=$spell.seealso			name='seealso'		}{/if}
+{if isset($spell.criteria_of)}{include 		file='bricks/achievement_table.tpl' 	id='criteria-of'		tabsid='tabsRelated' data=$spell.criteria_of		name='criteriaof'	}{/if}
 new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
-		{include file='bricks/contribute.tpl'}
+		{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
 		<div class="clear"></div>
 	</div>
 </div>

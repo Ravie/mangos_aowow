@@ -115,7 +115,7 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($item.fishedin)}{include				file='bricks/zone_table.tpl'			id='fished-in'				tabsid='tabsRelated' data=$item.fishedin			name='fishedin'			}{/if}
 {if isset($item.droppedby)}{include				file='bricks/creature_table.tpl'		id='dropped-by'				tabsid='tabsRelated' data=$item.droppedby			name='droppedby'		}{/if}
 {if isset($item.soldby)}{include				file='bricks/creature_table.tpl'		id='sold-by'				tabsid='tabsRelated' data=$item.soldby				name='soldby'			}{/if}
-{if isset($item.currencyfor)}{include				file='bricks/item_table.tpl'			id='currency-for'			tabsid='tabsRelated' data=$item.currencyfor			name='currencyfor'		}{/if}
+{if isset($item.currencyfor)}{include			file='bricks/item_table.tpl'			id='currency-for'			tabsid='tabsRelated' data=$item.currencyfor			name='currencyfor'		}{/if}
 {if isset($item.teaches)}{include				file='bricks/spell_table.tpl'			id='teaches-recipe'			tabsid='tabsRelated' data=$item.teaches				name='teaches'			}{/if}
 {if isset($item.containedinobject)}{include		file='bricks/object_table.tpl'			id='contained-in-object'	tabsid='tabsRelated' data=$item.containedinobject	name='containedin'		}{/if}
 {if isset($item.minedfromobject)}{include		file='bricks/object_table.tpl'			id='mined-from-object'		tabsid='tabsRelated' data=$item.minedfromobject		name='minedfrom'		}{/if}
@@ -124,7 +124,7 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($item.contains)}{include				file='bricks/item_table.tpl'			id='contains'				tabsid='tabsRelated' data=$item.contains			name='contains'			}{/if}
 {if isset($item.pickpocketingloot)}{include		file='bricks/creature_table.tpl'		id='pick-pocketed-from'		tabsid='tabsRelated' data=$item.pickpocketingloot	name='pickpocketedfrom'	}{/if}
 {if isset($item.skinnedfrom)}{include			file='bricks/creature_table.tpl'		id='skinned-from'			tabsid='tabsRelated' data=$item.skinnedfrom			name='skinnedfrom'		}{/if}
-{if isset($item.prospecting)}{include		file='bricks/item_table.tpl'			id='prospecting'		tabsid='tabsRelated' data=$item.prospecting		name='prospecting'	}{/if}
+{if isset($item.prospecting)}{include			file='bricks/item_table.tpl'			id='prospecting'		tabsid='tabsRelated' data=$item.prospecting		name='prospecting'	}{/if}
 {if isset($item.prospectingloot)}{include		file='bricks/item_table.tpl'			id='prospected-from'		tabsid='tabsRelated' data=$item.prospectingloot		name='prospectedfrom'	}{/if}
 {if isset($item.canbeplacedin)}{include			file='bricks/item_table.tpl'			id='can-be-placed-in'		tabsid='tabsRelated' data=$item.canbeplacedin		name='canbeplacedin'	}{/if}
 {if isset($item.providedfor)}{include			file='bricks/quest_table.tpl'			id='provided-for'			tabsid='tabsRelated' data=$item.providedfor			name='providedfor'		}{/if}
@@ -143,7 +143,7 @@ new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comment
 tabsRelated.flush();
 </script>
 
-				{include file='bricks/contribute.tpl'}
+				{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
 			</div>
 		</div>
 

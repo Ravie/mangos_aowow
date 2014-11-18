@@ -2,7 +2,8 @@
 require_once('includes/allutil.php');
 require_once('includes/allachievements.php');
 require_once('includes/allitems.php');
-require_once('includes/allcomments.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 $smarty->config_load($conf_file, 'achievement');
 
@@ -314,12 +315,15 @@ $page = array(
 	'tab' => 0,
 	'type' => 9,
 	'typeid' => $achievement['id'],
-	'path' => path(0, 9, $achievement['category2'], $achievement['category1'])
+	'path' => path(0, 9, $achievement['category2'], $achievement['category1']),
+	'comment' => true
 );
-$smarty->assign('page', $page);
-
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 // Статистика выполнения mysql запросов
 $smarty->assign('mysql', $DB->getStatistics());
 $smarty->assign('achievement', $achievement);

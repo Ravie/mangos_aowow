@@ -4,9 +4,10 @@
 require_once('includes/allquests.php');
 require_once('includes/allobjects.php');
 require_once('includes/allnpcs.php');
-require_once('includes/allcomments.php');
 require_once('includes/allachievements.php');
 require_once('includes/allevents.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 $smarty->config_load($conf_file, 'quest');
 
@@ -564,12 +565,16 @@ $page = array(
 	'tab' => 0,
 	'type' => 5,
 	'typeid' => $quest['entry'],
-	'path' => path(0, 5) // TODO
+	'path' => path(0, 5), // TODO
+	'comment' => true
 );
-$smarty->assign('page', $page);
 
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 
 // Данные о квесте
 $smarty->assign('quest', $quest);

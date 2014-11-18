@@ -3,8 +3,9 @@
 require_once('includes/allspells.php');
 require_once('includes/allnpcs.php');
 require_once('includes/allquests.php');
-require_once('includes/allcomments.php');
 require_once('includes/allachievements.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 $smarty->config_load($conf_file, 'spell');
 
@@ -582,12 +583,16 @@ $page = array(
 	'tab' => 0,
 	'type' => 6,
 	'typeid' => $spell['entry'],
-	'path' => path(0, 1)
+	'path' => path(0, 1),
+	'comment' => true
 );
-$smarty->assign('page', $page);
 
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 
 // Количество MySQL запросов
 $smarty->assign('mysql', $DB->getStatistics());

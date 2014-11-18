@@ -1,7 +1,8 @@
 <?php
 require_once('includes/allitems.php');
 require_once('includes/allspells.php');
-require_once('includes/allcomments.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 $smarty->config_load($conf_file, 'itemset');
 
@@ -72,12 +73,16 @@ $page = array(
 	'tab' => 0,
 	'type' => 4,
 	'typeid' => $itemset['entry'],
-	'path' => '[0, 2]'
+	'path' => '[0, 2]',
+	'comment' => true
 );
-$smarty->assign('page', $page);
 
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 
 // --Передаем данные шаблонизатору--
 // Количество MySQL запросов

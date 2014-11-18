@@ -6,8 +6,9 @@ require_once('includes/allquests.php');
 require_once('includes/allitems.php');
 require_once('includes/allnpcs.php');
 require_once('includes/allobjects.php');
-require_once('includes/allcomments.php');
 require_once('includes/allachievements.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 // Загружаем файл перевода для smarty
 $smarty->config_load($conf_file, 'item');
@@ -747,12 +748,16 @@ $page = array(
 	'tab' => 0,
 	'type' => 3,
 	'typeid' => $item['entry'],
-	'path' => path(0, 0, $item['classs'], $item['subclass'], $item['type'])
+	'path' => path(0, 0, $item['classs'], $item['subclass'], $item['type']),
+	'comment' => true
 );
-$smarty->assign('page', $page);
 
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 
 // Количество MySQL запросов
 $smarty->assign('mysql', $DB->getStatistics());

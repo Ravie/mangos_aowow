@@ -2,7 +2,8 @@
 
 require_once('includes/allutil.php');
 require_once('includes/allitems.php');
-require_once('includes/allcomments.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 $smarty->config_load($conf_file, 'zone');
 
@@ -183,13 +184,16 @@ $page = array(
 	'tab' => 1,
 	'type' => 0,
 	'typeid' => 0,
-	'path' => path(1, 1) //path(0, 6, $zone['map'])
+	'path' => path(1, 1), //path(0, 6, $zone['map'])
+	'comment' => true
 );
 
-$smarty->assign('page', $page);
-
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 
 // Количество MySQL запросов
 $smarty->assign('mysql', $DB->getStatistics());

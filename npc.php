@@ -3,9 +3,10 @@
 require_once('includes/allspells.php');
 require_once('includes/allquests.php');
 require_once('includes/allnpcs.php');
-require_once('includes/allcomments.php');
 require_once('includes/allachievements.php');
 require_once('includes/allevents.php');
+if(!$AoWoWconf['disable_comments'])
+	require_once('includes/allcomments.php');
 
 // Настраиваем Smarty ;)
 $smarty->config_load($conf_file, 'npc');
@@ -649,13 +650,16 @@ $page = array(
 	'tab' => 0,
 	'type' => 1,
 	'typeid' => $npc['entry'],
-	'path' => path(0, 4, $npc['type'])
+	'path' => path(0, 4, $npc['type']),
+	'comment' => true
 );
 
-$smarty->assign('page', $page);
-
 // Комментарии
-$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+if($AoWoWconf['disable_comments'])
+	$page['comment'] = false;
+else
+	$smarty->assign('comments', getcomments($page['type'], $page['typeid']));
+$smarty->assign('page', $page);
 
 $smarty->assign('npc', $npc);
 
