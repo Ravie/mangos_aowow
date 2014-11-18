@@ -4,6 +4,15 @@ require_once('includes/allitems.php');
 
 define('SPELL_MAX_DISTANCE', 50000);
 
+define('POWER_HEALTH',     -2);
+define('POWER_MANA',        0);
+define('POWER_RAGE',        1);
+define('POWER_FOCUS',       2);
+define('POWER_ENERGY',      3);
+define('POWER_HAPPINESS',   4);
+define('POWER_RUNE',        5);
+define('POWER_RUNIC_POWER', 6);
+
 // Названия аур
 $spell_aura_names = array(
 	0 => 'None',
@@ -474,7 +483,7 @@ $pet_skill_categories = array(
 );
 
 $spell_cols[0] = array('spellID', 'iconname', 'effect1itemtype', 'effect1Aura', 'spellname_loc'.$_SESSION['locale']);
-$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'],  'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
+$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'],  'rangeID', 'powerType', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
 $spell_cols[2] = array('spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'levelspell', 'schoolMask', 'effect1itemtype', 'effect2itemtype', 'effect3itemtype', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'iconname', 'effect1Aura', 'effect2Aura', 'effect3Aura');
 
 function spell_schoolmask($schoolMask)
@@ -1020,11 +1029,47 @@ function render_spell_tooltip(&$row)
 	if($range && ($row['manacost'] > 0 || $row['manacostpercent'] > 0))
 		$x .= '<table width="100%"><tr><td>';
 
-	if($row['manacost'] >0)
-		$x .= LOCALE_MANA.': '.$row['manacost'].' <br />';
-
-	if($row['manacostpercent']>0)
-		$x .= $row['manacostpercent']."% ".LOCALE_BASE_MANA."<br />";
+	if($row['manacostpercent'] > 0 && $row['manacost'] > 0)
+		$x .= LOCALE_STEAM_PRESSURE.": ".($row['manacost'] + $row['manacostpercent'])."<br />";
+	elseif($row['manacost'] > 0)
+		switch($row['powerType'])
+		{
+			case POWER_HEALTH:
+				$x .= LOCALE_POWER_HEALTH.': '.$row['manacost'].' <br />';
+				break;
+			case POWER_MANA:
+				$x .= LOCALE_POWER_MANA.': '.$row['manacost'].' <br />';
+				break;
+			case POWER_RAGE:
+				$x .= LOCALE_POWER_RAGE.': '.($row['manacost']/10).' <br />';
+				break;
+			case POWER_FOCUS:
+				$x .= LOCALE_POWER_FOCUS.': '.$row['manacost'].' <br />';
+				break;
+			case POWER_ENERGY:
+				$x .= LOCALE_POWER_ENERGY.': '.$row['manacost'].' <br />';
+				break;
+			case POWER_HAPPINESS:
+				$x .= LOCALE_POWER_HAPPINESS.': '.$row['manacost'].' <br />';
+				break;
+			case POWER_RUNE:
+				$x .= LOCALE_POWER_RUNE.': '.$row['manacost'].' <br />';
+				break;
+			case POWER_RUNIC_POWER:
+				if($row['manacost'] > 10)
+					$x .= LOCALE_REQUIRES_LEVEL1.' '.($row['manacost']/10).' '.LOCALE_POWER_RUNIC_POWER.' <br />';
+				break;
+		}
+	elseif($row['manacostpercent'] > 0)
+		switch($row['powerType'])
+		{
+			case POWER_HEALTH:
+				$x .= $row['manacostpercent']."% ".LOCALE_BASE_HEALTH."<br />";
+				break;
+			case POWER_MANA:
+				$x .= $row['manacostpercent']."% ".LOCALE_BASE_MANA."<br />";
+				break;
+		}
 
 	if($range && (($row['manacost'] >0) || ($row['manacostpercent']>0)))
 		$x .= '</td><th>';

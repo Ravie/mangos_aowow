@@ -286,8 +286,8 @@ switch($_SESSION['locale'])
 			//'LOCALE_GLYPH_OF'	 		=>	'Символ ', // used by locale=0
 
 			// spells
-			'LOCALE_MANA'				   	=>  'Мана',
 			'LOCALE_BASE_MANA'			  	=>  'от базовой маны',
+			'LOCALE_BASE_HEALTH'			=>  'от базового здоровья',
 			'LOCALE_RANGE'				  	=>  'Радиус действия',
 			'LOCALE_UNLIMITED_DISTANCE'		=>  'Неограниченное расстояние',
 			'LOCALE_YARDS'				  	=>  'м',
@@ -308,6 +308,15 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'	  	=>  'Лед',
 			'LOCALE_SCHOOL_MASK_SHADOW'	 	=>  'Тьма',
 			'LOCALE_SCHOOL_MASK_ARCANE'	 	=>  'Тайная магия',
+			'LOCALE_POWER_HEALTH'			=>  'Здоровье',
+			'LOCALE_POWER_MANA'				=>  'Мана',
+			'LOCALE_POWER_RAGE'				=>  'Ярость',
+			'LOCALE_POWER_FOCUS'			=>  'Тонус',
+			'LOCALE_POWER_ENERGY'			=>  'Энергия',
+			'LOCALE_POWER_HAPPINESS'		=>  'Счастье',
+			'LOCALE_POWER_RUNE'				=>  'Руна',
+			'LOCALE_POWER_RUNIC_POWER'		=>  'единиц силы рун',
+			'LOCALE_STEAM_PRESSURE'			=>  'Давление пара',
 			
 			// zone
 			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Распорядители полётов',
@@ -602,8 +611,8 @@ switch($_SESSION['locale'])
 			'LOCALE_GLYPH_OF'		=>	'Glyphe von ',
 
 			// spells
-			'LOCALE_MANA'				=> 'units of mana',
 			'LOCALE_BASE_MANA'		   => 'of base mana',
+			'LOCALE_BASE_HEALTH'		=>  'of base health',
 			'LOCALE_RANGE'			   => 'Range',
 			'LOCALE_UNLIMITED_DISTANCE'	=>  'Unlimited distance',
 			'LOCALE_YARDS'			   => 'yards',
@@ -624,6 +633,15 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'   => 'Frost',
 			'LOCALE_SCHOOL_MASK_SHADOW'  => 'Schatten',
 			'LOCALE_SCHOOL_MASK_ARCANE'  => 'Arkan',
+			'LOCALE_POWER_HEALTH'			=>  'Health',
+			'LOCALE_POWER_MANA'				=>  'Mana',
+			'LOCALE_POWER_RAGE'				=>  'Rage',
+			'LOCALE_POWER_FOCUS'			=>  'Focus',
+			'LOCALE_POWER_ENERGY'			=>  'Energy',
+			'LOCALE_POWER_HAPPINESS'		=>  'Happiness',
+			'LOCALE_POWER_RUNE'				=>  'Rune',
+			'LOCALE_POWER_RUNIC_POWER'		=>  'units of runic power',
+			'LOCALE_STEAM_PRESSURE'			=>  'Steam pressure',
 			
 			// zone
 			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Flight masters',
@@ -917,8 +935,8 @@ switch($_SESSION['locale'])
 			//'LOCALE_GLYPH_OF'	 =>	'Glyph of ', // used by locale=0
 
 			// spells
-			'LOCALE_MANA'				=> 'units of mana',
 			'LOCALE_BASE_MANA'		   => 'of base mana',
+			'LOCALE_BASE_HEALTH'		=>  'of base health',
 			'LOCALE_RANGE'			   => 'Range',
 			'LOCALE_UNLIMITED_DISTANCE'	=>  'Unlimited distance',
 			'LOCALE_YARDS'			   => 'yards',
@@ -939,6 +957,15 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'   => 'Givre',
 			'LOCALE_SCHOOL_MASK_SHADOW'  => 'Ombre',
 			'LOCALE_SCHOOL_MASK_ARCANE'  => 'Arcane',
+			'LOCALE_POWER_HEALTH'			=>  'Health',
+			'LOCALE_POWER_MANA'				=>  'Mana',
+			'LOCALE_POWER_RAGE'				=>  'Rage',
+			'LOCALE_POWER_FOCUS'			=>  'Focus',
+			'LOCALE_POWER_ENERGY'			=>  'Energy',
+			'LOCALE_POWER_HAPPINESS'		=>  'Happiness',
+			'LOCALE_POWER_RUNE'				=>  'Rune',
+			'LOCALE_POWER_RUNIC_POWER'		=>  'units of runic power',
+			'LOCALE_STEAM_PRESSURE'			=>  'Steam pressure',
 			
 			// zone
 			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Flight masters',
@@ -1232,8 +1259,8 @@ switch($_SESSION['locale'])
 			'LOCALE_GLYPH_OF'	   =>	'Glyph of ',
 
 			// spells
-			'LOCALE_MANA'				 => 'units of mana',
 			'LOCALE_BASE_MANA'			=> 'of base mana',
+			'LOCALE_BASE_HEALTH'		=>  'of base health',
 			'LOCALE_RANGE'				=> 'Range',
 			'LOCALE_UNLIMITED_DISTANCE'	=>  'Unlimited distance',
 			'LOCALE_YARDS'				=> 'yards',
@@ -1254,6 +1281,15 @@ switch($_SESSION['locale'])
 			'LOCALE_SCHOOL_MASK_FROST'	=> 'Frost',
 			'LOCALE_SCHOOL_MASK_SHADOW'   => 'Shadow',
 			'LOCALE_SCHOOL_MASK_ARCANE'   => 'Arcane',
+			'LOCALE_POWER_HEALTH'			=>  'Health',
+			'LOCALE_POWER_MANA'				=>  'Mana',
+			'LOCALE_POWER_RAGE'				=>  'Rage',
+			'LOCALE_POWER_FOCUS'			=>  'Focus',
+			'LOCALE_POWER_ENERGY'			=>  'Energy',
+			'LOCALE_POWER_HAPPINESS'		=>  'Happiness',
+			'LOCALE_POWER_RUNE'				=>  'Rune',
+			'LOCALE_POWER_RUNIC_POWER'		=>  'units of runic power',
+			'LOCALE_STEAM_PRESSURE'			=>  'Steam pressure',
 			
 			// zone
 			'LOCALE_ZONE_FLIGHT_MASTERS'	=>	'Flight masters',
