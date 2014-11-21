@@ -32,7 +32,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_cr as $lootid => $drop)
 		{
 			$rows = $DB->select('
-				SELECT c.?#, c.entry
+				SELECT c.?#, c.entry, A, H
 				{
 					, l.name_loc?d AS name_loc
 					, l.subname_loc?d AS subname_loc
@@ -305,7 +305,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_pp as $lootid => $drop)
 		{
 			$rows = $DB->select('
-					SELECT c.?#, c.entry
+					SELECT c.?#, c.entry, A, H
 					{
 						, l.name_loc?d AS name_loc
 						, l.subname_loc?d AS subname_loc
@@ -339,7 +339,7 @@ if(!$item = load_cache(ITEM_PAGE, $cache_key))
 		foreach($drops_sk as $lootid => $drop)
 		{
 			$rows = $DB->select('
-					SELECT c.?#, c.entry
+					SELECT c.?#, c.entry, A, H
 					{
 						, l.name_loc?d AS name_loc
 						, l.subname_loc?d AS subname_loc

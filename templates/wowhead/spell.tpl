@@ -191,10 +191,10 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($spell.contains)}{include			file='bricks/item_table.tpl'			id='contains'           tabsid='tabsRelated' data=$spell.contains			name='contains'		}{/if}
 {if isset($spell.seealso)}{include			file='bricks/spell_table.tpl'			id='see-also-ability'	tabsid='tabsRelated' data=$spell.seealso			name='seealso'		}{/if}
 {if isset($spell.criteria_of)}{include 		file='bricks/achievement_table.tpl' 	id='criteria-of'		tabsid='tabsRelated' data=$spell.criteria_of		name='criteriaof'	}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 </script>
-		{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+		{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 		<div class="clear"></div>
 	</div>
 </div>

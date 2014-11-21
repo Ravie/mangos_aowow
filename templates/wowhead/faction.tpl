@@ -36,11 +36,11 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($faction.npcs)}{include			file='bricks/creature_table.tpl'	id='npcs'			name='members'		tabsid='tabsRelated'	data=$faction.npcs			}{/if}
 {if isset($faction.quests)}{include			file='bricks/quest_table.tpl'		id='quests'			name='quests'		tabsid='tabsRelated'	data=$faction.quests		}{/if}
 {if isset($faction.criteria_of)}{include	file='bricks/achievement_table.tpl'	id='criteria-of'	name='criteriaof'	tabsid='tabsRelated'	data=$faction.criteria_of	}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 				</script>
 
-				{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+				{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
 				</div>
 			</div>

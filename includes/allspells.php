@@ -576,7 +576,7 @@ function spell_desc2($spellRow, $type='tooltip')
 		if(!$var)
 			continue;
 
-		if(ctype_upper(substr($var, 0, 1))) // only case 'M' from uppercase is implemented
+		if(ctype_upper(substr($var, 0, 1))) // only case 'M', 'S' from uppercase is implemented
 			$exprUpperCase = true;
 		else
 			$exprUpperCase = false;
@@ -634,30 +634,41 @@ function spell_desc2($spellRow, $type='tooltip')
 					eval("\$base = $equation;");
 				}
 				
-				if($base == $base-1+$spell['effect'.$exprData[0].'DieSides'])
+				if(round($base, 5) == round($base-1+$spell['effect'.$exprData[0].'DieSides'], 5))
 				{
-					$str .= abs($base);
-					$lastvalue = abs($base);
+					if($exprUpperCase)
+						$lastvalue = round(abs($base), 1);
+					else
+						$lastvalue = abs($base);
+					$str .= $lastvalue;
 				}
 				else
 				{
-					$str .= '<NOBR>'.abs($base).LOCALE_VALUE_DELIM.abs($base-1+$spell['effect'.$exprData[0].'DieSides']).'</NOBR>';
-					$lastvalue = abs($base-1+$spell['effect'.$exprData[0].'DieSides']);
+					if($exprUpperCase)
+						$lastvalue = round(abs($base-1+$spell['effect'.$exprData[0].'DieSides']), 1);
+					else
+						$lastvalue = abs($base-1+$spell['effect'.$exprData[0].'DieSides']);
+					$str .= '<NOBR>'.abs($base).LOCALE_VALUE_DELIM.$lastvalue.'</NOBR>';
 				}
 				break;
 			case 'o':
 				if($lookup > 0 && $exprData[0])
 				{
 					$spell = $DB->selectRow('SELECT durationID, effect'.$exprData[0].'BasePoints, effect'.$exprData[0].'Amplitude, effect'.$exprData[0].'DieSides FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
-					$lastduration = $DB->selectRow('SELECT * FROM ?_spellduration WHERE durationID=? LIMIT 1', $spell['durationID']);
+					if($spell['effect'.$exprData[0].'Amplitude'] <= 0)
+						$spell['effect'.$exprData[0].'Amplitude'] = 5000;
+					$lookupduration = $DB->selectRow('SELECT * FROM ?_spellduration WHERE durationID=? LIMIT 1', $spell['durationID']);
+					$factor = ($spell['durationBase'] > 0) ? $lookupduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'] : 0;
 				}
 				else
+				{
 					$spell = $spellRow;
+					if($spell['effect'.$exprData[0].'Amplitude'] <= 0)
+						$spell['effect'.$exprData[0].'Amplitude'] = 5000;
+					$factor = ($spell['durationBase'] > 0) ? $lastduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'] : 0;
+				}
 
 				$base = $spell['effect'.$exprData[0].'BasePoints']+1;
-				if($spell['effect'.$exprData[0].'Amplitude'] <= 0)
-					$spell['effect'.$exprData[0].'Amplitude'] = 5000;
-				$factor = $lastduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'];
 				
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
 				{
@@ -665,7 +676,7 @@ function spell_desc2($spellRow, $type='tooltip')
 					eval("\$base = $equation;");
 				}
 				
-				if($base == $base-1+$spell['effect'.$exprData[0].'DieSides'])
+				if(round($base, 5) == round($base-1+$spell['effect'.$exprData[0].'DieSides'], 5))
 				{
 					$str .= $factor * abs($base);
 					$lastvalue = $factor * abs($base);
@@ -808,25 +819,23 @@ function spell_desc2($spellRow, $type='tooltip')
 				if($lookup > 0)
 				{
 					$spell = $DB->selectRow('SELECT durationBase FROM ?_spell a, ?_spellduration b WHERE a.durationID = b.durationID AND a.spellID=? LIMIT 1', $lookup);
-					if(isset($spell['durationBase']))
-						$base = ($spell['durationBase'] > 0) ? $spell['durationBase']+1 : 0;
-					else
-						unset($base);
+					$base = ($spell['durationBase'] > 0) ? $spell['durationBase']+1 : 0;
 				}
-				elseif(isset($lastduration['durationBase']))
-					$base = ($lastduration['durationBase'] > 0) ? $lastduration['durationBase']+1 : 0;
 				else
-					unset($base);
+					$base = ($lastduration['durationBase'] > 0) ? $lastduration['durationBase']+1 : 0;
 
 				if($op && is_numeric($oparg) && is_numeric($base))
 				{
 					$equation = $base.$op.$oparg;
 					eval("\$base = $equation;");
 				}
-				if(!isset($base))
-					$str .= '<span class="err">broken spell</span>';
 				if('.' == substr($data, $pos, 1))
 					$str .= sec_to_time(round($base/1000));
+				elseif($base <= 0)
+				{
+					$str .= LOCALE_UNLIMITED;
+					$lastvalue = 0;
+				}
 				elseif(($base > 0) and ($base < 60000))
 				{
 					$str .= round($base/1000);
@@ -1217,8 +1226,10 @@ function spell_buff_render($row)
 	
 	// Длительность баффа
 	$duration = $DB->selectCell("SELECT durationBase FROM ?_spellduration WHERE durationID=? LIMIT 1", $row['durationID']);
-	if($duration>0)
+	if($row['durationID'] && $duration>0)
 		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.sec_to_time($duration/1000).' </span>';
+	else
+		$x .= '<span class="q">'.LOCALE_REMAINING_TIME.': '.LOCALE_UNLIMITED.' </span>';
 	
 	$x .= '</td></tr></table>';
 	

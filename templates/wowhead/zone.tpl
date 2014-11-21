@@ -93,11 +93,11 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($zone.fishing)}{include file='bricks/item_table.tpl' id='fishing' name='fishing' tabsid='tabsRelated' data=$zone.fishing}{/if}
 {if isset($zone.subzones)}{include file='bricks/zone_table.tpl' id='zones' name='zones' tabsid='tabsRelated' data=$zone.subzones}{/if}
 
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 </script>
 
-{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
 			</div>
 		</div>

@@ -46,11 +46,11 @@
 			<div id="listview-generic" class="listview"></div>
 <script type="text/javascript">
 var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 </script>
 
-			{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+			{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
 			</div>
 		</div>

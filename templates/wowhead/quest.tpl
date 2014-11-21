@@ -589,11 +589,11 @@
 				var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 				{if isset($quest.mailrewards)}{include file='bricks/item_table.tpl' id='mail-rewards' tabsid='tabsRelated' data=$quest.mailrewards name='questrewards'}{/if}
 				{if isset($quest.criteria_of)}{include	file='bricks/achievement_table.tpl'	id='criteria-of'	tabsid='tabsRelated'	data=$quest.criteria_of	name='criteriaof'}{/if}
-				new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+				{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 				tabsRelated.flush();
 			</script>
 
-			{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+			{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
 			</div>
 		</div>

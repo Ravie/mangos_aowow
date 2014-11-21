@@ -50,11 +50,11 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($event.npcs)}{include file='bricks/creature_table.tpl' id='npcs' tabsid='tabsRelated' data=$event.npcs name='npcs' }{/if}
 {if isset($event.objects)}{include file='bricks/object_table.tpl' id='objects' tabsid='tabsRelated' data=$event.objects name='objects' }{/if}
 {if isset($event.quests)}{include file='bricks/quest_table.tpl' id='quests' tabsid='tabsRelated' data=$event.quests name='quests' }{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 </script>
 
-				{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+				{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 			</div>
 		</div>
 

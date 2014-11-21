@@ -107,11 +107,11 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($object.starts)}{include			file='bricks/quest_table.tpl'		id='starts'			name='starts'		tabsid='tabsRelated'	data=$object.starts		}{/if}
 {if isset($object.ends)}{include			file='bricks/quest_table.tpl'		id='ends'			name='ends'			tabsid='tabsRelated'	data=$object.ends		}{/if}
 {if isset($object.criteria_of)}{include		file='bricks/achievement_table.tpl'	id='criteria-of'	name='criteriaof'	tabsid='tabsRelated'	data=$object.criteria_of}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 </script>
 
-{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
 			</div>
 		</div>

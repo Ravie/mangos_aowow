@@ -153,27 +153,32 @@ $sides = array(
 function sec_to_time($secs)
 {
 	$time = array();
-	if($secs>=3600*24)
-	{
-		$time['d'] = floor($secs/3600/24);
-		$secs = $secs - $time['d']*3600*24;
-		$time['d'] .= ' '.LOCALE_DAYS;
-	}
-	if($secs>=3600)
-	{
-		$time['h'] = floor($secs/3600);
-		$secs = $secs - $time['h']*3600;
-		$time['h'] .= ' '.LOCALE_HOURS;
-	}
-	if($secs>=60)
-	{
-		$time['m'] = floor($secs/60);
-		$secs = $secs - $time['m']*60;
-		$time['m'] .= ' '.LOCALE_MINUTES;
-	}
 	if($secs>0)
-		$time['s'] = $secs.' '.LOCALE_SECONDS;
-	$string = implode(", ", $time);
+	{
+		if($secs>=3600*24)
+		{
+			$time['d'] = floor($secs/3600/24);
+			$secs = $secs - $time['d']*3600*24;
+			$time['d'] .= ' '.LOCALE_DAYS;
+		}
+		if($secs>=3600)
+		{
+			$time['h'] = floor($secs/3600);
+			$secs = $secs - $time['h']*3600;
+			$time['h'] .= ' '.LOCALE_HOURS;
+		}
+		if($secs>=60)
+		{
+			$time['m'] = floor($secs/60);
+			$secs = $secs - $time['m']*60;
+			$time['m'] .= ' '.LOCALE_MINUTES;
+		}
+		if($secs>0)
+			$time['s'] = $secs.' '.LOCALE_SECONDS;
+		$string = implode(", ", $time);
+	}
+	else
+		$string = LOCALE_UNLIMITED;
 	return $string;
 }
 function money2coins($money)

@@ -139,11 +139,11 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($item.milledfrom)}{include			file='bricks/item_table.tpl'			id='milling'				tabsid='tabsRelated' data=$item.milledfrom			name='milledfrom'		}{/if}
 {if isset($item.containedinspell)}{include		file='bricks/spell_table.tpl'			id='contained-in-spell'		tabsid='tabsRelated' data=$item.containedinspell		name='containedin'		}{/if}
 {if isset($item.criteria_of)}{include 			file='bricks/achievement_table.tpl' 	id='criteria-of'			tabsid='tabsRelated' data=$item.criteria_of			name='criteriaof'		}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
 tabsRelated.flush();
 </script>
 
-				{if $page.comment == true}{include file='bricks/contribute.tpl'}{/if}
+				{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 			</div>
 		</div>
 

@@ -285,7 +285,7 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 		if($trainers)
 		{
 			$taughtbytrainers = $DB->select('
-				SELECT ?#, c.entry
+				SELECT ?#, c.entry, A, H
 				{ , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc }
 				FROM ?_factiontemplate, creature_template c
 				{ LEFT JOIN (locales_creature l) ON c.entry = l.entry AND ? }
@@ -346,7 +346,7 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 			// Список петов, кастующих спелл, обучающий нужному спеллу
 			/*
 			$taughtbypets = $DB->select('
-				SELECT ?#, c.entry
+				SELECT ?#, c.entry, A, H
 				{ , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc }
 				FROM ?_factiontemplate, creature_template c
 				{ LEFT JOIN (locales_creature l) ON c.entry = l.entry AND ? }
@@ -392,7 +392,7 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 
 			// Список НПЦ, кастующих нужный спелл, бла-бла-бла
 			$taughtbytrainers = $DB->select('
-				SELECT ?#, c.entry
+				SELECT ?#, c.entry, A, H
 				{ , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc }
 				FROM ?_factiontemplate, creature_template c
 				{ LEFT JOIN (locales_creature l) ON c.entry = l.entry AND ? }
@@ -441,7 +441,7 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 
 		// Используется NPC:
 		$usedbynpc = $DB->select('
-			SELECT ?#, c.entry
+			SELECT ?#, c.entry, A, H
 			{ , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc, s.entry }
 			FROM ?_factiontemplate, creature_template c
 			{ LEFT JOIN (locales_creature l, creature_template_spells s) ON c.entry = l.entry AND c.entry=s.entry AND ? }

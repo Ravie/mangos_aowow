@@ -245,7 +245,6 @@ switch($_SESSION['locale'])
 			'LOCALE_GBONUS_USE'				 	=>	'Использование: ',
 			'LOCALE_GBONUS_CHARGES'			 	=>	'зарядов',
 			'LOCALE_GBONUS_EXPENDABLE'		  	=>	'Расходуемый',
-			'LOCALE_COOLDOWN'				   	=>	'восстановление',
 			'LOCALE_COMBAT_RATING'			  	=>	'%s&nbsp;на&nbsp;yp.&nbsp;%d',
 			'LOCALE_RANDOM_BONUSES'				=>	'Случайный бонус',
 			// sockets
@@ -300,6 +299,7 @@ switch($_SESSION['locale'])
 			'LOCALE_INSTANT_CAST'		   	=>  'Мгновенное действие',
 			'LOCALE_PROC_CHANCE'			=>  'Вероятность срабатывания',
 			'LOCALE_COOLDOWN'			   	=>  'Восстановление',
+			'LOCALE_UNLIMITED'				=>  ' до отмены',
 			'LOCALE_REMAINING_TIME'		 	=>  'Срок действия',
 			'LOCALE_SCHOOL_MASK_PHYSICAL'  	=>  'Физический урон',
 			'LOCALE_SCHOOL_MASK_HOLY'	   	=>  'Свет',
@@ -570,7 +570,6 @@ switch($_SESSION['locale'])
 			'LOCALE_GBONUS_USE'				  =>	'Benutzen: ',
 			'LOCALE_GBONUS_CHARGES'			  =>	'aufladungen',
 			'LOCALE_GBONUS_EXPENDABLE'		   =>	'verbrauchen',
-			'LOCALE_COOLDOWN'					=>	'cooldown',
 			'LOCALE_COMBAT_RATING'			   =>	'%s&nbsp;@&nbsp;L%d',
 			'LOCALE_RANDOM_BONUSES'				=>	'Random bonuses',
 			// sockets
@@ -625,6 +624,7 @@ switch($_SESSION['locale'])
 			'LOCALE_INSTANT_CAST'		=> 'Instant cast',
 			'LOCALE_PROC_CHANCE'		 => 'Proc Chance',
 			'LOCALE_COOLDOWN'			=> 'Cooldown',
+			'LOCALE_UNLIMITED'			=>  ' before canceling',
 			'LOCALE_REMAINING_TIME'	  => 'Remaining time',
 			'LOCALE_SCHOOL_MASK_PHYSICAL'=> 'Physisch',
 			'LOCALE_SCHOOL_MASK_HOLY'	=> 'Heilig',
@@ -894,7 +894,6 @@ switch($_SESSION['locale'])
 			'LOCALE_GBONUS_USE'			   =>	'Use: ',
 			'LOCALE_GBONUS_CHARGES'		   =>	'charges',
 			'LOCALE_GBONUS_EXPENDABLE'		=>	'dépense',
-			'LOCALE_COOLDOWN'				 =>	'cooldown',
 			'LOCALE_COMBAT_RATING'			=>	'%s&nbsp;au&nbsp;N%s',
 			'LOCALE_RANDOM_BONUSES'			=>	'Random bonuses',
 			// sockets
@@ -949,6 +948,7 @@ switch($_SESSION['locale'])
 			'LOCALE_INSTANT_CAST'		=> 'Instant cast',
 			'LOCALE_PROC_CHANCE'		 => 'Proc Chance',
 			'LOCALE_COOLDOWN'			=> 'Cooldown',
+			'LOCALE_UNLIMITED'			=>  ' before canceling',
 			'LOCALE_REMAINING_TIME'	  => 'Remaining time',
 			'LOCALE_SCHOOL_MASK_PHYSICAL'=> 'Physique',
 			'LOCALE_SCHOOL_MASK_HOLY'	=> 'Sacré',
@@ -1218,7 +1218,6 @@ switch($_SESSION['locale'])
 			'LOCALE_GBONUS_USE'				 =>	'Use: ',
 			'LOCALE_GBONUS_CHARGES'			 =>	'charges',
 			'LOCALE_GBONUS_EXPENDABLE'		  =>	'expendable',
-			'LOCALE_COOLDOWN'				   =>	'cooldown',
 			'LOCALE_COMBAT_RATING'			  =>	'%s&nbsp;@&nbsp;L%d',
 			'LOCALE_RANDOM_BONUSES'				=>	'Random bonuses',
 			// sockets
@@ -1273,6 +1272,7 @@ switch($_SESSION['locale'])
 			'LOCALE_INSTANT_CAST'		 => 'Instant cast',
 			'LOCALE_PROC_CHANCE'		  => 'Proc Chance',
 			'LOCALE_COOLDOWN'			 => 'Cooldown',
+			'LOCALE_UNLIMITED'			=>  ' before canceling',
 			'LOCALE_REMAINING_TIME'	   => 'Remaining time',
 			'LOCALE_SCHOOL_MASK_PHYSICAL' => 'Physical',
 			'LOCALE_SCHOOL_MASK_HOLY'	 => 'Holy',

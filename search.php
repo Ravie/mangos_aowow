@@ -74,7 +74,7 @@ if($_SESSION['locale']>0)
 	);
 }
 $rows = $DB->select('
-		SELECT ?#, c.entry
+		SELECT ?#, c.entry, A, H
 			{, l.name_loc?d AS `name_loc`,
 			l.subname_loc'.$_SESSION['locale'].' AS `subname_loc`}
 		FROM ?_factiontemplate, creature_template c
