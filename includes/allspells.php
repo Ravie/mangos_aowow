@@ -587,7 +587,9 @@ function spell_desc2($spellRow, $type='tooltip')
 		switch($exprType)
 		{
 			case 'r':
-				if(!IsSet($spellRow['rangeMax']))
+				if($lookup > 0)
+					$spellRow = array_merge($spellRow, $DB->selectRow('SELECT b.* FROM ?_spell a, ?_spellrange b WHERE a.rangeID = b.rangeID AND a.spellID=? LIMIT 1', $lookup));
+				elseif(!isset($spellRow['rangeMax']))
 					$spellRow = array_merge($spellRow, $DB->selectRow('SELECT * FROM ?_spellrange WHERE rangeID=? LIMIT 1', $spellRow['rangeID']));
 
 				$base = $spellRow['rangeMax'];
@@ -626,30 +628,29 @@ function spell_desc2($spellRow, $type='tooltip')
 				else
 					$spell = $spellRow;
 
-				$base = $spell['effect'.$exprData[0].'BasePoints']+1;
+				$baseMin = $spell['effect'.$exprData[0].'BasePoints'] + 1;
+				$baseMax = $spell['effect'.$exprData[0].'BasePoints'] + $spell['effect'.$exprData[0].'DieSides'];
 
-				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
+				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($baseMin) && is_numeric($baseMax))
 				{
-					$equation = $base.$op.$oparg;
-					eval("\$base = $equation;");
+					$equation1 = $baseMin.$op.$oparg;
+					eval("\$baseMin = $equation1;");
+					$equation2 = $baseMax.$op.$oparg;
+					eval("\$baseMax = $equation2;");
 				}
-				
-				if(round($base, 5) == round($base-1+$spell['effect'.$exprData[0].'DieSides'], 5))
+
+				if($exprUpperCase)
 				{
-					if($exprUpperCase)
-						$lastvalue = round(abs($base), 1);
-					else
-						$lastvalue = abs($base);
-					$str .= $lastvalue;
+					$baseMin = round($baseMin, 1);
+					$baseMax = round($baseMax, 1);
 				}
+
+				if($spell['effect'.$exprData[0].'DieSides'] == 1)
+					$str .= abs($baseMax);
 				else
-				{
-					if($exprUpperCase)
-						$lastvalue = round(abs($base-1+$spell['effect'.$exprData[0].'DieSides']), 1);
-					else
-						$lastvalue = abs($base-1+$spell['effect'.$exprData[0].'DieSides']);
-					$str .= '<NOBR>'.abs($base).LOCALE_VALUE_DELIM.$lastvalue.'</NOBR>';
-				}
+					$str .= '<NOBR>'.abs($baseMin).LOCALE_VALUE_DELIM.abs($baseMax).'</NOBR>';
+
+				$lastvalue = abs($baseMax);
 				break;
 			case 'o':
 				if($lookup > 0 && $exprData[0])
@@ -658,34 +659,33 @@ function spell_desc2($spellRow, $type='tooltip')
 					if($spell['effect'.$exprData[0].'Amplitude'] <= 0)
 						$spell['effect'.$exprData[0].'Amplitude'] = 5000;
 					$lookupduration = $DB->selectRow('SELECT * FROM ?_spellduration WHERE durationID=? LIMIT 1', $spell['durationID']);
-					$factor = ($spell['durationBase'] > 0) ? $lookupduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'] : 0;
+					$factor = ($lookupduration['durationBase'] > 0 && $spell['durationID']) ? $lookupduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'] : 0;
 				}
 				else
 				{
 					$spell = $spellRow;
 					if($spell['effect'.$exprData[0].'Amplitude'] <= 0)
 						$spell['effect'.$exprData[0].'Amplitude'] = 5000;
-					$factor = ($spell['durationBase'] > 0) ? $lastduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'] : 0;
+					$factor = ($lastduration['durationBase'] > 0 && $spell['durationID']) ? $lastduration['durationBase'] / $spell['effect'.$exprData[0].'Amplitude'] : 0;
 				}
 
-				$base = $spell['effect'.$exprData[0].'BasePoints']+1;
-				
-				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
+				$baseMin = $spell['effect'.$exprData[0].'BasePoints'] + 1;
+				$baseMax = $spell['effect'.$exprData[0].'BasePoints'] + $spell['effect'.$exprData[0].'DieSides'];
+
+				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($baseMin) && is_numeric($baseMax))
 				{
-					$equation = $base.$op.$oparg;
-					eval("\$base = $equation;");
+					$equation1 = $baseMin.$op.$oparg;
+					eval("\$baseMin = $equation1;");
+					$equation2 = $baseMax.$op.$oparg;
+					eval("\$baseMax = $equation2;");
 				}
-				
-				if(round($base, 5) == round($base-1+$spell['effect'.$exprData[0].'DieSides'], 5))
-				{
-					$str .= $factor * abs($base);
-					$lastvalue = $factor * abs($base);
-				}
+
+				if($spell['effect'.$exprData[0].'DieSides'] == 1 || !$factor)
+					$str .= $factor * abs($baseMax);
 				else
-				{
-					$str .= '<NOBR>'.$factor * abs($base).' - '.$factor * abs($base-1+$spell['effect'.$exprData[0].'DieSides']).'</NOBR>';
-					$lastvalue = $factor * abs($base-1+$spell['effect'.$exprData[0].'DieSides']);
-				}
+					$str .= '<NOBR>'.$factor * abs($baseMin).' - '.$factor * abs($baseMax).'</NOBR>';
+
+				$lastvalue = $factor * abs($baseMax);
 				break;
 			case 't':
 				if($lookup > 0 && $exprData[0])
@@ -708,7 +708,7 @@ function spell_desc2($spellRow, $type='tooltip')
 					$spell = $DB->selectRow('SELECT effect'.$exprData[0].'BasePoints, effect'.$exprData[0].'DieSides FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
 				else
 					$spell = $spellRow;
-					
+
 				if($exprUpperCase)
 					$base = $spell['effect'.$exprData[0].'BasePoints']+($spell['effect'.$exprData[0].'DieSides']>0 ? $spell['effect'.$exprData[0].'DieSides'] : 1);
 				else
@@ -829,25 +829,16 @@ function spell_desc2($spellRow, $type='tooltip')
 					$equation = $base.$op.$oparg;
 					eval("\$base = $equation;");
 				}
-				if('.' == substr($data, $pos, 1))
-					$str .= sec_to_time(round($base/1000));
-				elseif($base <= 0)
-				{
-					$str .= LOCALE_UNLIMITED;
-					$lastvalue = 0;
-				}
-				elseif(($base > 0) and ($base < 60000))
-				{
-					$str .= round($base/1000);
-					$lastvalue = round($base/1000);
-				}
-				elseif(($base >= 60000) and ($base < 3600000))
-				{
-					$str .= round($base/60000);
-					$lastvalue = round($base/60000);
-				}
+
+				if(!in_array(substr($data, $pos, 1), $signs))
+					$str .= sec_to_time(round($base/1000, 2));
+				else
+					$str .= round($base/1000, 2);
 				break;
 			case 'i':
+				if($lookup > 0)
+					$spellRow = array_merge($spellRow, $DB->selectRow('SELECT spellTargets FROM ?_spell WHERE spellID=? LIMIT 1', $lookup));
+
 				$base = $spellRow['spellTargets'];
 
 				if($op && is_numeric($oparg) && is_numeric($base))
@@ -888,7 +879,7 @@ function spell_desc2($spellRow, $type='tooltip')
 					$spell = $DB->selectRow('SELECT stack FROM ?_spell WHERE spellID=?d LIMIT 1', $lookup);
 				else
 					$spell = $spellRow;
-					
+
 				$base = $spell['stack'];
 
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
@@ -904,9 +895,9 @@ function spell_desc2($spellRow, $type='tooltip')
 					$spell = $DB->selectRow('SELECT effect_'.$exprData[0].'_proc_chance FROM ?_spell WHERE spellID=? LIMIT 1', $lookup);
 				else
 					$spell = $spellRow;
-				
+
 				$base = $spell['effect_'.$exprData[0].'_proc_chance'];
-				 
+
 				if(in_array($op, $signs) && is_numeric($oparg) && is_numeric($base))
 				{
 					$equation = $base.$op.$oparg;
