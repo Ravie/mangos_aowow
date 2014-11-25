@@ -181,11 +181,11 @@ class DbSimple_Mysql extends DbSimple_Generic_Database
     
     function _setDbError($query)
     {
-    	if ($this->link) {
-	        return $this->_setLastError(mysql_errno($this->link), mysql_error($this->link), $query);
-	    } else {
-	        return $this->_setLastError(mysql_errno(), mysql_error(), $query);
-	    }
+        if ($this->link) {
+            return $this->_setLastError(mysql_errno($this->link), mysql_error($this->link), $query);
+        } else {
+            return $this->_setLastError(mysql_errno(), mysql_error(), $query);
+        }
     }
     
     

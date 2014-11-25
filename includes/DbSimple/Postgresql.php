@@ -44,13 +44,13 @@ class DbSimple_Postgresql extends DbSimple_Generic_Database
         $this->DbSimple_Postgresql_USE_NATIVE_PHOLDERS = function_exists('pg_prepare');
         
         $dsnWithoutPass = 
-        	(!empty($p['host']) ? 'host='.$p['host'].' ' : '') .
+            (!empty($p['host']) ? 'host='.$p['host'].' ' : '') .
             (!empty($p['port']) ? 'port=' . $p['port'] . ' ' : '') .
             'dbname=' . preg_replace('{^/}s', '', $p['path']) .' '.
             (!empty($p['user']) ? 'user='. $p['user'] : '');
         $ok = $this->link = @pg_connect(
             $dsnWithoutPass . " " . (!empty($p['pass']) ? 'password=' . $p['pass'] . ' ' : ''),
-			PGSQL_CONNECT_FORCE_NEW
+            PGSQL_CONNECT_FORCE_NEW
         );
         // We use PGSQL_CONNECT_FORCE_NEW, because in PHP 5.3 & PHPUnit
         // $this->prepareCache may be cleaned, but $this->link is still

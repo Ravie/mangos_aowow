@@ -71,13 +71,13 @@ SET SQL_MODE = '';
 
 -- Altering AoWoW Table Structure.
 ALTER TABLE aowow_achievement
-	ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`,
-	ADD COLUMN `description_loc<?=$L?>` varchar(255) AFTER `description_loc0`,
-	ADD COLUMN `reward_loc<?=$L?>` varchar(255) AFTER `reward_loc0`;
+    ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`,
+    ADD COLUMN `description_loc<?=$L?>` varchar(255) AFTER `description_loc0`,
+    ADD COLUMN `reward_loc<?=$L?>` varchar(255) AFTER `reward_loc0`;
 ALTER TABLE aowow_achievementcriteria
-	ADD COLUMN `name_loc<?=$L?>` varchar(255) AFTER `name_loc0`;
+    ADD COLUMN `name_loc<?=$L?>` varchar(255) AFTER `name_loc0`;
 ALTER TABLE aowow_achievementcategory
-	ADD COLUMN `name_loc<?=$L?>` varchar(255) AFTER `name_loc0`;
+    ADD COLUMN `name_loc<?=$L?>` varchar(255) AFTER `name_loc0`;
 ALTER TABLE aowow_char_titles ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_skill ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_spelldispeltype ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
@@ -87,15 +87,15 @@ ALTER TABLE aowow_itemset ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFT
 ALTER TABLE aowow_spellrange ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_zones ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_factions
-	ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`,
-	ADD COLUMN `description1_loc<?=$L?>` text AFTER `description1_loc0`,
-	ADD COLUMN `description2_loc<?=$L?>` text AFTER `description2_loc0`;
+    ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`,
+    ADD COLUMN `description1_loc<?=$L?>` text AFTER `description1_loc0`,
+    ADD COLUMN `description2_loc<?=$L?>` text AFTER `description2_loc0`;
 ALTER TABLE aowow_itemenchantmet ADD COLUMN `text_loc<?=$L?>` text NOT NULL AFTER `text_loc0`;
 ALTER TABLE aowow_spell
-	ADD COLUMN `spellname_loc<?=$L?>` varchar(255) NOT NULL AFTER `spellname_loc0`,
-	ADD COLUMN `rank_loc<?=$L?>` text NOT NULL AFTER `rank_loc0`,
-	ADD COLUMN `tooltip_loc<?=$L?>` text NOT NULL AFTER `tooltip_loc0`,
-	ADD COLUMN `buff_loc<?=$L?>` text NOT NULL AFTER `buff_loc0`;
+    ADD COLUMN `spellname_loc<?=$L?>` varchar(255) NOT NULL AFTER `spellname_loc0`,
+    ADD COLUMN `rank_loc<?=$L?>` text NOT NULL AFTER `rank_loc0`,
+    ADD COLUMN `tooltip_loc<?=$L?>` text NOT NULL AFTER `tooltip_loc0`,
+    ADD COLUMN `buff_loc<?=$L?>` text NOT NULL AFTER `buff_loc0`;
 ALTER TABLE aowow_talenttab ADD COLUMN `name_loc<?=$L?>` varchar(32) NOT NULL AFTER `name_loc0`;
 -- Writing data into files
 <?php

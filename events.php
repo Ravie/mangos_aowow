@@ -9,19 +9,19 @@ $smarty->config_load($conf_file, 'event');
 //$cache_key = cache_key($category);
 //if(!$events = load_cache(EVENTS_LISTING, $cache_key))
 {
-	$events = array();
-	$events['data'] = event_infoline(event_find());
-	//save_cache(EVENTS_LISTING, $cache_key, $events);
+    $events = array();
+    $events['data'] = event_infoline(event_find());
+    //save_cache(EVENTS_LISTING, $cache_key, $events);
 }
 global $page;
 $page = array(
-	'Mapper' => false,
-	'Book' => false,
-	'Title' => ($events['category']?($events['category'].' - '):'').$smarty->get_config_vars('Events'),
-	'tab' => 0,
-	'type' => 11,
-	'typeid' => 0,
-	'path' => path(0, 11)
+    'Mapper' => false,
+    'Book' => false,
+    'Title' => ($events['category']?($events['category'].' - '):'').$smarty->get_config_vars('Events'),
+    'tab' => 0,
+    'type' => 11,
+    'typeid' => 0,
+    'path' => path(0, 11)
 );
 $smarty->assign('page', $page);
 

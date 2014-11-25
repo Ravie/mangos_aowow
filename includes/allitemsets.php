@@ -7,32 +7,32 @@ $itemset_col[1] = array('itemsetID', 'name_loc'.$_SESSION['locale'], 'item1', 'i
 
 function itemsetinfo2(&$row)
 {
-	$itemset = array();
-	$itemset['entry'] = $row['itemsetID'];
-	$itemset['name'] = $row['name_loc'.$_SESSION['locale']];
-	$itemset['minlevel'] = 255;
-	$itemset['maxlevel'] = 0;
-	$itemset['pieces'] = array();
-	for($j=1;$j<=10;$j++)
-		if ($row['item'.$j])
-		{
-			$itemset['pieces'][] = $row['item'.$j];
-			$item = array();
-			$item = iteminfo($row['item'.$j], 0);
-			if ($item['level'] < $itemset['minlevel']) $itemset['minlevel'] = $item['level'];
-			if ($item['level'] > $itemset['maxlevel']) $itemset['maxlevel'] = $item['level'];
-		}
-	if(isset($item))
-	{
-		$itemset['quality2'] = 7 - $item['quality'];
-		if($item['classs']==4)
-			$itemset['type'] = $item['subclass'];
-	} else {
-		$itemset['quality2'] = 7;
-	}
-	// TODO: classes
-	$itemset['classes'][] = 0;
-	return $itemset;
+    $itemset = array();
+    $itemset['entry'] = $row['itemsetID'];
+    $itemset['name'] = $row['name_loc'.$_SESSION['locale']];
+    $itemset['minlevel'] = 255;
+    $itemset['maxlevel'] = 0;
+    $itemset['pieces'] = array();
+    for($j=1;$j<=10;$j++)
+        if ($row['item'.$j])
+        {
+            $itemset['pieces'][] = $row['item'.$j];
+            $item = array();
+            $item = iteminfo($row['item'.$j], 0);
+            if ($item['level'] < $itemset['minlevel']) $itemset['minlevel'] = $item['level'];
+            if ($item['level'] > $itemset['maxlevel']) $itemset['maxlevel'] = $item['level'];
+        }
+    if(isset($item))
+    {
+        $itemset['quality2'] = 7 - $item['quality'];
+        if($item['classs']==4)
+            $itemset['type'] = $item['subclass'];
+    } else {
+        $itemset['quality2'] = 7;
+    }
+    // TODO: classes
+    $itemset['classes'][] = 0;
+    return $itemset;
 }
 
 ?>

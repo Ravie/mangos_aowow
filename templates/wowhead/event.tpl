@@ -1,50 +1,50 @@
 {include file='header.tpl'}
 
-		<div id="main">
+        <div id="main">
 
-			<div id="main-precontents"></div>
-			<div id="main-contents" class="main-contents">
+            <div id="main-precontents"></div>
+            <div id="main-contents" class="main-contents">
 
-				<script type="text/javascript">
-					{include file='bricks/allcomments.tpl'}
-					var g_pageInfo = {ldelim}type: {$page.type}, typeId: {$page.typeid}, name: '{$event.name|escape:"quotes"}'{rdelim};
-					g_initPath({$page.path});
-				</script>
+                <script type="text/javascript">
+                    {include file='bricks/allcomments.tpl'}
+                    var g_pageInfo = {ldelim}type: {$page.type}, typeId: {$page.typeid}, name: '{$event.name|escape:"quotes"}'{rdelim};
+                    g_initPath({$page.path});
+                </script>
 
-				<table class="infobox">
-					<tr><th>{#Quick_Facts#}</th></tr>
-					<tr><td>
-						<div class="infobox-spacer"></div>
-						<ul>
-							<li><div>{#Start#}: {$event.starttime}</div></li>
-							<li><div>{#End#}: {$event.endtime}</div></li>
-						</ul>
-					</td></tr>
-				</table>
+                <table class="infobox">
+                    <tr><th>{#Quick_Facts#}</th></tr>
+                    <tr><td>
+                        <div class="infobox-spacer"></div>
+                        <ul>
+                            <li><div>{#Start#}: {$event.starttime}</div></li>
+                            <li><div>{#End#}: {$event.endtime}</div></li>
+                        </ul>
+                    </td></tr>
+                </table>
 
-				<div class="text">
-					{if $event.holiday>0}
-						<a href="http://{$lang}.wowhead.com/?event={$event.holiday}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
-					{/if}
-					<h1>{$event.name|escape:"html"}</h1>
+                <div class="text">
+                    {if $event.holiday>0}
+                        <a href="http://{$lang}.wowhead.com/?event={$event.holiday}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
+                    {/if}
+                    <h1>{$event.name|escape:"html"}</h1>
 
-					{if isset($event.description)}
-						{$event.description}
-					{/if}
+                    {if isset($event.description)}
+                        {$event.description}
+                    {/if}
 
-					{#Last_start#}: {$event.starttime}<br>
-					{#Last_end#}: {$event.endtime}<br>
-					{#Next_start#}: {$event.nextstarttime}<br>
-					{#Next_end#}: {$event.nextendtime}<br>
-					{strip}
-						{#Period#}: {$event.period}<br>
-					{/strip}
+                    {#Last_start#}: {$event.starttime}<br>
+                    {#Last_end#}: {$event.endtime}<br>
+                    {#Next_start#}: {$event.nextstarttime}<br>
+                    {#Next_end#}: {$event.nextendtime}<br>
+                    {strip}
+                        {#Period#}: {$event.period}<br>
+                    {/strip}
 
-					<h2>{#Related#}</h2>
-				</div>
+                    <h2>{#Related#}</h2>
+                </div>
 
-				<div id="tabs-generic"></div>
-				<div id="listview-generic" class="listview"></div>
+                <div id="tabs-generic"></div>
+                <div id="listview-generic" class="listview"></div>
 <script type="text/javascript">
 var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($event.npcs)}{include file='bricks/creature_table.tpl' id='npcs' tabsid='tabsRelated' data=$event.npcs name='npcs' }{/if}
@@ -54,8 +54,8 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 tabsRelated.flush();
 </script>
 
-				{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
-			</div>
-		</div>
+                {if $page.comment}{include file='bricks/contribute.tpl'}{/if}
+            </div>
+        </div>
 
 {include file='footer.tpl'}
