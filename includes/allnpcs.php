@@ -48,7 +48,7 @@ function creatureinfo2($Row, $level = 0)
 	$x .= htmlspecialchars($creature['name']);
 	$x .= '</b></td></tr><tr><td>';
 	if($creature['subname'])
-		$x .= htmlspecialchars($creature['subname']);
+		$x .= '<'.htmlspecialchars($creature['subname']).'>';
 	$x .= '</td></tr><tr><td>';
 	if (isset($creature['minlevel']))
 	{
@@ -59,10 +59,10 @@ function creatureinfo2($Row, $level = 0)
 		else
 			$x .= LOCALE_LEVEL.' '.$creature['minlevel'].'-'.$creature['maxlevel'].' ';
 	}
-	if($creature['type'] != 10)
+	if($creature['type'] && $creature['type'] != 10)
 		$x .= $npc_type[$creature['type']].' ';
 	if(isset($creature['classification']))
-		$x .= $npc_rank[$creature['classification']];
+		$x .= '('.$npc_rank[$creature['classification']].')';
 	$x .= '</tr></td></tr></table>';
 	$creature['tooltip'] = $x;
 	

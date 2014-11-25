@@ -143,7 +143,7 @@ if(!$achievement = load_cache(ACHIEVEMENT_PAGE, $cache_key))
 						'href'	=> '?npc='.$row['value1'],
 						'text'	=> $row['name'],
 					);
-					$tmp['extra_text'] = $smarty->get_config_vars('slain');
+					$tmp['extra_text'] = LOCALE_ACHIEVEMENT_KILL_CREATURE;
 					break;
 				// Добавляем ссылку на зону, находим по карте
 				case ACHIEVEMENT_CRITERIA_TYPE_WIN_BG:

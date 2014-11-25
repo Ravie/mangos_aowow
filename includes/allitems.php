@@ -192,7 +192,7 @@ function spell_to_bonus($spell_id, $trigger, $ppmrate, $cooldown, $catcooldown)
     if($tooltip == '_empty_')
         return;
     if(!$tooltip)
-        return; //'<a href="?spell='.$spell_id.'">Error in spell_desc for spell '.$spell_id.'</a>';
+        return '<a href="?spell='.$spell_id.'">Error in spell_desc for spell '.$spell_id.'</a>';
     switch($trigger)
     {
         case 0:

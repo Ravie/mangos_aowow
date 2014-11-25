@@ -910,14 +910,21 @@ function spell_desc2($spellRow, $type='tooltip')
 				if(isset($exprData[2]))
 				{
 					$tmp = $lastvalue;
-					while($tmp >= 10)
-						$tmp = $tmp % 10;
-					if($tmp == 1)
-						$str .= $exprData[0];
-					elseif($tmp > 1 && $tmp < 5)
-						$str .= $exprData[1];
-					else
+					while($tmp >= 100)
+						$tmp = $tmp % 100;
+					if($tmp >= 5 && $tmp <= 20 || !$tmp)
 						$str .= $exprData[2];
+					else
+					{
+						while($tmp >= 10)
+							$tmp = $tmp % 10;
+						if($tmp == 1)
+							$str .= $exprData[0];
+						elseif($tmp > 1 && $tmp < 5)
+							$str .= $exprData[1];
+						else
+							$str .= $exprData[2];
+					}
 				}
 				else
 				{

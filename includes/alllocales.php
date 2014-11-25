@@ -7,6 +7,8 @@ switch($_SESSION['locale'])
 			'LOCALE_NAME'   =>  'имя',
 			'LOCALE_CLASS'  =>  'класс',
 			'LOCALE_RACE'   =>  'раса',
+			// achievement
+			'LOCALE_ACHIEVEMENT_KILL_CREATURE'   	=>   'убит',
 			// quest
 			'LOCALE_REQUIREMENTS'				  	=>   'Требования',
 			'LOCALE_QUEST_FLAGS_STAY_ALIVE'			=>   'Требует оставаться в живых',
@@ -23,7 +25,7 @@ switch($_SESSION['locale'])
 			'LOCALE_QUEST_FLAGS_DAILY'				=>   'Ежедневный',
 			'LOCALE_QUEST_FLAGS_FLAGS_PVP'			=>   'PvP',
 			'LOCALE_QUEST_FLAGS_WEEKLY'				=>   'Еженедельный',
-			'LOCALE_QUEST_FLAGS_AUTOCOMPLETE'	  	=>   'Автозавершение',
+			'LOCALE_QUEST_FLAGS_AUTOCOMPLETE'	  	=>   'Завершается автоматически',
 			'LOCALE_QUEST_FLAGS_UNK5'			  	=>   'Выдаётся/требуется предмет',
 			'LOCALE_QUEST_FLAGS_AUTO_ACCEPT'	   	=>   'Стартовые локации',
 			'LOCALE_QUEST_SPECIALFLAGS_REPEATABLE'	=>   'Повторяемый',
@@ -85,7 +87,7 @@ switch($_SESSION['locale'])
 			'LOCALE_ARCANE_RESISTANCE'  =>  'Сопротивление тайной магии',
 			'LOCALE_SHADOW_RESISTANCE'  =>  'Сопротивление темной магии',
 			'LOCALE_NATURE_RESISTANCE'  =>  'Сопротивление силам природы',
-			'LOCALE_HOLY_RESISTANCE'	=>  'RESISTANCE DOES NOT EXIST',
+			'LOCALE_HOLY_RESISTANCE'	=>  'Сопротивление силам света',  // doesn't exist
 			// binds
 			'LOCALE_BIND_PICKUP'	=>  'Становится персональным при нахождении',
 			'LOCALE_BIND_EQUIP'		=>  'Становится персональным при надевании',
@@ -158,12 +160,12 @@ switch($_SESSION['locale'])
 			'LOCALE_TYPENPC_COMPANION'	=> 'Спутник',
 			'LOCALE_TYPENPC_GAS_CLOUD'	=> 'Облако газа',
 			// npc rank
-			'LOCALE_NORMAL'		=> '(Обычный)',
-			'LOCALE_ELITE'		=> '(Элита)',
-			'LOCALE_RARE_ELITE'	=> '(Редкий Элитный)',
-			'LOCALE_BOSS'		=> '(Босс)',
-			'LOCALE_RARE'		=> '(Редкий)',
-			'LOCALE_UNKNOWN'	=> '(Неизвестный ранг)',
+			'LOCALE_NORMAL'		=> 'Обычный',
+			'LOCALE_ELITE'		=> 'Элитный',
+			'LOCALE_RARE_ELITE'	=> 'Редкий Элитный',
+			'LOCALE_BOSS'		=> 'Босс',
+			'LOCALE_RARE'		=> 'Редкий',
+			'LOCALE_UNKNOWN'	=> 'Неизвестный ранг',
 			// object type
 			'LOCALE_TYPEGO_BOOK'		=> 'Книга',
 			'LOCALE_TYPEGO_CONTAINER'   => 'Контейнер',
@@ -332,6 +334,8 @@ switch($_SESSION['locale'])
 			'LOCALE_NAME'	=> 'name',
 			'LOCALE_CLASS'   => 'klasse',
 			'LOCALE_RACE'	=> 'rennen',
+			// achievement
+			'LOCALE_ACHIEVEMENT_KILL_CREATURE'   	=>   'slain',
 			// quest
 			'LOCALE_REQUIREMENTS'					=> 'Anforderungen',
 			'LOCALE_QUEST_FLAGS_STAY_ALIVE'		  => '[Requires to stay alive]',
@@ -656,6 +660,8 @@ switch($_SESSION['locale'])
 			'LOCALE_NAME'	=> 'nom',
 			'LOCALE_CLASS'   => 'classe',
 			'LOCALE_RACE'	=> 'course',
+			// achievement
+			'LOCALE_ACHIEVEMENT_KILL_CREATURE'   	=>   'slain',
 			// quest
 			'LOCALE_REQUIREMENTS'				  => 'Conditions',
 			'LOCALE_QUEST_FLAGS_STAY_ALIVE'		=> 'Nécessite de rester en vie',
@@ -980,6 +986,8 @@ switch($_SESSION['locale'])
 			'LOCALE_NAME'	=> 'name',
 			'LOCALE_CLASS'   => 'class',
 			'LOCALE_RACE'	=> 'race',
+			// achievement
+			'LOCALE_ACHIEVEMENT_KILL_CREATURE'   	=>   'slain',
 			// quest
 			'LOCALE_REQUIREMENTS'				  => 'Requirements',
 			'LOCALE_QUEST_FLAGS_STAY_ALIVE'		=> 'Requires to stay alive',

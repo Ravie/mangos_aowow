@@ -18,7 +18,8 @@ $cache_key = cache_key($id);
 if(!$npc = load_cache(NPC_PAGE, $cache_key))
 {
 	unset($npc);
-
+	
+	global $npc_type, $npc_rank;
 	// Ищем NPC:
 	$row = $DB->selectRow('
 		SELECT
@@ -133,7 +134,6 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 			$npc['expansion'] = '<span class="wotlk-icon"></span>';
 		else
 			$npc['expansion'] = '';
-		$npc['subname'] = localizedName($row, 'subname');
 		if($npc['rank'] == 3)
 		{
 			$npc['minlevel'] = '??';
@@ -147,7 +147,8 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 		foreach($toDiv as $e)
 			$npc[$e] = number_format($npc[$e]);
 
-		$npc['rank'] = $smarty->get_config_vars('rank'.$npc['rank']);
+		$npc['rank'] = $npc_rank[$npc['rank']];
+		$npc['type'] = $npc_type[$npc['type']];
 		// FactionAlliance = FactionHorde
 		$npc['faction_num'] = $row['factionID'];
 		$npc['faction'] = $row['faction-name'];
@@ -324,22 +325,15 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 		// Используемые спеллы
 		$npc['ablities'] = array();
 		$tmp = array();
-		$row_spells = $DB->select
-		('SELECT spell1, spell2, spell3, spell4, spell5, spell6, spell7, spell8
-		  FROM creature_template_spells
-		  WHERE entry=?d', $npc['entry']);
+		$row_spells = $DB->selectRow('SELECT * FROM creature_template_spells WHERE entry=?d LIMIT 1', $npc['entry']);
 		for($j=1;$j<8;$j++)
-		{
 			if($row_spells['spell'.$j] && !in_array($row_spells['spell'.$j], $tmp))
 			{
 				$tmp[] = $row_spells['spell'.$j];
 				if($data = spellinfo($row_spells['spell'.$j], 0))
-				{
 					if($data['name'])
 						$npc['abilities'][] = $data;
-				}
 			}
-		}
 		for($j=1;$j<4;$j++)
 		{
 			$tmp2 = $DB->select('
