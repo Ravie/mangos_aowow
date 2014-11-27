@@ -579,7 +579,7 @@
                     </ul>{/strip}
 {/if}
 
-                <h2>{#Related#}</h2>
+                <h2></h2>
 
             </div>
 

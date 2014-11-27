@@ -197,7 +197,7 @@
             {#This_NPC_cant_be_found#}
         {/if}
 
-        <h2>{#Related#}</h2>
+        <h2></h2>
 
         </div>
 

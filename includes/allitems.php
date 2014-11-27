@@ -11,11 +11,11 @@ $item_cols = array(
     // для allitems($level=0) - соответствия номер-иконка
     0 => array('entry', 'iconname', 'quality', 'name'),
     // для allitems($level=1) - ajax, тултип
-    1 => array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'ItemLevel', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'armor', 'block', 'GemProperties', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'RandomSuffix', 'socketColor_1', 'socketColor_2', 'socketColor_3', 'socketBonus', 'MaxDurability', 'AllowableClass', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'spellcharges_1','spellcharges_2','spellcharges_3','spellcharges_4','spellcharges_5', 'spellppmRate_1','spellppmRate_2','spellppmRate_3','spellppmRate_4','spellppmRate_5', 'spellcooldown_1','spellcooldown_2','spellcooldown_3','spellcooldown_4','spellcooldown_5', 'spellcategorycooldown_1','spellcategorycooldown_2','spellcategorycooldown_3','spellcategorycooldown_4','spellcategorycooldown_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'itemset'),
+    1 => array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'ItemLevel', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'armor', 'block', 'GemProperties', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'RandomSuffix', 'socketColor_1', 'socketColor_2', 'socketColor_3', 'socketBonus', 'MaxDurability', 'AllowableClass', 'AllowableRace', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'spellcharges_1','spellcharges_2','spellcharges_3','spellcharges_4','spellcharges_5', 'spellppmRate_1','spellppmRate_2','spellppmRate_3','spellppmRate_4','spellppmRate_5', 'spellcooldown_1','spellcooldown_2','spellcooldown_3','spellcooldown_4','spellcooldown_5', 'spellcategorycooldown_1','spellcategorycooldown_2','spellcategorycooldown_3','spellcategorycooldown_4','spellcategorycooldown_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'itemset'),
     // для iteminfo($level=0) - строчки списка
-    2 => array('name', 'quality', 'iconname', 'InventoryType', 'ItemLevel', 'RequiredLevel', 'class', 'subclass', 'stackable', 'BuyPrice', 'armor', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'ContainerSlots'),
+    2 => array('name', 'quality', 'iconname', 'InventoryType', 'ItemLevel', 'AllowableClass', 'RequiredLevel', 'class', 'subclass', 'stackable', 'BuyPrice', 'armor', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'ContainerSlots'),
     // для iteminfo($level=1)
-    3 => array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'armor', 'block', 'GemProperties', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'RandomSuffix', 'socketColor_1', 'socketColor_2', 'socketColor_3', 'socketBonus', 'MaxDurability', 'AllowableClass', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'spellcharges_1','spellcharges_2','spellcharges_3','spellcharges_4','spellcharges_5', 'spellppmRate_1','spellppmRate_2','spellppmRate_3','spellppmRate_4','spellppmRate_5', 'spellcooldown_1','spellcooldown_2','spellcooldown_3','spellcooldown_4','spellcooldown_5', 'spellcategorycooldown_1','spellcategorycooldown_2','spellcategorycooldown_3','spellcategorycooldown_4','spellcategorycooldown_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'itemset', 'ItemLevel', 'stackable', 'BuyPrice', 'DisenchantID', 'SellPrice', 'RequiredDisenchantSkill', 'displayid')
+    3 => array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'armor', 'block', 'GemProperties', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'RandomSuffix', 'socketColor_1', 'socketColor_2', 'socketColor_3', 'socketBonus', 'MaxDurability', 'AllowableClass', 'AllowableRace', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'spellcharges_1','spellcharges_2','spellcharges_3','spellcharges_4','spellcharges_5', 'spellppmRate_1','spellppmRate_2','spellppmRate_3','spellppmRate_4','spellppmRate_5', 'spellcooldown_1','spellcooldown_2','spellcooldown_3','spellcooldown_4','spellcooldown_5', 'spellcategorycooldown_1','spellcategorycooldown_2','spellcategorycooldown_3','spellcategorycooldown_4','spellcategorycooldown_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'itemset', 'ItemLevel', 'stackable', 'BuyPrice', 'DisenchantID', 'SellPrice', 'RequiredDisenchantSkill', 'displayid')
 );
 
 $resz = array('holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res');
@@ -120,11 +120,11 @@ function b_type($type, $value, $level)
     switch($type)
     {
         // белые статы
-        case 3: return LOCALE_STAT_AGILITY.' +'.$value.'<br />';             # 3 - Agility
-        case 4: return LOCALE_STAT_STRENGTH.' +'.$value.'<br />';            # 4 - Strength
-        case 5: return LOCALE_STAT_INTELLECT.' +'.$value.'<br />';           # 5 - Intellect
-        case 6: return LOCALE_STAT_SPIRIT.' +'.$value.'<br />';              # 6 - Spirit
-        case 7: return LOCALE_STAT_STAMINA.' +'.$value.'<br />';             # 7 - Stamina
+        case 3: return ' +'.$value.LOCALE_STAT_AGILITY.'<br />';             # 3 - Agility
+        case 4: return ' +'.$value.LOCALE_STAT_STRENGTH.'<br />';            # 4 - Strength
+        case 5: return ' +'.$value.LOCALE_STAT_INTELLECT.'<br />';           # 5 - Intellect
+        case 6: return ' +'.$value.LOCALE_STAT_SPIRIT.'<br />';              # 6 - Spirit
+        case 7: return ' +'.$value.LOCALE_STAT_STAMINA.'<br />';             # 7 - Stamina
         // зеленые статы
         case 12: $green[] = green_bonus(LOCALE_GBONUS_DEFENCE, $value, $type, $level);           return;
         case 13: $green[] = green_bonus(LOCALE_GBONUS_DODGE, $value, $type, $level);             return;
@@ -431,6 +431,9 @@ function render_item_tooltip(&$Row)
     // Требуемые классы
     if(classes($Row['AllowableClass']))
         $x .= LOCALE_CLASSES.': '.classes($Row['AllowableClass']).'<br />';
+    // Требуемые расы
+    if(races($Row['AllowableRace']))
+        $x .= LOCALE_RACES.': '.races($Row['AllowableRace']).'<br />';
 
     // Требуемый скилл (755 - Jewecrafting)
     if(($Row['RequiredSkill']) and ($Row['RequiredSkill']!=755))
@@ -481,7 +484,7 @@ function render_item_tooltip(&$Row)
             $x .= '<span class="q">"'.localizedName($Row, 'description').'"</span>';
     }
     if($Row['PageText'])
-        $x .= '<br /><span class="q2">&lt;Right Click To Read&gt;</span>'; // TODO: locale
+        $x .= '<br /><span class="q2">&lt;'.LOCALE_READABLE.'&gt;</span>';
 
     // Item Set
     // Временное хранилище всех вещей;
@@ -507,7 +510,7 @@ function render_item_tooltip(&$Row)
         if($row['skillID'])
         {
             $name = $DB->selectCell('SELECT name_loc'.$_SESSION['locale'].' FROM ?_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
-            $x .= LOCALE_REQUIRES.' <a href="?spells=11.'.$row['skillID'].'" class="q1">'.$name.'</a>';
+            $x .= '<br />'.LOCALE_REQUIRES_LEVEL1.': <a href="?spells=11.'.$row['skillID'].'" class="q1">'.$name.'</a>';
             if($row['skilllevel'])
                 $x .= ' ('.$row['skilllevel'].')';
             $x .= '<br />';
@@ -537,7 +540,7 @@ function render_item_tooltip(&$Row)
                     $itemset['spells'][$i] = $itemset['spells'][$j];
                     $itemset['spells'][$j] = $tmp;
                 }
-            $x .= '<span>('.$itemset['spells'][$i]['bonus'].') '.LOCALE_SET_BONUS.': <a href="?spell='.$itemset['spells'][$i]['entry'].'">'.$itemset['spells'][$i]['tooltip'].'</a></span><br />';
+            $x .= '<span>'.LOCALE_SET_BONUS.' ('.$itemset['spells'][$i]['bonus'].' '.($itemset['spells'][$i]['bonus'] < 5 ? LOCALE_ITEM_QUANTITY1 : LOCALE_ITEM_QUANTITY2).'): <a href="?spell='.$itemset['spells'][$i]['entry'].'">'.$itemset['spells'][$i]['tooltip'].'</a></span><br />';
         }
         $x .= '</span></span>';
     }
@@ -563,6 +566,7 @@ function iteminfo2(&$Row, $level=0)
     $item['displayid'] = $Row['displayid'];
     // Уровень вещи
     $item['level'] = $Row['ItemLevel'];
+    $item['classes'] = $Row['AllowableClass'];
     // Качество вещи...
     $item['quality'] = $Row['quality'];
     $item['quality2'] = 7 - $Row['quality'];
@@ -616,12 +620,14 @@ function iteminfo2(&$Row, $level=0)
             $item['disenchantskill'] = $Row['RequiredDisenchantSkill'];
         for($j=1;$j<=5;$j++)
         {
+            $name = $DB->selectCell('SELECT spellname_loc?d FROM ?_spell WHERE spellID=? LIMIT 1', ($_SESSION['locale']>0)? $_SESSION['locale']: 0, $Row['spellid_'.$j]);
+            $link = '<span><a href="?spell='.$Row['spellid_'.$j].'">'.$name.'</a></span>';
             if ($Row['spellid_'.$j] && $Row['spellcharges_'.$j] == -1)
-                $item['charges'][$j] = LOCALE_GBONUS_EXPENDABLE.' ('.$Row['spellid_'.$j].')';
+                $item['charges'][$j] = LOCALE_GBONUS_EXPENDABLE.' ('.$link.')';
             elseif ($Row['spellid_'.$j] && $Row['spellcharges_'.$j] < 0)
-                $item['charges'][$j] = (-$Row['spellcharges_'.$j]).' '.LOCALE_GBONUS_CHARGES.', '.LOCALE_GBONUS_EXPENDABLE.' ('.$Row['spellid_'.$j].')';
+                $item['charges'][$j] = (-$Row['spellcharges_'.$j]).' '.LOCALE_GBONUS_CHARGES.', '.LOCALE_GBONUS_EXPENDABLE.' ('.$link.')';
             elseif ($Row['spellid_'.$j] && $Row['spellcharges_'.$j] > 0)
-                $item['charges'][$j] = $Row['spellcharges_'.$j].' '.LOCALE_GBONUS_CHARGES.' ('.$Row['spellid_'.$j].')';
+                $item['charges'][$j] = $Row['spellcharges_'.$j].' '.LOCALE_GBONUS_CHARGES.' ('.$link.')';
         }
         // Цена на продажу
         $item['sellgold'] = floor($Row['SellPrice']/10000);

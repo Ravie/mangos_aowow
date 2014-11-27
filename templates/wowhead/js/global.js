@@ -5945,7 +5945,7 @@ Listview.templates = {
             name: LANG.classes,
             type: "text",
             compute: function (c, e) {
-                if (c.classes != null) {
+                if (c.classes != null && c.classes.length != 10) {
                     var d = "";
                     for (var b = 0, a = c.classes.length; b < a; ++b) {
                         if (b > 0) {
@@ -5954,6 +5954,8 @@ Listview.templates = {
                         d += g_chr_classes[c.classes[b]]
                     }
                     return d
+                } else {
+                    return g_chr_classes[0]
                 }
             },
             sortFunc: function (d, c, e) {

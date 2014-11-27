@@ -12,6 +12,7 @@
                     {if $data[i].maxlevel}maxlevel:{$data[i].maxlevel},{/if}
                     {if $data[i].pieces}pieces:[{section name=j loop=$data[i].pieces}{$data[i].pieces[j]}{if $smarty.section.j.last}{else},{/if}{/section}],{/if}
                     {if isset($data[i].type)}type:{$data[i].type},{/if}
+                    {if isset($data[i].classes)}classes:[{section name=j loop=$data[i].classes}{$data[i].classes[j]}{if $smarty.section.j.last}{else},{/if}{/section}],{/if}
                     id:{$data[i].entry}
                 {rdelim}
                 {if $smarty.section.i.last}{else},{/if}

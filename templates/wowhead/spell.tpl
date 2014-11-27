@@ -173,7 +173,7 @@
                 array_walk(gE(ge('spelldetails'), 'tr'), function(x) {ldelim} if(x.parentNode.parentNode.className != 'icontab') {ldelim} x.onmouseover = Listview.itemOver; x.onmouseout = Listview.itemOut {rdelim}{rdelim});
             </script>
 
-            <h2>{#Related#}</h2>
+            <h2></h2>
 
         </div>
 

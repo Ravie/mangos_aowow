@@ -83,7 +83,7 @@
                 <div class="pad"></div>
                 <div>{#This_zone_is_part_of#} <a href="?zone={$zone.parent}">{$zone.parentname}</a>.</div>
 {/if}
-                <h2>{#Related#}</h2>
+                <h2></h2>
             </div>
 
             <div id="tabs-generic"></div>

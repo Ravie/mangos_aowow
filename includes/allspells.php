@@ -520,7 +520,7 @@ function spell_desc($spellid, $type='tooltip')
 
 function spell_desc2($spellRow, $type='tooltip')
 {
-    global $DB;
+    global $DB, $AoWoWconf;
 
     allspellsinfo2($spellRow);
 
@@ -907,7 +907,7 @@ function spell_desc2($spellRow, $type='tooltip')
                 $lastvalue = $base;
                 break;
             case 'l':
-                if(isset($exprData[2]))
+                if($AoWoWconf['locale'] == 8)
                 {
                     $tmp = $lastvalue;
                     while($tmp >= 100)
@@ -956,7 +956,7 @@ function spellregexp($matches)
     if(isset($matches[2]))
         return eval("return abs(round(".$matches[1].", ".$matches[3]."));");
     else
-        return eval("return abs(".$matches[1].");");
+        return eval("return abs(round(".$matches[1]."));");
 }
 
 function render_spell_tooltip(&$row)

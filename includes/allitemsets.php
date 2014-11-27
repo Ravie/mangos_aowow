@@ -7,6 +7,7 @@ $itemset_col[1] = array('itemsetID', 'name_loc'.$_SESSION['locale'], 'item1', 'i
 
 function itemsetinfo2(&$row)
 {
+    $classmask = 262144;
     $itemset = array();
     $itemset['entry'] = $row['itemsetID'];
     $itemset['name'] = $row['name_loc'.$_SESSION['locale']];
@@ -19,19 +20,47 @@ function itemsetinfo2(&$row)
             $itemset['pieces'][] = $row['item'.$j];
             $item = array();
             $item = iteminfo($row['item'.$j], 0);
-            if ($item['level'] < $itemset['minlevel']) $itemset['minlevel'] = $item['level'];
-            if ($item['level'] > $itemset['maxlevel']) $itemset['maxlevel'] = $item['level'];
+            if($item['classes'] < $classmask)
+                $classmask = $item['classes'];
+            if($item['level'] < $itemset['minlevel'])
+                $itemset['minlevel'] = $item['level'];
+            if($item['level'] > $itemset['maxlevel'])
+                $itemset['maxlevel'] = $item['level'];
+            if($item['classs'] == 4 && $item['subclass'])
+                $itemset['type'] = $item['subclass'];
         }
     if(isset($item))
     {
         $itemset['quality2'] = 7 - $item['quality'];
-        if($item['classs']==4)
-            $itemset['type'] = $item['subclass'];
+        $item['classes'] = $classmask;
+        if($item['classes'] == -1)
+            $itemset['classes'] = NULL;
+        else
+        {
+            if($item['classes'] & 1)
+                $itemset['classes'][] = 1;
+            if($item['classes'] & 2)
+                $itemset['classes'][] = 2;
+            if($item['classes'] & 4)
+                $itemset['classes'][] = 3;
+            if($item['classes'] & 8)
+                $itemset['classes'][] = 4;
+            if($item['classes'] & 16)
+                $itemset['classes'][] = 5;
+            if($item['classes'] & 32)
+                $itemset['classes'][] = 6;
+            if($item['classes'] & 64)
+                $itemset['classes'][] = 7;
+            if($item['classes'] & 128)
+                $itemset['classes'][] = 8;
+            if($item['classes'] & 256)
+                $itemset['classes'][] = 9;
+            if($item['classes'] & 1024)
+                $itemset['classes'][] = 11;
+        }
     } else {
         $itemset['quality2'] = 7;
     }
-    // TODO: classes
-    $itemset['classes'][] = 0;
     return $itemset;
 }
 

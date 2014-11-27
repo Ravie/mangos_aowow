@@ -142,7 +142,6 @@ line-height:1.1em;
 color:white;
 font-size:18px;
 font-weight:normal;
-border-bottom:1px solid #505050;
 padding:26px 0 3px;
 margin:0 0 13px;
 line-height:1.25em;
@@ -1510,6 +1509,7 @@ cursor:default;
 
 .tooltip {
 visibility:hidden;
+width:500px!important;
 z-index:100000003;
 }
 
@@ -1636,7 +1636,6 @@ text-align:center;
 }
 
 .listview {
-border:3px solid #404040;
 clear:both;
 }
 

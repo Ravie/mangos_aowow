@@ -55,55 +55,27 @@ function sign($val)
     if($val == 0) return 0;
 }
 // Классы персонажей (битовые маски)
-define('CLASS_WARRIOR', 1);
-define('CLASS_PALADIN', 2);
-define('CLASS_HUNTER', 4);
-define('CLASS_ROGUE', 8);
-define('CLASS_PRIEST', 16);
+define('CLASS_WARRIOR',       1);
+define('CLASS_PALADIN',       2);
+define('CLASS_HUNTER',        4);
+define('CLASS_ROGUE',         8);
+define('CLASS_PRIEST',       16);
 define('CLASS_DEATH_KNIGHT', 32);
-define('CLASS_SHAMAN', 64);
-define('CLASS_MAGE', 128);
-define('CLASS_WARLOCK', 256);
-define('CLASS_DRUID', 1024);
-
-// Классы персонажей (архив)
-$classes = array(
-    1 => LOCALE_WARRIOR,
-    2 => LOCALE_PALADIN,
-    3 => LOCALE_HUNTER,
-    4 => LOCALE_ROGUE,
-    5 => LOCALE_PRIEST,
-    6 => LOCALE_DEATH_KNIGHT,
-    7 => LOCALE_SHAMAN,
-    8 => LOCALE_MAGE,
-    9 => LOCALE_WARLOCK,
-    11=> LOCALE_DRUID
-);
-
-// Расы персонажей (архив)
-$races = array(
-    1 => LOCALE_HUMAN,
-    2 => LOCALE_ORC,
-    3 => LOCALE_DWARF,
-    4 => LOCALE_NIGHTELF,
-    5 => LOCALE_UNDEAD,
-    6 => LOCALE_TAUREN,
-    7 => LOCALE_GNOME,
-    8 => LOCALE_TROLL,
-    10=> LOCALE_BLOODELF,
-    11=> LOCALE_DRAENEI
-);
-
-define('RACE_HUMAN', 1);
-define('RACE_ORC', 2);
-define('RACE_DWARF', 4);
-define('RACE_NIGHTELF', 8);
-define('RACE_UNDEAD', 16);
-define('RACE_TAUREN', 32);
-define('RACE_GNOME', 64);
-define('RACE_TROLL', 128);
-define('RACE_BLOODELF', 512);
-define('RACE_DRAENEI', 1024);
+define('CLASS_SHAMAN',       64);
+define('CLASS_MAGE',        128);
+define('CLASS_WARLOCK',     256);
+define('CLASS_DRUID',      1024);
+// Расы персонажей (битовые маски)
+define('RACE_HUMAN',          1);
+define('RACE_ORC',            2);
+define('RACE_DWARF',          4);
+define('RACE_NIGHTELF',       8);
+define('RACE_UNDEAD',        16);
+define('RACE_TAUREN',        32);
+define('RACE_GNOME',         64);
+define('RACE_TROLL',        128);
+define('RACE_BLOODELF',     512);
+define('RACE_DRAENEI',     1024);
 
 // Типы разделов
 $types = array(
@@ -205,148 +177,208 @@ function money2coins($money)
 // Классы, для которых предназначена вещь
 function classes($class)
 {
+    if($class == -1)
+        return NULL;
     $tmp = '';
+    $classes_count = 0;
     if($class & CLASS_WARRIOR)
+    {
         $tmp = '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>';
+        $classes_count += 1;
+    }
     if($class & CLASS_PALADIN)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_HUNTER)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_ROGUE)
     {
         if($tmp)
             $tmp .= ', '; 
         $tmp .= '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_PRIEST)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_DEATH_KNIGHT)
     {
         if($tmp)
             $tmp .= ', '; 
         $tmp .= '<a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_SHAMAN)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_MAGE)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_WARLOCK)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>';
+        $classes_count += 1;
     }
     if($class & CLASS_DRUID)
     {
         if($tmp)
             $tmp .= ', ';
         $tmp .= '<a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>';
+        $classes_count += 1;
     }
-    if($tmp == '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>, <a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>, <a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>, <a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>, <a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>, <a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>, <a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>, <a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>, <a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>, <a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>' || $tmp == '')
-        return;
-    else
-        return $tmp;
-}
-function factions($race)
-{
-    // Простые варианты:
-    if($race == (RACE_HUMAN|RACE_ORC|RACE_DWARF|RACE_NIGHTELF|RACE_UNDEAD|RACE_TAUREN|RACE_GNOME|RACE_TROLL|RACE_BLOODELF|RACE_DRAENEI) || $race == 0)
-        return array('side' => 3, 'name' => LOCALE_BOTH_FACTIONS);
-    elseif($race == (RACE_ORC|RACE_UNDEAD|RACE_TAUREN|RACE_TROLL|RACE_BLOODELF))
-        return array('side' => 2, 'name' => LOCALE_HORDE);
-    elseif($race == (RACE_HUMAN|RACE_DWARF|RACE_NIGHTELF|RACE_GNOME|RACE_DRAENEI))
-        return array('side' => 1, 'name' => LOCALE_ALLIANCE);
-    else
-    {
-        if(($race & RACE_HUMAN)==RACE_HUMAN || ($race & RACE_DWARF)==RACE_DWARF || ($race & RACE_NIGHTELF)==RACE_NIGHTELF || ($race & RACE_GNOME)==RACE_GNOME || ($race & RACE_DRAENEI)==RACE_DRAENEI)
-            return array('side' => 1, 'name' => LOCALE_ALLIANCE);
-        if(($race & RACE_ORC)==RACE_ORC || ($race & RACE_UNDEAD)==RACE_UNDEAD || ($race & RACE_TAUREN)==RACE_TAUREN || ($race & RACE_TROLL)==RACE_TROLL || ($race & RACE_BLOODELF)==RACE_BLOODELF)
-            return array('side' => 2, 'name' => LOCALE_HORDE);
-    }
+    if(!$classes_count || $classes_count == 10)
+        $tmp = NULL;
+    return $tmp;
 }
 function races($race)
 {
+    if($race == -1 || !$race)
+        return NULL;
     $temp = '';
+    $races_count = 0;
     if($race & RACE_HUMAN)
+    {
         $temp = '<span class="human-icon">'.LOCALE_HUMAN.'</span>';
+        $races_count += 1;
+    }
     if($race & RACE_ORC)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="orc-icon">'.LOCALE_ORC.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_DWARF)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="dwarf-icon">'.LOCALE_DWARF.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_NIGHTELF)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_UNDEAD)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="undead-icon">'.LOCALE_UNDEAD.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_TAUREN)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="tauren-icon">'.LOCALE_TAUREN.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_GNOME)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="gnome-icon">'.LOCALE_GNOME.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_TROLL)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="troll-icon">'.LOCALE_TROLL.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_BLOODELF)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
+        $races_count += 1;
     }
     if($race & RACE_DRAENEI)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
+        $races_count += 1;
     }
-    if($temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '' || $temp == '<span class="human-icon">'.LOCALE_HUMAN.'</span>, <span class="dwarf-icon">'.LOCALE_DWARF.'</span>, <span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>, <span class="gnome-icon">'.LOCALE_GNOME.'</span>, <span class="draenei-icon">'.LOCALE_DRAENEI.'</span>' || $temp == '<span class="orc-icon">'.LOCALE_ORC.'</span>, <span class="undead-icon">'.LOCALE_UNDEAD.'</span>, <span class="tauren-icon">'.LOCALE_TAUREN.'</span>, <span class="troll-icon">'.LOCALE_TROLL.'</span>, <span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>')
-        return;
-    else
-        return $temp;
+    if($races_count == 10)
+        $temp = NULL;
+    return $temp;
+}
+function factions($race)
+{
+    if($race == -1 || !$race)
+        return array('side' => 3, 'name' => LOCALE_BOTH_FACTIONS);
+    $alliance_count = 0;
+    $horde_count = 0;
+    if($race & RACE_HUMAN)
+        $alliance_count += 1;
+    if($race & RACE_ORC)
+        $horde_count += 1;
+    if($race & RACE_DWARF)
+        $alliance_count += 1;
+    if($race & RACE_NIGHTELF)
+        $alliance_count += 1;
+    if($race & RACE_UNDEAD)
+        $horde_count += 1;
+    if($race & RACE_TAUREN)
+        $horde_count += 1;
+    if($race & RACE_GNOME)
+        $alliance_count += 1;
+    if($race & RACE_TROLL)
+        $horde_count += 1;
+    if($race & RACE_BLOODELF)
+        $horde_count += 1;
+    if($race & RACE_DRAENEI)
+        $alliance_count += 1;
+    if($alliance_count > 0 && $horde_count > 0)
+        return array('side' => 3, 'name' => LOCALE_BOTH_FACTIONS);
+    elseif(!$alliance_count && $horde_count > 0)
+        return array('side' => 2, 'name' => LOCALE_HORDE);
+    elseif($alliance_count > 0 && !$horde_count)
+        return array('side' => 1, 'name' => LOCALE_ALLIANCE);
+}
+function armor($type)
+{
+    switch($type)
+    {
+        case 1:
+            return LOCALE_ARMOR_CLOTH;
+        case 2:
+            return LOCALE_ARMOR_LEATHER;
+        case 3:
+            return LOCALE_ARMOR_MAIL;
+        case 4:
+            return LOCALE_ARMOR_PLATE;
+        default:
+            return NULL;
+    }
 }
 function sum_subarrays_by_key( $tab, $key ) {
     $sum = 0;

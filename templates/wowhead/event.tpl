@@ -40,7 +40,7 @@
                         {#Period#}: {$event.period}<br>
                     {/strip}
 
-                    <h2>{#Related#}</h2>
+                    <h2></h2>
                 </div>
 
                 <div id="tabs-generic"></div>

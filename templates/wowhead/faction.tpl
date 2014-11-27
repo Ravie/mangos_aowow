@@ -26,7 +26,7 @@
                     {if $faction.description1}<h1></h1>{/if}
                     {$faction.description2}
                     <div class="article-footer">Article ported from <a href="http://www.wowwiki.com/" target="_blank" class="q0">WoWWiki</a>&ndash; <a href="http://www.wowwiki.com/{$faction.name}" target="_blank" class="q0">Read more</a><br />Licensed under <a href="http://www.gnu.org/copyleft/fdl.html" target="_blank" class="q0">GFDL</a></div>
-                <h2>{#Related#}</h2>
+                <h2></h2>
                 </div>
                 <div id="tabs-generic"></div>
                 <div id="listview-generic" class="listview"></div>

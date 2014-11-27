@@ -18,11 +18,13 @@ if(!$itemset = load_cache(ITEMSET_PAGE, $cache_key))
     if($row)
     {
         $itemset = array();
+        $classmask = 262144;
         $itemset['entry'] = $row['itemsetID'];
         $itemset['name'] = $row['name_loc'.$_SESSION['locale']];
         $itemset['minlevel'] = 255;
         $itemset['maxlevel'] = 0;
         $itemset['count'] = 0;
+        $itemset['reqlvl'] = 0;
         $x = 0;
         $itemset['pieces'] = array();
         for($j=1;$j<=10;$j++)
@@ -38,9 +40,20 @@ if(!$itemset = load_cache(ITEMSET_PAGE, $cache_key))
                 if($itemset['pieces'][$itemset['count']]['level'] > $itemset['maxlevel'])
                     $itemset['maxlevel'] = $itemset['pieces'][$itemset['count']]['level'];
 
+                if($itemset['pieces'][$itemset['count']]['reqlevel'] > $itemset['reqlvl'])
+                    $itemset['reqlvl'] = $itemset['pieces'][$itemset['count']]['reqlevel'];
+
+                if($itemset['pieces'][$itemset['count']]['classes'] < $classmask)
+                    $classmask = $itemset['pieces'][$itemset['count']]['classes'];
+
+                if($itemset['pieces'][$itemset['count']]['classs'] == 4 && $itemset['pieces'][$itemset['count']]['subclass'])
+                    $itemset['type'] = $itemset['pieces'][$itemset['count']]['subclass'];
+
                 $itemset['count']++;
             }
         }
+        $itemset['classes'] = classes($classmask);
+        $itemset['type'] = armor($itemset['type']);
         $itemset['spells'] = array();
         for($j=1;$j<=8;$j++)
             if($row['spell'.$j])

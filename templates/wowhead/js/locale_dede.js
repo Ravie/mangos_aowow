@@ -904,6 +904,7 @@ var mn_path=[
     //[2,"Weiteres",,mn_more]
 ];
 var g_chr_classes={
+    0:"Any class",
     1:"Krieger",
     2:"Paladin",
     3:"Jäger",
