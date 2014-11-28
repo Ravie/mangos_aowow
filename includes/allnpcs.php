@@ -11,16 +11,16 @@ function creatureinfo2($Row, $level = 0)
 {
     global $npc_type, $npc_rank;
     $creature = array(
-        'entry'            => $Row['entry'],
+        'entry'          => $Row['entry'],
         'source_name'    => $Row['name'],
-        'name'            => localizedName($Row),
+        'name'           => localizedName($Row),
         'subname'        => localizedName($Row, 'subname'),
-        'minlevel'        => $Row['MinLevel'],
-        'maxlevel'        => $Row['MaxLevel'],
-        'react'            => $Row['A'].','.$Row['H'],
-        'type'            => $Row['CreatureType'],
-        'classification'=> $Row['Rank'],
-        'expansion'        => $Row['Expansion']
+        'minlevel'       => $Row['MinLevel'],
+        'maxlevel'       => $Row['MaxLevel'],
+        'react'          => $Row['A'].','.$Row['H'],
+        'type'           => $Row['CreatureType'],
+        'classification' => $Row['Rank'],
+        'expansion'      => $Row['Expansion']
     );
     if ($creature['expansion'] == 1)
         $creature['expansion'] = '<span class="tbc-icon"></span>';

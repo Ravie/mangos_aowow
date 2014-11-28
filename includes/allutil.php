@@ -258,76 +258,77 @@ function races($race)
     if($race == -1 || !$race)
         return NULL;
     $temp = '';
-    $races_count = 0;
+    $alliance_count = 0;
+    $horde_count = 0;
     if($race & RACE_HUMAN)
     {
         $temp = '<span class="human-icon">'.LOCALE_HUMAN.'</span>';
-        $races_count += 1;
+        $alliance_count += 1;
     }
     if($race & RACE_ORC)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="orc-icon">'.LOCALE_ORC.'</span>';
-        $races_count += 1;
+        $horde_count += 1;
     }
     if($race & RACE_DWARF)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="dwarf-icon">'.LOCALE_DWARF.'</span>';
-        $races_count += 1;
+        $alliance_count += 1;
     }
     if($race & RACE_NIGHTELF)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>';
-        $races_count += 1;
+        $alliance_count += 1;
     }
     if($race & RACE_UNDEAD)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="undead-icon">'.LOCALE_UNDEAD.'</span>';
-        $races_count += 1;
+        $horde_count += 1;
     }
     if($race & RACE_TAUREN)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="tauren-icon">'.LOCALE_TAUREN.'</span>';
-        $races_count += 1;
+        $horde_count += 1;
     }
     if($race & RACE_GNOME)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="gnome-icon">'.LOCALE_GNOME.'</span>';
-        $races_count += 1;
+        $alliance_count += 1;
     }
     if($race & RACE_TROLL)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="troll-icon">'.LOCALE_TROLL.'</span>';
-        $races_count += 1;
+        $horde_count += 1;
     }
     if($race & RACE_BLOODELF)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
-        $races_count += 1;
+        $horde_count += 1;
     }
     if($race & RACE_DRAENEI)
     {
         if($temp)
             $temp .= ', ';
         $temp .= '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
-        $races_count += 1;
+        $alliance_count += 1;
     }
-    if($races_count == 10)
+    if($alliance_count == 5 || $horde_count == 5)
         $temp = NULL;
     return $temp;
 }

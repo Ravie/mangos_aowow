@@ -93,7 +93,11 @@ if(!$faction = load_cache(FACTION_PAGE, $cache_key))
         {
             $faction['npcs'] = array();
             foreach($creature_rows as $i=>$row)
+            {
+                $row['name_loc'] = $DB->selectCell('SELECT name_loc?d FROM locales_creature WHERE entry = ?d LIMIT 1',
+                                                    $_SESSION['locale'] ? $_SESSION['locale']: 1, $row['entry']);
                 $faction['npcs'][] = creatureinfo2($row);
+            }
             unset($creature_rows);
         }
 
