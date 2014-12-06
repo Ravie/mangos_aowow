@@ -483,7 +483,7 @@ $pet_skill_categories = array(
 );
 
 $spell_cols[0] = array('spellID', 'iconname', 'effect1itemtype', 'effect1Aura', 'spellname_loc'.$_SESSION['locale']);
-$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'],  'rangeID', 'powerType', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID');
+$spell_cols[1] = array('spellID', 'iconname', 'tooltip_loc'.$_SESSION['locale'], 'spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'],  'rangeID', 'powerType', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'categoryCooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1', 'durationID','runeCostID');
 $spell_cols[2] = array('spellname_loc'.$_SESSION['locale'], 'rank_loc'.$_SESSION['locale'], 'levelspell', 'schoolMask', 'effect1itemtype', 'effect2itemtype', 'effect3itemtype', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'iconname', 'effect1Aura', 'effect2Aura', 'effect3Aura');
 
 function spell_schoolmask($schoolMask)
@@ -520,7 +520,7 @@ function spell_desc($spellid, $type='tooltip')
 
 function spell_desc2($spellRow, $type='tooltip')
 {
-    global $DB, $AoWoWconf;
+    global $DB;
 
     allspellsinfo2($spellRow);
 
@@ -907,33 +907,19 @@ function spell_desc2($spellRow, $type='tooltip')
                 $lastvalue = $base;
                 break;
             case 'l':
-                if($AoWoWconf['locale'] == 8)
+                $tmp = ending($lastvalue);
+                switch($tmp)
                 {
-                    $tmp = $lastvalue;
-                    while($tmp >= 100)
-                        $tmp = $tmp % 100;
-                    if($tmp >= 5 && $tmp <= 20 || !$tmp)
-                        $str .= $exprData[2];
-                    else
-                    {
-                        while($tmp >= 10)
-                            $tmp = $tmp % 10;
-                        if($tmp == 1)
-                            $str .= $exprData[0];
-                        elseif($tmp > 1 && $tmp < 5)
-                            $str .= $exprData[1];
-                        else
-                            $str .= $exprData[2];
-                    }
+                    case 1: 
+                        $str .= $exprData[0]; 
+                        break;
+                    case 2: 
+                        $str .= $exprData[1]; 
+                        break;
+                    case 3: 
+                        $str .= $exprData[2]; 
+                        break;
                 }
-                else
-                {
-                    if($lastvalue > 1)
-                        $str .= $exprData[1];
-                    else
-                        $str .= $exprData[0];
-                }
-                break;
             case 'g':
                 $str .= $exprData[0].'/'.$exprData[1];
                 break;
@@ -1057,10 +1043,8 @@ function render_spell_tooltip(&$row)
                 $x .= LOCALE_POWER_ENERGY.': '.$row['manacost'].' <br />';
                 break;
             case POWER_HAPPINESS:
-                $x .= LOCALE_POWER_HAPPINESS.': '.$row['manacost'].' <br />';
                 break;
             case POWER_RUNE:
-                $x .= LOCALE_POWER_RUNE.': '.$row['manacost'].' <br />';
                 break;
             case POWER_RUNIC_POWER:
                 if($row['manacost'] > 10)
@@ -1071,12 +1055,36 @@ function render_spell_tooltip(&$row)
         switch($row['powerType'])
         {
             case POWER_HEALTH:
-                $x .= $row['manacostpercent']."% ".LOCALE_BASE_HEALTH."<br />";
+                $x .= LOCALE_POWER_HEALTH.': '.$row['manacostpercent'].' <br />';
                 break;
             case POWER_MANA:
                 $x .= $row['manacostpercent']."% ".LOCALE_BASE_MANA."<br />";
                 break;
         }
+
+    if($row['powerType'] == POWER_HAPPINESS)
+        $x .= LOCALE_POWER_HAPPINESS.' <br />';
+
+    if($row['runeCostID'] && $row['powerType'] == POWER_RUNE)
+    {
+        $runes = $DB->selectRow('SELECT * FROM ?_spellrunecost WHERE runeID = ?d LIMIT 1', $row['runeCostID']);
+        if($runes['BloodRuneCost'])
+        {
+            $rune_number = rune_amount($runes['BloodRuneCost']);
+            $x .= $rune_number.LOCALE_BLOOD_RUNE.' ';
+        }
+        if($runes['UnholyRuneCost'])
+        {
+            $rune_number = rune_amount($runes['UnholyRuneCost']);
+            $x .= $rune_number.LOCALE_UNHOLY_RUNE.' ';
+        }
+        if($runes['FrostRuneCost'])
+        {
+            $rune_number = rune_amount($runes['FrostRuneCost']);
+            $x .= $rune_number.LOCALE_FROST_RUNE;
+        }
+        $x .= '<br />';
+    }
 
     if($range && (($row['manacost'] >0) || ($row['manacostpercent']>0)))
         $x .= '</td><th>';
@@ -1157,6 +1165,55 @@ function render_spell_tooltip(&$row)
         $x .= '<table><tr><td><span class="q">'.$desc.'</span></td></tr></table>';
 
     return $x;
+}
+
+function ending($number)
+{
+    global $AoWoWconf;
+    if($AoWoWconf['locale'] == 8)
+    {
+        while($number >= 100)
+            $number = $number % 100;
+        if($number >= 5 && $number <= 20 || !$number)
+            $ending = 3;
+        else
+        {
+            while($number >= 10)
+                $number = $number % 10;
+            if($number == 1)
+                $ending = 1;
+            elseif($number > 1 && $number < 5)
+                $ending = 2;
+            else
+                $ending = 3;
+        }
+    }
+    else
+    {
+        if($number > 1)
+            $ending = 2;
+        else
+            $ending = 1;
+    }
+    return $ending;
+}
+
+function rune_amount($rune)
+{
+    $ending = ending($rune);
+    switch($ending)
+    {
+        case 1: 
+            $str = $rune.' '.LOCALE_RUNE.' '; 
+            break;
+        case 2: 
+            $str = $rune.' '.LOCALE_RUNES1.' '; 
+            break;
+        case 3: 
+            $str = $rune.' '.LOCALE_RUNES2.' '; 
+            break;
+    }
+    return $str;
 }
 
 function allspellsinfo2(&$row, $level=0)
