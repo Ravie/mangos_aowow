@@ -9,9 +9,10 @@ Order Deny,Allow
 Options -Indexes
 # Поддержка UTF8
 DirectoryIndex index.php
+ServerSignature Off
 AddDefaultCharset utf8
 <IfModule mod_charset.c>
 	CharsetDisable on
 	CharsetRecodeMultipartForms Off
 </IfModule>
-php_value		default_charset									UTF-8
+php_value default_charset UTF-8
