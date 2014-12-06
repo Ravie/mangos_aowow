@@ -381,6 +381,20 @@ function armor($type)
             return NULL;
     }
 }
+function npc_classes($class)
+{
+    switch($class)
+    {
+        case 1:
+            return '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>';
+        case 2:
+            return '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
+        case 4:
+            return '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
+        case 8:
+            return '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
+    }
+}
 function sum_subarrays_by_key( $tab, $key ) {
     $sum = 0;
     foreach($tab as $sub_array) {

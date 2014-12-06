@@ -16,7 +16,8 @@
                 <tr><td><div class="infobox-spacer"></div>
                     <ul>
                         <li><div>{#Level#}: {if $npc.minlevel<>$npc.maxlevel}{$npc.minlevel} - {/if}{$npc.maxlevel}</div></li>
-                        <li><div>{#Classification#}: {$npc.rank}</div></li>
+                        <li><div>{#Class#}: {$npc.class}</div></li>
+                        <li><div>{#Difficulty#}: {$npc.rank}</div></li>
                         <li><div>{#CreatureType#}: {$npc.type}</div></li>
                         <li><div>{#React#}: <span class="q{if $npc.A==-1}10{elseif $npc.A==1}2{else}{/if}">{#A#}</span> <span class="q{if $npc.H==-1}10{elseif $npc.H==1}2{else}{/if}">{#H#}</span></div></li>
                         <li><div>{#Faction#}: <a href="?faction={$npc.faction_num}">{$npc.faction}</a></div></li>
@@ -25,7 +26,7 @@
                             <li><div>{#Mana#}: {if $npc.minmana<>$npc.maxmana}{$npc.minmana} - {/if}{$npc.maxmana}</div></li>
                         {/if}
                         {if ($npc.moneysilver>0) or ($npc.moneygold>0) or ($npc.moneycopper>0)}
-                            <li><div>{#Wealth#}:
+                            <li><div>{#Loot#}:
                             {if ($npc.moneygold>0)}<span class="moneygold">{$npc.moneygold}</span>{/if}
                             {if ($npc.moneysilver>0)}<span class="moneysilver">{$npc.moneysilver}</span>{/if}
                             {if ($npc.moneycopper>0)}<span class="moneycopper">{$npc.moneycopper}</span>{/if}

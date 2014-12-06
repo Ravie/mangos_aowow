@@ -18,7 +18,7 @@ $cache_key = cache_key($id);
 if(!$npc = load_cache(NPC_PAGE, $cache_key))
 {
     unset($npc);
-    
+
     global $npc_type, $npc_rank;
     // Ищем NPC:
     $row = $DB->selectRow('
@@ -51,28 +51,29 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
     {
         $npc = array
         (
-            'entry'                => $row['entry'],
-            'name'                => localizedName($row),
+            'entry'              => $row['entry'],
+            'name'               => localizedName($row),
             'subname'            => localizedName($row, 'subname'),
-            'name_loc'            => $row['name_loc'],
+            'name_loc'           => $row['name_loc'],
             'subname_loc'        => $row['subname_loc'],
-            'minlevel'            => $row['MinLevel'],
-            'maxlevel'            => $row['MaxLevel'],
-            'A'                    => $row['A'],
-            'H'                    => $row['H'],
-            'type'                => $row['CreatureType'],
-            'rank'                => $row['Rank'],
-            'minhealth'            => $row['MinLevelHealth'], 
-            'maxhealth'            => $row['MaxLevelHealth'], 
+            'minlevel'           => $row['MinLevel'],
+            'maxlevel'           => $row['MaxLevel'],
+            'A'                  => $row['A'],
+            'H'                  => $row['H'],
+            'type'               => $row['CreatureType'],
+            'class'              => $row['UnitClass'],
+            'rank'               => $row['Rank'],
+            'minhealth'          => $row['MinLevelHealth'], 
+            'maxhealth'          => $row['MaxLevelHealth'], 
             'minmana'            => $row['MinLevelMana'], 
             'maxmana'            => $row['MaxLevelMana'],
             'attackpower'        => $row['MeleeAttackPower'], 
-            'dmg_multiplier'    => $row['DamageMultiplier'], 
-            'armor'                => $row['Armor'],
-            'difficulty_entry_1'=> $row['DifficultyEntry1'],
-            'difficulty_entry_2'=> $row['DifficultyEntry2'],
-            'difficulty_entry_3'=> $row['DifficultyEntry3'],
-            'expansion'            => $row['Expansion']
+            'dmg_multiplier'     => $row['DamageMultiplier'], 
+            'armor'              => $row['Armor'],
+            'difficulty_entry_1' => $row['DifficultyEntry1'],
+            'difficulty_entry_2' => $row['DifficultyEntry2'],
+            'difficulty_entry_3' => $row['DifficultyEntry3'],
+            'expansion'          => $row['Expansion']
         );
         // Full localization of NPC's
         if($npc['name'] == $npc['name_loc'])
@@ -141,12 +142,13 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
         }
         $npc['mindmg'] = round(($row['MinMeleeDmg'] + $row['MeleeAttackPower']) * $row['DamageMultiplier']);
         $npc['maxdmg'] = round(($row['MaxMeleeDmg'] + $row['MeleeAttackPower']) * $row['DamageMultiplier']);
-        
+
         $toDiv = array('minhealth', 'maxmana', 'minmana', 'maxhealth', 'armor', 'mindmg', 'maxdmg');
         // Разделяем на тысячи (ххххххххх => ххх,ххх,ххх)
         foreach($toDiv as $e)
             $npc[$e] = number_format($npc[$e]);
 
+        $npc['class'] = npc_classes($npc['class']);
         $npc['rank'] = $npc_rank[$npc['rank']];
         $npc['type'] = $npc_type[$npc['type']];
         // FactionAlliance = FactionHorde
