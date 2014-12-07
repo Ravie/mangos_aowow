@@ -21,9 +21,9 @@
                         <li><div>{#CreatureType#}: {$npc.type}</div></li>
                         <li><div>{#React#}: <span class="q{if $npc.A==-1}10{elseif $npc.A==1}2{else}{/if}">{#A#}</span> <span class="q{if $npc.H==-1}10{elseif $npc.H==1}2{else}{/if}">{#H#}</span></div></li>
                         <li><div>{#Faction#}: <a href="?faction={$npc.faction_num}">{$npc.faction}</a></div></li>
-                        <li><div>{#Health#}: {if $npc.minhealth<>$npc.maxhealth}{$npc.minhealth} - {/if}{$npc.maxhealth}</div></li>
-                        {if ($npc.minmana or $npc.maxmana)}
-                            <li><div>{#Mana#}: {if $npc.minmana<>$npc.maxmana}{$npc.minmana} - {/if}{$npc.maxmana}</div></li>
+                        <li><div>{#Health#}: {$npc.min_health_st}{if $npc.max_health_st} - {$npc.max_health_st}{/if}</div></li>
+                        {if ($npc.min_mana_st or $npc.max_mana_st)}
+                            <li><div>{#Mana#}: {$npc.min_mana_st}{if $npc.max_mana_st} - {$npc.max_mana_st}{/if}</div></li>
                         {/if}
                         {if ($npc.moneysilver>0) or ($npc.moneygold>0) or ($npc.moneycopper>0)}
                             <li><div>{#Loot#}:
@@ -34,6 +34,10 @@
                         {if $npc.mindmg > 0 and $npc.maxdmg > 0}
                             <li><div>{#Damage#}: {$npc.mindmg} - {$npc.maxdmg}</div></li>
                         {/if} 
+                        <li><div>{#Damage#} ({#Alt_calc#}): 
+                            <ul>{#Melee#}: {$npc.min_melee_damage_st}{if $npc.max_melee_damage_st} - {$npc.max_melee_damage_st}{/if}</ul>
+                            <ul>{#Ranged#}: {$npc.min_ranged_damage_st}{if $npc.max_ranged_damage_st} - {$npc.max_ranged_damage_st}{/if}</ul>
+                        </div></li>
                         {if $npc.armor > 0}
                             <li><div>{#Armor#}: {$npc.armor}</div></li>
                         {/if} 

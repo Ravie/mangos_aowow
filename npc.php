@@ -63,18 +63,38 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
             'type'               => $row['CreatureType'],
             'class'              => $row['UnitClass'],
             'rank'               => $row['Rank'],
-            'minhealth'          => $row['MinLevelHealth'], 
-            'maxhealth'          => $row['MaxLevelHealth'], 
-            'minmana'            => $row['MinLevelMana'], 
-            'maxmana'            => $row['MaxLevelMana'],
             'attackpower'        => $row['MeleeAttackPower'], 
+            'hlt_multiplier'     => $row['HealthMultiplier'],
+            'pwr_multiplier'     => $row['PowerMultiplier'],
             'dmg_multiplier'     => $row['DamageMultiplier'], 
+            'dmg_variance'       => $row['DamageVariance'],
             'armor'              => $row['Armor'],
+            'melee_atk_time'     => $row['MeleeBaseAttackTime'],
+            'ranged_atk_time'    => $row['RangedBaseAttackTime'],
             'difficulty_entry_1' => $row['DifficultyEntry1'],
             'difficulty_entry_2' => $row['DifficultyEntry2'],
             'difficulty_entry_3' => $row['DifficultyEntry3'],
             'expansion'          => $row['Expansion']
         );
+
+        $row_stats_min = $DB->selectRow('SELECT * FROM creature_template_classlevelstats WHERE Level = ?d AND Class = ?d LIMIT 1', $npc['minlevel'], $npc['class']);
+        $npc['min_health_st'] = round($npc['hlt_multiplier'] * $row_stats_min['BaseHealthExp'.$npc['expansion']]);
+        $npc['min_mana_st'] = round($npc['pwr_multiplier'] * $row_stats_min['BaseMana']);
+        $npc['min_melee_damage_st'] = round(((($row_stats_min['BaseDamageExp'.$npc['expansion']] * $npc['dmg_variance']) + ($row_stats_min['BaseMeleeAttackPower'] / 14)) * ($npc['melee_atk_time'] / 1000)) * $npc['dmg_multiplier']);
+        $npc['max_melee_damage_st'] = round((((($row_stats_min['BaseDamageExp'.$npc['expansion']] * $npc['dmg_variance']) * 1.5) + ($row_stats_min['BaseMeleeAttackPower'] / 14)) * ($npc['melee_atk_time'] / 1000)) * $npc['dmg_multiplier']);
+        $npc['min_ranged_damage_st'] = round(((($row_stats_min['BaseDamageExp'.$npc['expansion']] * $npc['dmg_variance']) + ($row_stats_min['BaseRangedAttackPower'] / 14)) * ($npc['ranged_atk_time'] / 1000)) * $npc['dmg_multiplier']);
+        $npc['max_ranged_damage_st'] = round((((($row_stats_min['BaseDamageExp'.$npc['expansion']] * $npc['dmg_variance']) * 1.5) + ($row_stats_min['BaseRangedAttackPower'] / 14)) * ($npc['ranged_atk_time'] / 1000)) * $npc['dmg_multiplier']);
+
+        if($npc['maxlevel'] != $npc['minlevel'])
+        {
+            $row_stats_max = $DB->selectRow('SELECT * FROM creature_template_classlevelstats WHERE Level = ?d AND Class = ?d LIMIT 1', $npc['maxlevel'], $npc['class']);
+            $npc['max_health_st'] = round($npc['hlt_multiplier'] * $row_stats_max['BaseHealthExp'.$npc['expansion']]);
+            $npc['max_mana_st'] = round($npc['pwr_multiplier'] * $row_stats_max['BaseMana']);
+            $npc['max_melee_damage_st'] = round((((($row_stats_max['BaseDamageExp'.$npc['expansion']] * $npc['dmg_variance']) * 1.5) + ($row_stats_max['BaseMeleeAttackPower'] / 14)) * ($npc['melee_atk_time'] / 1000)) * $npc['dmg_multiplier']);
+            $npc['max_ranged_damage_st'] = round((((($row_stats_max['BaseDamageExp'.$npc['expansion']] * $npc['dmg_variance']) * 1.5) + ($row_stats_max['BaseRangedAttackPower'] / 14)) * ($npc['ranged_atk_time'] / 1000)) * $npc['dmg_multiplier']);
+        }
+        
+
         // Full localization of NPC's
         if($npc['name'] == $npc['name_loc'])
         {
@@ -143,7 +163,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
         $npc['mindmg'] = round(($row['MinMeleeDmg'] + $row['MeleeAttackPower']) * $row['DamageMultiplier']);
         $npc['maxdmg'] = round(($row['MaxMeleeDmg'] + $row['MeleeAttackPower']) * $row['DamageMultiplier']);
 
-        $toDiv = array('minhealth', 'maxmana', 'minmana', 'maxhealth', 'armor', 'mindmg', 'maxdmg');
+        $toDiv = array('min_health_st', 'max_health_st', 'min_mana_st', 'max_mana_st', 'armor', 'mindmg', 'maxdmg', 'min_melee_damage_st', 'max_melee_damage_st', 'min_ranged_damage_st', 'max_ranged_damage_st');
         // Разделяем на тысячи (ххххххххх => ххх,ххх,ххх)
         foreach($toDiv as $e)
             $npc[$e] = number_format($npc[$e]);
