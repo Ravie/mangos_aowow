@@ -369,6 +369,25 @@ CREATE TABLE `aowow_itemset` (
   $dbc = dbc2array_("ItemSet.dbc", "nsxxxxxxxxxxxxxxxxiiiiiiiiiixxxxxxxiiiiiiiiiiiiiiiiii");
   print_insert('INSERT INTO `aowow_itemset` VALUES', $dbc);
 ?>
+-- QuestXP.dbc
+DROP TABLE IF EXISTS `aowow_quest_xp`;
+CREATE TABLE `aowow_quest_xp` (
+  `QuestLevel` smallint(3) unsigned NOT NULL,
+  `simple_type1` mediumint(5) unsigned NOT NULL,
+  `simple_type2` mediumint(5) unsigned NOT NULL,
+  `simple_type3` mediumint(5) unsigned NOT NULL,
+  `normal_type1` mediumint(5) unsigned NOT NULL,
+  `normal_type2` mediumint(5) unsigned NOT NULL,
+  `elite_type` mediumint(5) unsigned NOT NULL,
+  `normal_type3` mediumint(5) unsigned NOT NULL,
+  `raid_type` mediumint(5) unsigned NOT NULL,
+  PRIMARY KEY  (`QuestLevel`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+<?php
+  $dbc = dbc2array_("QuestXP.dbc", "nxiiiiiiiix");
+  print_insert('INSERT INTO `aowow_quest_xp` VALUES', $dbc);
+?>
 -- Spell.dbc
 DROP TABLE IF EXISTS `aowow_spell`;
 CREATE TABLE `aowow_spell` (

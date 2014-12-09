@@ -10,7 +10,7 @@ $quest_class = array(
     0    => array(36, 45, 3, 25, 4, 46, 279, 41, 2257, 1, 10, 139, 12, 3430, 3433, 267, 1537, 4080, 38, 44, 51, 3487, 130, 1519, 33, 8, 47, 85, 1497, 28, 40, 11),
     1    => array(331, 16, 3524, 3525, 148, 1657, 405, 14, 15, 361, 357, 493, 215, 1637, 1377, 406, 440, 141, 17, 3557, 400, 1638, 1216, 490, 618),
     8    => array(3522, 3483, 3518, 3523, 3520, 3703, 3679, 3519, 3521),
-    10    => array(3537, 4024, 4395, 65, 394, 495, 210, 3711, 67, 4197, 66),
+    10   => array(3537, 4024, 4395, 65, 394, 495, 210, 3711, 67, 4197, 66),
     2    => array(4494, 3790, 3477, 719, 1584, 1583, 1941, 3905, 2557, 4196, 133, 4375, 4272, 4264, 3562, 4095, 3792, 2100, 2367, 2437, 722, 491, 796, 2057, 3791, 3789, 209, 2017, 4100, 1417, 3845, 3846, 2366, 3713, 3847, 1581, 3849, 4120, 4228, 3714, 3717, 3715, 717, 3716, 4415, 4723, 1337, 206, 1196, 718, 978),
     3    => array(2677, 3606, 2562, 3836, 2717, 3456, 2159, 3429, 3428, 3840, 3842, 4500, 4722, 4273, 3805, 19),
     4    => array(-372, -263, -261, -161, -141, -262, -162, -82, -61, -81),
@@ -18,7 +18,7 @@ $quest_class = array(
     6    => array(-25, 3358, 2597, 3820, 4710, 4384, 3277),
     9    => array(-370, -1002, -364, -1007, -1003, -1005, -1004, -366, -369, -1006, -1008, -374, -1001, -284, -41, -22, -375),
     7    => array(-365, -241, -1, -344, -367, -368),
-    -2    => array(0)
+    -2   => array(0)
 );
 
 $quest_type = array(
@@ -95,13 +95,13 @@ define('QUEST_DATAFLAG_PROPS',          32);
 define('QUEST_DATAFLAG_LISTINGS',       (QUEST_DATAFLAG_MINIMUM | QUEST_DATAFLAG_REWARDS | QUEST_DATAFLAG_PROPS));
 define('QUEST_DATAFLAG_AJAXTOOLTIP',    (QUEST_DATAFLAG_LISTINGS | QUEST_DATAFLAG_SERIES | QUEST_DATAFLAG_STRINGS | QUEST_DATAFLAG_LOCALE));
 
-$questcols[QUEST_DATAFLAG_MINIMUM]    = array('entry', 'Title');
-$questcols[QUEST_DATAFLAG_STRINGS]    = array('Objectives', 'Details', 'RequestItemsText', 'OfferRewardText', 'EndText', 'ObjectiveText1', 'ObjectiveText2', 'ObjectiveText3', 'ObjectiveText4');
-$questcols[QUEST_DATAFLAG_REWARDS]    = array('RewChoiceItemId1', 'RewChoiceItemId2', 'RewChoiceItemId3', 'RewChoiceItemId4', 'RewChoiceItemId5', 'RewChoiceItemId6', 'RewChoiceItemCount1', 'RewChoiceItemCount2', 'RewChoiceItemCount3', 'RewChoiceItemCount4', 'RewChoiceItemCount5', 'RewChoiceItemCount6', 'RewItemId1', 'RewItemId2', 'RewItemId3', 'RewItemId4', 'RewItemCount1', 'RewItemCount2', 'RewItemCount3', 'RewItemCount4', 'RewMoneyMaxLevel', 'RewOrReqMoney', 'ReqSpellCast1', 'ReqSpellCast2', 'ReqSpellCast3', 'ReqSpellCast4', 'ReqCreatureOrGOId1', 'ReqCreatureOrGOId2', 'ReqCreatureOrGOId3', 'ReqCreatureOrGOId4', 'ReqItemId1', 'ReqItemId2', 'ReqItemId3', 'ReqItemId4', 'ReqItemCount1', 'ReqItemCount2', 'ReqItemCount3', 'ReqItemCount4', 'SuggestedPlayers', 'ReqCreatureOrGOCount1', 'ReqCreatureOrGOCount2', 'ReqCreatureOrGOCount3', 'ReqCreatureOrGOCount4', 'RewSpell', 'RewSpellCast', 'RewRepFaction1', 'RewRepFaction2', 'RewRepFaction3', 'RewRepFaction4', 'RewRepFaction5', 'RewRepValueId1', 'RewRepValueId2', 'RewRepValueId3', 'RewRepValueId4', 'RewRepValueId5', 'RewRepValue1', 'RewRepValue2', 'RewRepValue3', 'RewRepValue4', 'RewRepValue5', 'SrcItemId', 'SrcItemCount', 'SrcSpell', 'RepObjectiveFaction', 'RepObjectiveValue', 'RequiredMinRepFaction', 'RequiredMinRepValue', 'RequiredMaxRepFaction', 'RequiredMaxRepValue', 'PlayersSlain', 'BonusTalents', 'ReqSourceId1', 'ReqSourceCount1', 'ReqSourceId2', 'ReqSourceCount2', 'ReqSourceId3', 'ReqSourceCount3', 'ReqSourceId4', 'ReqSourceCount4', 'RewHonorAddition', 'RewMailTemplateId', 'RewMailDelaySecs', 'PointX', 'PointY', 'StartScript', 'CompleteScript');
+$questcols[QUEST_DATAFLAG_MINIMUM]  = array('entry', 'Title');
+$questcols[QUEST_DATAFLAG_STRINGS]  = array('Objectives', 'Details', 'RequestItemsText', 'OfferRewardText', 'EndText', 'ObjectiveText1', 'ObjectiveText2', 'ObjectiveText3', 'ObjectiveText4');
+$questcols[QUEST_DATAFLAG_REWARDS]  = array('RewChoiceItemId1', 'RewChoiceItemId2', 'RewChoiceItemId3', 'RewChoiceItemId4', 'RewChoiceItemId5', 'RewChoiceItemId6', 'RewChoiceItemCount1', 'RewChoiceItemCount2', 'RewChoiceItemCount3', 'RewChoiceItemCount4', 'RewChoiceItemCount5', 'RewChoiceItemCount6', 'RewItemId1', 'RewItemId2', 'RewItemId3', 'RewItemId4', 'RewItemCount1', 'RewItemCount2', 'RewItemCount3', 'RewItemCount4', 'RewMoneyMaxLevel', 'RewOrReqMoney', 'ReqSpellCast1', 'ReqSpellCast2', 'ReqSpellCast3', 'ReqSpellCast4', 'ReqCreatureOrGOId1', 'ReqCreatureOrGOId2', 'ReqCreatureOrGOId3', 'ReqCreatureOrGOId4', 'ReqItemId1', 'ReqItemId2', 'ReqItemId3', 'ReqItemId4', 'ReqItemCount1', 'ReqItemCount2', 'ReqItemCount3', 'ReqItemCount4', 'SuggestedPlayers', 'ReqCreatureOrGOCount1', 'ReqCreatureOrGOCount2', 'ReqCreatureOrGOCount3', 'ReqCreatureOrGOCount4', 'QuestLevel', 'MinLevel', 'RewXPId', 'RewSpell', 'RewSpellCast', 'RewRepFaction1', 'RewRepFaction2', 'RewRepFaction3', 'RewRepFaction4', 'RewRepFaction5', 'RewRepValueId1', 'RewRepValueId2', 'RewRepValueId3', 'RewRepValueId4', 'RewRepValueId5', 'RewRepValue1', 'RewRepValue2', 'RewRepValue3', 'RewRepValue4', 'RewRepValue5', 'SrcItemId', 'SrcItemCount', 'SrcSpell', 'RepObjectiveFaction', 'RepObjectiveValue', 'RequiredMinRepFaction', 'RequiredMinRepValue', 'RequiredMaxRepFaction', 'RequiredMaxRepValue', 'PlayersSlain', 'BonusTalents', 'ReqSourceId1', 'ReqSourceCount1', 'ReqSourceId2', 'ReqSourceCount2', 'ReqSourceId3', 'ReqSourceCount3', 'ReqSourceId4', 'ReqSourceCount4', 'RewHonorAddition', 'RewMailTemplateId', 'RewMailDelaySecs', 'PointX', 'PointY', 'StartScript', 'CompleteScript');
 $questcols[QUEST_DATAFLAG_PROPS]    = array('Type', 'ZoneOrSort', 'QuestFlags', 'QuestLevel', 'MinLevel', 'RequiredRaces', 'RequiredSkillValue', 'RequiredClasses', 'RequiredSkill', 'LimitTime', 'SpecialFlags', 'CharTitleId');
-$questcols[QUEST_DATAFLAG_SERIES]    = array('PrevQuestID', 'NextQuestInChain', 'ExclusiveGroup', 'NextQuestID');
+$questcols[QUEST_DATAFLAG_SERIES]   = array('PrevQuestID', 'NextQuestInChain', 'ExclusiveGroup', 'NextQuestID');
 
-$quest_cols[2] = array('entry', 'Title', 'QuestLevel', 'MinLevel', 'RequiredRaces', 'RewChoiceItemId1', 'RewChoiceItemId2', 'RewChoiceItemId3', 'RewChoiceItemId4', 'RewChoiceItemId5', 'RewChoiceItemId6', 'RewChoiceItemCount1', 'RewChoiceItemCount2', 'RewChoiceItemCount3', 'RewChoiceItemCount4', 'RewChoiceItemCount5', 'RewChoiceItemCount6', 'RewItemId1', 'RewItemId2', 'RewItemId3', 'RewItemId4', 'RewItemCount1', 'RewItemCount2', 'RewItemCount3', 'RewItemCount4', 'RewMoneyMaxLevel', 'RewOrReqMoney', 'Type', 'ZoneOrSort', 'QuestFlags');
+$quest_cols[2] = array('entry', 'Title', 'QuestLevel', 'MinLevel', 'RequiredRaces', 'QuestLevel', 'RewXPId', 'RewChoiceItemId1', 'RewChoiceItemId2', 'RewChoiceItemId3', 'RewChoiceItemId4', 'RewChoiceItemId5', 'RewChoiceItemId6', 'RewChoiceItemCount1', 'RewChoiceItemCount2', 'RewChoiceItemCount3', 'RewChoiceItemCount4', 'RewChoiceItemCount5', 'RewChoiceItemCount6', 'RewItemId1', 'RewItemId2', 'RewItemId3', 'RewItemId4', 'RewItemCount1', 'RewItemCount2', 'RewItemCount3', 'RewItemCount4', 'RewMoneyMaxLevel', 'RewOrReqMoney', 'Type', 'ZoneOrSort', 'QuestFlags');
 $quest_cols[3] = array('Title', 'QuestLevel', 'MinLevel', 'RequiredRaces', 'RewChoiceItemId1', 'RewChoiceItemId2', 'RewChoiceItemId3', 'RewChoiceItemId4', 'RewChoiceItemId5', 'RewChoiceItemId6', 'RewChoiceItemCount1', 'RewChoiceItemCount2', 'RewChoiceItemCount3', 'RewChoiceItemCount4', 'RewChoiceItemCount5', 'RewChoiceItemCount6', 'RewItemId1', 'RewItemId2', 'RewItemId3', 'RewItemId4', 'RewItemCount1', 'RewItemCount2', 'RewItemCount3', 'RewItemCount4', 'RewMoneyMaxLevel', 'RewOrReqMoney', 'Type', 'ZoneOrSort', 'QuestFlags', 'RewRepFaction1', 'RewRepFaction2', 'RewRepFaction3', 'RewRepFaction4', 'RewRepFaction5', 'RewRepValueId1', 'RewRepValueId2', 'RewRepValueId3', 'RewRepValueId4', 'RewRepValueId5', 'RewRepValue1', 'RewRepValue2', 'RewRepValue3', 'RewRepValue4', 'RewRepValue5', 'Objectives', 'Details', 'RequestItemsText', 'OfferRewardText', 'ReqCreatureOrGOId1', 'ReqCreatureOrGOId2', 'ReqCreatureOrGOId3', 'ReqCreatureOrGOId4', 'ReqItemId1', 'ReqItemId2', 'ReqItemId3', 'ReqItemId4', 'ReqItemCount1', 'ReqItemCount2', 'ReqItemCount3', 'ReqItemCount4', 'SrcItemId', 'ReqCreatureOrGOCount1', 'ReqCreatureOrGOCount2', 'ReqCreatureOrGOCount3', 'ReqCreatureOrGOCount4', 'ObjectiveText1', 'ObjectiveText2', 'ObjectiveText3', 'ObjectiveText4', 'EndText', 'PrevQuestID', 'NextQuestInChain', 'ExclusiveGroup', 'NextQuestID', 'RewSpellCast', 'RewSpell', 'RequiredSkillValue', 'RepObjectiveFaction', 'RepObjectiveValue', 'SuggestedPlayers', 'LimitTime', 'QuestFlags', 'SpecialFlags', 'CharTitleId', 'RequiredMinRepFaction', 'RequiredMinRepValue', 'RequiredMaxRepFaction', 'RequiredMaxRepValue', 'SrcSpell', 'RequiredClasses', 'RequiredSkill', 'ReqSpellCast1', 'ReqSpellCast2', 'ReqSpellCast3', 'ReqSpellCast4');
 
 function QuestReplaceStr($str)
@@ -187,42 +187,85 @@ function GetQuestFlagsDetails($data)
     return $result;
 }
 
-function GetQuestXpOrMoney($data)
+function XPValue($playerLevel, $data)
 {
-    // From MaNGOS Sources
-    $pLevel = $data['MinLevel'] + 1;
-    $qLevel = $data['QuestLevel'];
-    $RewMoneyMaxLevel = $data['RewMoneyMaxLevel'];
-    if(!$RewMoneyMaxLevel)
-        return 0;
-    $fullxp = 0;
-    if($qLevel >= 15)
-        $fullxp = $RewMoneyMaxLevel / 6.0;
-    elseif($qLevel == 14)
-        $fullxp = $RewMoneyMaxLevel / 4.8;
-    elseif($qLevel == 13)
-        $fullxp = $RewMoneyMaxLevel / 3.666;
-    elseif($qLevel == 12)
-        $fullxp = $RewMoneyMaxLevel / 2.4;
-    elseif($qLevel == 11)
-        $fullxp = $RewMoneyMaxLevel / 1.2;
-    elseif($qLevel >= 1 && $qLevel <= 10)
-        $fullxp = $RewMoneyMaxLevel / 0.6;
-    elseif($qLevel == 0)
-        $fullxp = $RewMoneyMaxLevel;
+    global $DB;
+    if ($playerLevel)
+    {
+        $realXP = 0;
+        $xpMultiplier = 0;
+        $baseLevel = 0;
 
-    if( $pLevel <= $qLevel +  5 )
-        return $fullxp;
-    elseif( $pLevel == $qLevel +  6 )
-        return ($fullxp * 0.8);
-    elseif( $pLevel == $qLevel +  7 )
-        return ($fullxp * 0.6);
-    elseif( $pLevel == $qLevel +  8 )
-        return ($fullxp * 0.4);
-    elseif( $pLevel == $qLevel +  9 )
-        return ($fullxp * 0.2);
-    else
-        return ($fullxp * 0.1);
+        if ($data['QuestLevel'] != -1)
+            $baseLevel = $data['QuestLevel'];
+
+        if ((($baseLevel - $playerLevel) + 10) * 2 > 10)
+        {
+            $baseLevel = $playerLevel;
+
+            if ($data['QuestLevel'] != -1)
+                $baseLevel = $data['QuestLevel'];
+
+            if ((($baseLevel - $playerLevel) + 10) * 2 <= 10)
+            {
+                if ($data['QuestLevel'] == -1)
+                    $baseLevel = $playerLevel;
+
+                $xpMultiplier = 2 * ($baseLevel - $playerLevel) + 20;
+            }
+            else
+            {
+                $xpMultiplier = 10;
+            }
+        }
+        else
+        {
+            $baseLevel = $playerLevel;
+
+            if ($data['QuestLevel'] != -1)
+                $baseLevel = $data['QuestLevel'];
+
+            if ((($baseLevel - $playerLevel) + 10) * 2 >= 1)
+            {
+                $baseLevel = $playerLevel;
+
+                if ($data['QuestLevel'] != -1)
+                    $baseLevel = $data['QuestLevel'];
+
+                if ((($baseLevel - $playerLevel) + 10) * 2 <= 10)
+                {
+                    if ($data['QuestLevel'] == -1)
+                        $baseLevel = $playerLevel;
+
+                    $xpMultiplier = 2 * ($baseLevel - $playerLevel) + 20;
+                }
+                else
+                {
+                    $xpMultiplier = 10;
+                }
+            }
+            else
+            {
+                $xpMultiplier = 1;
+            }
+        }
+
+        if ($pXPData = $DB->selectRow('SELECT * FROM ?_quest_xp WHERE QuestLevel = ?d LIMIT 1', $data['QuestLevel']))
+        {
+            $rawXP = $xpMultiplier * $pXPData['quest_type'.$data['RewXPId']] / 10;
+
+            if ($rawXP > 1000)
+                $realXP = floor(($rawXP + 25) / 50) * 50;
+            else if ($rawXP > 500)
+                $realXP = floor(($rawXP + 12) / 25) * 25;
+            else if ($rawXP > 100)
+                $realXP = floor(($rawXP + 5) / 10) * 10;
+            else
+                $realXP = floor(($rawXP + 2) / 5) * 5;
+        }
+        return $realXP;
+    }
+    return 0;
 }
 
 // ????
@@ -525,7 +568,8 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM)
     if($dataflag & QUEST_DATAFLAG_REWARDS)
     {
         // Опыт/деньги@70
-        $data['xp'] = GetQuestXpOrMoney($data);
+        $data['xp'] = XPValue($data['MinLevel'], $data); //temp, need js prompt
+        $data['xp_lvl'] = LOCALE_ON.' '.$data['MinLevel'].' '.LOCALE_LVL;
         // Награды вещей
         for($j=0;$j<=6;++$j)
             if(($data['RewChoiceItemId'.$j]!=0) and ($data['RewChoiceItemCount'.$j]!=0))

@@ -260,6 +260,8 @@ switch($_SESSION['locale'])
             // misc
             'LOCALE_LEVEL'           => 'Уровень',
             'LOCALE_ITEMLVL'         => 'Уровень предмета',
+            'LOCALE_ON'              => 'на',
+            'LOCALE_LVL'             => 'уровне',
             'LOCALE_SPEED'           => 'Скорость',
             'LOCALE_READABLE'        => 'Нажмите для прочтения',
             'LOCALE_UNIQUE'          => 'Уникальный',
@@ -592,6 +594,8 @@ switch($_SESSION['locale'])
             // misc
             'LOCALE_LEVEL'           => 'Level',
             'LOCALE_ITEMLVL'         => 'Item Level',
+            'LOCALE_ON'              => 'on',
+            'LOCALE_LVL'             => 'lvl',
             'LOCALE_SPEED'           => 'Geschwindigkeit',
             'LOCALE_READABLE'        => 'Right Click To Read',
             'LOCALE_UNIQUE'          => 'Einzigartig',
@@ -923,6 +927,8 @@ switch($_SESSION['locale'])
             // misc                  
             'LOCALE_LEVEL'           => 'Level',
             'LOCALE_ITEMLVL'         => 'Item Level',
+            'LOCALE_ON'              => 'on',
+            'LOCALE_LVL'             => 'lvl',
             'LOCALE_SPEED'           => 'Vitesse',
             'LOCALE_READABLE'        => 'Right Click To Read',
             'LOCALE_UNIQUE'          => 'Unique',
@@ -1254,6 +1260,8 @@ switch($_SESSION['locale'])
             // misc                  
             'LOCALE_LEVEL'           => 'Level',
             'LOCALE_ITEMLVL'         => 'Item Level',
+            'LOCALE_ON'              => 'on',
+            'LOCALE_LVL'             => 'lvl',
             'LOCALE_SPEED'           => 'Speed',
             'LOCALE_READABLE'        => 'Right Click To Read',
             'LOCALE_UNIQUE'          => 'Unique',

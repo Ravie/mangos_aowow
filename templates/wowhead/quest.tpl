@@ -552,7 +552,7 @@
                     {#Upon_completion_of_this_quest_you_will_gain#}:
                     <ul>{strip}
 {if isset($quest.xp) and $quest.xp}
-                        <li><div>{$quest.xp} {#experience#}
+                        <li><div>{$quest.xp} {#experience#} {$quest.xp_lvl}
                             {if isset($quest.moneymaxlevel)} (
                                 {if isset($quest.moneymaxlevel.moneygold)}<span class="moneygold">{$quest.moneymaxlevel.moneygold}</span> {/if}
                                 {if isset($quest.moneymaxlevel.moneysilver)}<span class="moneysilver">{$quest.moneymaxlevel.moneysilver}</span> {/if}
