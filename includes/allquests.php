@@ -250,7 +250,7 @@ function XPValue($playerLevel, $data)
             }
         }
 
-        if ($pXPData = $DB->selectRow('SELECT * FROM ?_quest_xp WHERE QuestLevel = ?d LIMIT 1', $data['QuestLevel']))
+        if ($pXPData = $DB->selectRow('SELECT * FROM ?_quest_xp WHERE QuestLevel = ?d LIMIT 1', $baseLevel))
         {
             $rawXP = $xpMultiplier * $pXPData['quest_type'.$data['RewXPId']] / 10;
 
