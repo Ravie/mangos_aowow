@@ -903,8 +903,8 @@ var mn_path=[
     //[3,"Communauté",,mn_community],
     //[2,"Plus",,mn_more]
 ];
+var g_chr_allclasses="Any class";
 var g_chr_classes={
-    0:"Any class",
     1:"Guerrier",
     2:"Paladin",
     3:"Chasseur",

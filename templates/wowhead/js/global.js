@@ -5955,7 +5955,7 @@ Listview.templates = {
                     }
                     return d
                 } else {
-                    return g_chr_classes[0]
+                    return g_chr_allclasses
                 }
             },
             sortFunc: function (d, c, e) {

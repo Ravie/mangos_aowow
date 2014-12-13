@@ -54,6 +54,19 @@ function sign($val)
     if($val < 0) return -1;
     if($val == 0) return 0;
 }
+// Классы персонажей (used in TalentCalc)
+$classes = array(
+    1 => LOCALE_WARRIOR,
+    2 => LOCALE_PALADIN,
+    3 => LOCALE_HUNTER,
+    4 => LOCALE_ROGUE,
+    5 => LOCALE_PRIEST,
+    6 => LOCALE_DEATH_KNIGHT,
+    7 => LOCALE_SHAMAN,
+    8 => LOCALE_MAGE,
+    9 => LOCALE_WARLOCK,
+    11=> LOCALE_DRUID
+);
 // Классы персонажей (битовые маски)
 define('CLASS_WARRIOR',       1);
 define('CLASS_PALADIN',       2);
