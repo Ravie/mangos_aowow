@@ -185,8 +185,8 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
             {
                 $tmp['name'] = str_replace(' (1)', '', $tmp['name']);
                 $npc['normal']['de1'] = array(
-                    'entry'    => $tmp['entry'],
-                    'name'    => $tmp['name']
+                    'entry' => $tmp['entry'],
+                    'name'  => $tmp['name']
                 );
                 if($tmp['name'] == $row['name'])
                     $npc['normal']['de1']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
@@ -198,8 +198,8 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
                 {
                     $tmp['name'] = str_replace(LOCALE_10HEROIC, '', $tmp['name']);
                     $npc['normal']['de2'] = array(
-                        'entry'    => $tmp['entry'],
-                        'name'    => $tmp['name']
+                        'entry' => $tmp['entry'],
+                        'name'  => $tmp['name']
                     );
                     if($tmp['name'] == $row['name'])
                         $npc['normal']['de2']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
@@ -212,8 +212,8 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
                 {
                     $tmp['name'] = str_replace(LOCALE_25HEROIC, '', $tmp['name']);
                     $npc['normal']['de3'] = array(
-                        'entry'    => $tmp['entry'],
-                        'name'    => $tmp['name']
+                        'entry' => $tmp['entry'],
+                        'name'  => $tmp['name']
                     );
                     if($tmp['name'] == $row['name'])
                         $npc['normal']['de3']['name'] = str_replace(LOCALE_10NORMAL, '', $npc['name']);
@@ -245,21 +245,23 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
             );
             if($tmp)
             {
+                if(!isset($tmp['name_loc']))
+                    $tmp['name_loc'] = $tmp['name'];
                 $npc['de1']['normal'] = array(
-                    'entry'    => $tmp['entry'],
-                    'name'    => $tmp['name_loc']
+                    'entry' => $tmp['entry'],
+                    'name'  => $tmp['name_loc']
                 );
                 if($tmp['DifficultyEntry2'] != 0)
                 {
                     $npc['de1']['de2'] = array(
-                        'entry'    => $tmp['DifficultyEntry2'],
-                        'name'    => $tmp['name_loc']
+                        'entry' => $tmp['DifficultyEntry2'],
+                        'name'  => $tmp['name_loc']
                     );
                     if($tmp['DifficultyEntry3'] != 0)
                     {
                         $npc['de1']['de3'] = array(
-                            'entry'    => $tmp['DifficultyEntry3'],
-                            'name'    => $tmp['name_loc']
+                            'entry' => $tmp['DifficultyEntry3'],
+                            'name'  => $tmp['name_loc']
                         );
                     }
                 }
@@ -286,19 +288,21 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
             );
             if($tmp)
             {
+                if(!isset($tmp['name_loc']))
+                    $tmp['name_loc'] = $tmp['name'];
                 $npc['de2']['normal'] = array(
-                    'entry'    => $tmp['entry'],
-                    'name'    => $tmp['name_loc']
+                    'entry' => $tmp['entry'],
+                    'name'  => $tmp['name_loc']
                 );
                 $npc['de2']['de1'] = array(
-                    'entry'    => $tmp['DifficultyEntry1'],
-                    'name'    => $tmp['name_loc']
+                    'entry' => $tmp['DifficultyEntry1'],
+                    'name'  => $tmp['name_loc']
                 );
                 if($tmp['DifficultyEntry3'] != 0)
                 {
                     $npc['de2']['de3'] = array(
-                        'entry'    => $tmp['DifficultyEntry3'],
-                        'name'    => $tmp['name_loc']
+                        'entry' => $tmp['DifficultyEntry3'],
+                        'name'  => $tmp['name_loc']
                     );
                 }
                 $normal_entry = $tmp['entry'];
@@ -324,17 +328,19 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
             );
             if($tmp)
             {
+                if(!isset($tmp['name_loc']))
+                    $tmp['name_loc'] = $tmp['name'];
                 $npc['de3']['normal'] = array(
-                    'entry'    => $tmp['entry'],
-                    'name'    => $tmp['name_loc']
+                    'entry' => $tmp['entry'],
+                    'name'  => $tmp['name_loc']
                 );
                 $npc['de3']['de1'] = array(
-                    'entry'    => $tmp['DifficultyEntry1'],
-                    'name'    => $tmp['name_loc']
+                    'entry' => $tmp['DifficultyEntry1'],
+                    'name'  => $tmp['name_loc']
                 );
                 $npc['de3']['de2'] = array(
-                    'entry'    => $tmp['DifficultyEntry2'],
-                    'name'    => $tmp['name_loc']
+                    'entry' => $tmp['DifficultyEntry2'],
+                    'name'  => $tmp['name_loc']
                 );
                 $normal_entry = $tmp['entry'];
                 unset($tmp);

@@ -441,10 +441,11 @@ if(!$spell = load_cache(SPELL_PAGE, $cache_key))
 
         // Используется NPC:
         $usedbynpc = $DB->select('
-            SELECT ?#, c.entry, A, H
-            { , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc, s.entry }
+            SELECT ?#, c.entry, A, H, s.entry
+            { , name_loc?d AS name_loc, subname_loc'.$_SESSION['locale'].' AS subname_loc }
             FROM ?_factiontemplate, creature_template c
-            { LEFT JOIN (locales_creature l, creature_template_spells s) ON c.entry = l.entry AND c.entry=s.entry AND ? }
+            LEFT JOIN (creature_template_spells s) ON c.entry=s.entry
+            { LEFT JOIN (locales_creature l) ON c.entry = l.entry AND ? }
             WHERE
                 (s.spell1 = ?d
                 OR s.spell2 = ?d

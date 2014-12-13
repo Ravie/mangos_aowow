@@ -49,7 +49,7 @@ if(!$npcs = load_cache(NPC_LISTING, $cache_key))
                 unset($normal_raid10);
                 
                 $normal_raid25 = creatureinfo($row['DifficultyEntry1']);
-                if($normal_raid25['source_name'] == $normal_raid25['name'])
+                if($normal_raid25['source_name'] == $normal_raid25['name'] && isset($row['name_loc']))
                     $normal_raid25['name'] = $row['name_loc'].LOCALE_25NORMAL;
                 elseif(strpos($normal_raid25['name'],'(1)') === false)
                     $normal_raid25['name'] .= LOCALE_25NORMAL;
@@ -60,7 +60,7 @@ if(!$npcs = load_cache(NPC_LISTING, $cache_key))
                 unset($normal_raid25);
                 
                 $heroic_raid10 = creatureinfo($row['DifficultyEntry2']);
-                if($heroic_raid10['source_name'] == $heroic_raid10['name'])
+                if($heroic_raid10['source_name'] == $heroic_raid10['name'] && isset($row['name_loc']))
                     $heroic_raid10['name'] = $row['name_loc'].LOCALE_10HEROIC;
                 elseif(strpos($heroic_raid10['name'],'(2)') === false)
                     $heroic_raid10['name'] .= LOCALE_10HEROIC;
@@ -73,7 +73,7 @@ if(!$npcs = load_cache(NPC_LISTING, $cache_key))
                 if($row['DifficultyEntry3'])
                 {
                     $heroic_raid25 = creatureinfo($row['DifficultyEntry3']);
-                    if($heroic_raid25['source_name'] == $heroic_raid25['name'])
+                    if($heroic_raid25['source_name'] == $heroic_raid25['name'] && isset($row['name_loc']))
                         $heroic_raid25['name'] = $row['name_loc'].LOCALE_25HEROIC;
                     elseif(strpos($heroic_raid25['name'],'(3)') === false)
                         $heroic_raid25['name'] .= LOCALE_25HEROIC;
@@ -93,7 +93,7 @@ if(!$npcs = load_cache(NPC_LISTING, $cache_key))
                 unset($normal_dungeon);
                 
                 $heroic_dungeon = creatureinfo($row['DifficultyEntry1']);
-                if($heroic_dungeon['source_name'] == $heroic_dungeon['name'])
+                if($heroic_dungeon['source_name'] == $heroic_dungeon['name'] && isset($row['name_loc']))
                     $heroic_dungeon['name'] = $row['name_loc'].LOCALE_5HEROIC;
                 elseif(strpos($heroic_dungeon['name'],'(1)') === false)
                     $heroic_dungeon['name'] .= LOCALE_5HEROIC;
