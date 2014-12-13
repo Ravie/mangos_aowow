@@ -7,6 +7,8 @@ $smarty->config_load($conf_file);
 switch($_GET['latest'])
 {
     case 'comments':
+        if($AoWoWconf['disable_comments'])
+            break;
         $comments = array();
         $rows = $DB->select('
             SELECT `id`, `type`, `typeID`, LEFT(`commentbody`, 120) as `preview`, `userID` as `user`, `post_date` as `date`, (NOW()-`post_date`) as `elapsed`
