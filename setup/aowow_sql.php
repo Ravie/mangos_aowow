@@ -373,14 +373,14 @@ CREATE TABLE `aowow_itemset` (
 DROP TABLE IF EXISTS `aowow_quest_xp`;
 CREATE TABLE `aowow_quest_xp` (
   `QuestLevel` smallint(3) unsigned NOT NULL,
-  `simple_type1` mediumint(5) unsigned NOT NULL,
-  `simple_type2` mediumint(5) unsigned NOT NULL,
-  `simple_type3` mediumint(5) unsigned NOT NULL,
-  `normal_type1` mediumint(5) unsigned NOT NULL,
-  `normal_type2` mediumint(5) unsigned NOT NULL,
-  `elite_type` mediumint(5) unsigned NOT NULL,
-  `normal_type3` mediumint(5) unsigned NOT NULL,
-  `raid_type` mediumint(5) unsigned NOT NULL,
+  `quest_type1` mediumint(5) unsigned NOT NULL,
+  `quest_type2` mediumint(5) unsigned NOT NULL,
+  `quest_type3` mediumint(5) unsigned NOT NULL,
+  `quest_type4` mediumint(5) unsigned NOT NULL,
+  `quest_type5` mediumint(5) unsigned NOT NULL,
+  `quest_type6` mediumint(5) unsigned NOT NULL,
+  `quest_type7` mediumint(5) unsigned NOT NULL,
+  `quest_type8` mediumint(5) unsigned NOT NULL,
   PRIMARY KEY  (`QuestLevel`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
