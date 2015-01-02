@@ -170,7 +170,7 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
 
         $npc['class'] = npc_classes($npc['class']);
         $npc['rank'] = $npc_rank[$npc['rank']];
-        $npc['type'] = $npc_type[$npc['type']];
+        $npc['type_name'] = $npc_type[$npc['type']];
         // FactionAlliance = FactionHorde
         $npc['faction_num'] = $row['factionID'];
         $npc['faction'] = $row['faction-name'];
