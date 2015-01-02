@@ -7,6 +7,7 @@ $itemset_col[1] = array('itemsetID', 'name_loc'.$_SESSION['locale'], 'item1', 'i
 
 function itemsetinfo2(&$row)
 {
+    global $classes;
     $classmask = 262144;
     $itemset = array();
     $itemset['entry'] = $row['itemsetID'];
@@ -36,28 +37,9 @@ function itemsetinfo2(&$row)
         if($item['classes'] == -1)
             $itemset['classes'] = NULL;
         else
-        {
-            if($item['classes'] & 1)
-                $itemset['classes'][] = 1;
-            if($item['classes'] & 2)
-                $itemset['classes'][] = 2;
-            if($item['classes'] & 4)
-                $itemset['classes'][] = 3;
-            if($item['classes'] & 8)
-                $itemset['classes'][] = 4;
-            if($item['classes'] & 16)
-                $itemset['classes'][] = 5;
-            if($item['classes'] & 32)
-                $itemset['classes'][] = 6;
-            if($item['classes'] & 64)
-                $itemset['classes'][] = 7;
-            if($item['classes'] & 128)
-                $itemset['classes'][] = 8;
-            if($item['classes'] & 256)
-                $itemset['classes'][] = 9;
-            if($item['classes'] & 1024)
-                $itemset['classes'][] = 11;
-        }
+            foreach($classes as $i => $class)
+                if ($item['classes'] & (1<<($i-1)))
+                    $itemset['classes'][] = $i;
     } else {
         $itemset['quality2'] = 7;
     }

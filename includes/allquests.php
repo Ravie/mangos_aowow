@@ -522,7 +522,9 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM)
         // Требуемый уровень квеста
         $data['MinLevel'] = $data['MinLevel'];
         // Доступен фракциям, расам и классам
+        global $sides;
         $data['side'] = factions($data['RequiredRaces']);
+        $data['side_name'] = $sides[$data['side']];
         $data['race'] = races($data['RequiredRaces']);
         $data['class'] = classes($data['RequiredClasses']);
         // Флаги
@@ -556,8 +558,6 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM)
             $data['LimitTime'] = sec_to_time($data['LimitTime']);
         else
             unset($data['LimitTime']);
-        if($data['QuestFlags'] & QUEST_FLAGS_SHARABLE)
-            $data['Sharable'] = true;
         if($data['SpecialFlags'] & QUEST_SPECIALFLAGS_REPEATABLE)
             $data['Repeatable'] = true;
         if($data['CharTitleId']>0)

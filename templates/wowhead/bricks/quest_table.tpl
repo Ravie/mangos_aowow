@@ -13,7 +13,7 @@
                     {if ($data[i].MinLevel)}
                         reqlevel:{$data[i].MinLevel},
                     {/if}
-                    side:'{$data[i].side.side}'
+                    side:'{$data[i].side}'
                     {if isset($data[i].itemrewards)}
                         ,itemrewards:[
                             {section name=j loop=$data[i].itemrewards}

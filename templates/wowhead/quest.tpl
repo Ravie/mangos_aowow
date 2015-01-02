@@ -33,14 +33,7 @@
                             {/if}
                             {if isset($quest.side)}
                                 <li><div>
-                                    {#Side#}:
-                                        {if ($quest.side.side==1)}
-                                            <span class="alliance2-icon">{$quest.side.name}</span>
-                                        {elseif ($quest.side.side==2)}
-                                            <span class="horde2-icon">{$quest.side.name}</span>
-                                        {elseif ($quest.side.side==3)}
-                                            {$quest.side.name}
-                                        {/if}
+                                    {#Side#}: {$quest.side_name}
                                 </div></li>
                             {/if}
                             {if isset($quest.race)}
@@ -115,20 +108,6 @@
                             {if isset($quest.reqskill)}
                                 <li><div>
                                     {#Skill#}: {$quest.reqskill.name} ({$quest.reqskill.value})
-                                </div></li>
-                            {/if}
-                            {if isset($quest.Sharable)}
-                                <li><div>
-                                    {#Sharable#}
-                                </div></li>
-                            {/if}
-                            {if isset($quest.Daily)}
-                                <li><div>
-                                    {#Daily#}
-                                </div></li>
-                            {elseif isset($quest.Repeatable)}
-                                <li><div>
-                                    {#Repeatable#}
                                 </div></li>
                             {/if}
                         </ul>

@@ -32,13 +32,11 @@ checklocale();
 // Это должно быть ПОСЛЕ checklocale()
 require_once('includes/alllocales.php');
 
-
 /* ================ MISC FUNCTIONS ================ */
 function str_normalize($str)
 {
     return str_replace("'", "\'", $str);
 }
-
 function d($d,$v)
 {
     define($d,$v);
@@ -54,7 +52,7 @@ function sign($val)
     if($val < 0) return -1;
     if($val == 0) return 0;
 }
-// Классы персонажей (used in TalentCalc)
+// Классы персонажей
 $classes = array(
     1 => LOCALE_WARRIOR,
     2 => LOCALE_PALADIN,
@@ -67,29 +65,44 @@ $classes = array(
     9 => LOCALE_WARLOCK,
     11=> LOCALE_DRUID
 );
-// Классы персонажей (битовые маски)
-define('CLASS_WARRIOR',       1);
-define('CLASS_PALADIN',       2);
-define('CLASS_HUNTER',        4);
-define('CLASS_ROGUE',         8);
-define('CLASS_PRIEST',       16);
-define('CLASS_DEATH_KNIGHT', 32);
-define('CLASS_SHAMAN',       64);
-define('CLASS_MAGE',        128);
-define('CLASS_WARLOCK',     256);
-define('CLASS_DRUID',      1024);
-// Расы персонажей (битовые маски)
-define('RACE_HUMAN',          1);
-define('RACE_ORC',            2);
-define('RACE_DWARF',          4);
-define('RACE_NIGHTELF',       8);
-define('RACE_UNDEAD',        16);
-define('RACE_TAUREN',        32);
-define('RACE_GNOME',         64);
-define('RACE_TROLL',        128);
-define('RACE_BLOODELF',     512);
-define('RACE_DRAENEI',     1024);
-
+$classes_icon = array(
+    1 => 'warrior-icon',
+    2 => 'paladin-icon',
+    3 => 'hunter-icon',
+    4 => 'rogue-icon',
+    5 => 'priest-icon',
+    6 => 'deathknight-icon',
+    7 => 'shaman-icon',
+    8 => 'mage-icon',
+    9 => 'warlock-icon',
+    11=> 'druid-icon'
+);
+$alliance_races = array(
+    1    => LOCALE_HUMAN,
+    4    => LOCALE_DWARF,
+    8    => LOCALE_NIGHTELF,
+    64   => LOCALE_GNOME,
+    1024 => LOCALE_DRAENEI,
+);
+$horde_races = array(
+    2    => LOCALE_ORC,
+    16   => LOCALE_UNDEAD,
+    32   => LOCALE_TAUREN,
+    128  => LOCALE_TROLL,
+    512  => LOCALE_BLOODELF,
+);
+$races_icon = array(
+    1    => 'human-icon',
+    2    => 'orc-icon',
+    4    => 'dwarf-icon',
+    8    => 'nightelf-icon',
+    16   => 'undead-icon',
+    32   => 'tauren-icon',
+    64   => 'gnome-icon',
+    128  => 'troll-icon',
+    512  => 'bloodelf-icon',
+    1024 => 'draenei-icon'
+);
 // Типы разделов
 $types = array(
     1 => array('npc',       'creature_template',        'entry'      ),
@@ -101,7 +114,6 @@ $types = array(
     7 => array('zone',      $tableprefix.'zones',       'areatableID'),
     8 => array('faction',   $tableprefix.'factions',    'factionID'  ),
 );
-
 // Отношения со фракциями
 function reputations($value)
 {
@@ -128,13 +140,11 @@ function reputations($value)
     else
         return LOCALE_EXALTED . "+" . ($value-42000);
 }
-
 $sides = array(
     1 => LOCALE_ALLIANCE,
     2 => LOCALE_HORDE,
     3 => LOCALE_BOTH_FACTIONS
 );
-
 function sec_to_time($secs)
 {
     $time = array();
@@ -192,191 +202,53 @@ function classes($class)
 {
     if($class == -1)
         return NULL;
-    $tmp = '';
-    $classes_count = 0;
-    if($class & CLASS_WARRIOR)
-    {
-        $tmp = '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_PALADIN)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_HUNTER)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c3"><span class="hunter-icon">'.LOCALE_HUNTER.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_ROGUE)
-    {
-        if($tmp)
-            $tmp .= ', '; 
-        $tmp .= '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_PRIEST)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c5"><span class="priest-icon">'.LOCALE_PRIEST.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_DEATH_KNIGHT)
-    {
-        if($tmp)
-            $tmp .= ', '; 
-        $tmp .= '<a class="c6"><span class="deathknight-icon">'.LOCALE_DEATH_KNIGHT.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_SHAMAN)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c7"><span class="shaman-icon">'.LOCALE_SHAMAN.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_MAGE)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_WARLOCK)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c9"><span class="warlock-icon">'.LOCALE_WARLOCK.'</span></a>';
-        $classes_count += 1;
-    }
-    if($class & CLASS_DRUID)
-    {
-        if($tmp)
-            $tmp .= ', ';
-        $tmp .= '<a class="c11"><span class="druid-icon">'.LOCALE_DRUID.'</span></a>';
-        $classes_count += 1;
-    }
-    if(!$classes_count || $classes_count == 10)
-        $tmp = NULL;
-    return $tmp;
+    global $classes_icon, $classes;
+    $reqclass = array();
+    foreach($classes_icon as $i => $icon_name)
+        if ($class & (1<<($i-1)))
+            $reqclass[] = '<a class="c'.$i.'"><span class="'.$icon_name.'">'.$classes[$i].'</span></a>';
+    if(!count($reqclass) || count($reqclass) == 10)
+        return NULL;
+    else
+        return implode(", ", $reqclass);
 }
 function races($race)
 {
     if($race == -1 || !$race)
         return NULL;
-    $temp = '';
-    $alliance_count = 0;
-    $horde_count = 0;
-    if($race & RACE_HUMAN)
-    {
-        $temp = '<span class="human-icon">'.LOCALE_HUMAN.'</span>';
-        $alliance_count += 1;
-    }
-    if($race & RACE_ORC)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="orc-icon">'.LOCALE_ORC.'</span>';
-        $horde_count += 1;
-    }
-    if($race & RACE_DWARF)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="dwarf-icon">'.LOCALE_DWARF.'</span>';
-        $alliance_count += 1;
-    }
-    if($race & RACE_NIGHTELF)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="nightelf-icon">'.LOCALE_NIGHTELF.'</span>';
-        $alliance_count += 1;
-    }
-    if($race & RACE_UNDEAD)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="undead-icon">'.LOCALE_UNDEAD.'</span>';
-        $horde_count += 1;
-    }
-    if($race & RACE_TAUREN)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="tauren-icon">'.LOCALE_TAUREN.'</span>';
-        $horde_count += 1;
-    }
-    if($race & RACE_GNOME)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="gnome-icon">'.LOCALE_GNOME.'</span>';
-        $alliance_count += 1;
-    }
-    if($race & RACE_TROLL)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="troll-icon">'.LOCALE_TROLL.'</span>';
-        $horde_count += 1;
-    }
-    if($race & RACE_BLOODELF)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="bloodelf-icon">'.LOCALE_BLOODELF.'</span>';
-        $horde_count += 1;
-    }
-    if($race & RACE_DRAENEI)
-    {
-        if($temp)
-            $temp .= ', ';
-        $temp .= '<span class="draenei-icon">'.LOCALE_DRAENEI.'</span>';
-        $alliance_count += 1;
-    }
-    if($alliance_count == 5 || $horde_count == 5)
+    global $alliance_races, $horde_races, $races_icon;
+    $alliance = array();
+    $horde = array();
+    foreach($alliance_races as $bitmask => $race_name)
+        if ($race & $bitmask)
+            $alliance[] = '<span class="'.$races_icon[$bitmask].'">'.$race_name.'</span></a>';
+    foreach($horde_races as $bitmask => $race_name)
+        if ($race & $bitmask)
+            $horde[] = '<span class="'.$races_icon[$bitmask].'">'.$race_name.'</span></a>';
+    if(count($alliance) == 5 || count($horde) == 5)
         $temp = NULL;
-    return $temp;
+    else
+        return implode(", ", array_merge($alliance, $horde));
 }
 function factions($race)
 {
     if($race == -1 || !$race)
-        return array('side' => 3, 'name' => LOCALE_BOTH_FACTIONS);
+        return 3;
+    global $alliance_races, $horde_races;
     $alliance_count = 0;
     $horde_count = 0;
-    if($race & RACE_HUMAN)
-        $alliance_count += 1;
-    if($race & RACE_ORC)
-        $horde_count += 1;
-    if($race & RACE_DWARF)
-        $alliance_count += 1;
-    if($race & RACE_NIGHTELF)
-        $alliance_count += 1;
-    if($race & RACE_UNDEAD)
-        $horde_count += 1;
-    if($race & RACE_TAUREN)
-        $horde_count += 1;
-    if($race & RACE_GNOME)
-        $alliance_count += 1;
-    if($race & RACE_TROLL)
-        $horde_count += 1;
-    if($race & RACE_BLOODELF)
-        $horde_count += 1;
-    if($race & RACE_DRAENEI)
-        $alliance_count += 1;
+    foreach($alliance_races as $bitmask => $race_name)
+        if ($race & $bitmask)
+            $alliance_count++;
+    foreach($horde_races as $bitmask => $race_name)
+        if ($race & $bitmask)
+            $horde_count++;
     if($alliance_count > 0 && $horde_count > 0)
-        return array('side' => 3, 'name' => LOCALE_BOTH_FACTIONS);
+        return 3;
     elseif(!$alliance_count && $horde_count > 0)
-        return array('side' => 2, 'name' => LOCALE_HORDE);
+        return 2;
     elseif($alliance_count > 0 && !$horde_count)
-        return array('side' => 1, 'name' => LOCALE_ALLIANCE);
+        return 1;
 }
 function armor($type)
 {
@@ -396,16 +268,23 @@ function armor($type)
 }
 function npc_classes($class)
 {
-    switch($class)
+    global $classes_icon, $classes;
+    if (isset($classes[$class]))
+        return '<a class="c'.$class.'"><span class="'.$classes_icon[$class].'">'.$classes[$class].'</span></a>';
+    return ERR_UNK_CLASS;
+}
+function npc_expansion($exp)
+{
+    switch($exp)
     {
+        case 0:
+            return;
         case 1:
-            return '<a class="c1"><span class="warrior-icon">'.LOCALE_WARRIOR.'</span></a>';
+            return '<span class="tbc-icon">';
         case 2:
-            return '<a class="c2"><span class="paladin-icon">'.LOCALE_PALADIN.'</span></a>';
-        case 4:
-            return '<a class="c4"><span class="rogue-icon">'.LOCALE_ROGUE.'</span></a>';
-        case 8:
-            return '<a class="c8"><span class="mage-icon">'.LOCALE_MAGE.'</span></a>';
+            return '<span class="wotlk-icon">';
+        default:
+            return ERR_UNK_EXP;
     }
 }
 function sum_subarrays_by_key( $tab, $key ) {
@@ -419,7 +298,6 @@ function ajax_str_normalize($string)
 {
     return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n','</'=>'<\/'));
 }
-
 function is_single_array($arr)
 {
     if(!is_array($arr))
@@ -436,7 +314,6 @@ function is_single_array($arr)
 
     return true;
 }
-
 function php2js($data)
 {
     if(is_array($data))
@@ -564,6 +441,7 @@ function localizedName($arr, $key = 'name')
 
     return $result;
 }
+
 /* ================ CACHE ================ */
 $cache_types = array(
     //    name                  multilocale
@@ -680,7 +558,6 @@ function load_cache($type, $type_id, $prefix = '')
 
     return unserialize($data[1]);
 }
-
 // another placeholder
 function ParseTextLinks($text)
 {

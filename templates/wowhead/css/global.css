@@ -197,21 +197,11 @@ background:url(../images/wotlk_icon.gif) left center no-repeat;
 }
 
 .alliance-icon {
-padding-left:10px;
-background:url(../images/alliance-icon.gif) left center no-repeat;
-}
-
-.horde-icon {
-padding-left:16px;
-background:url(../images/horde-icon.gif) left center no-repeat;
-}
-
-.alliance2-icon {
 padding-left:15px;
 background:url(../images/alliance.png) left center no-repeat;
 }
 
-.horde2-icon {
+.horde-icon {
 padding-left:16px;
 background:url(../images/horde.png) left center no-repeat;
 }
@@ -2277,13 +2267,13 @@ background-repeat:no-repeat;
 }
 
 div.live-search-icon-quest-alliance {
-background-image:url(../images/alliance-icon.gif);
+background-image:url(../images/alliance.png);
 background-position:9px 5px;
 background-repeat:no-repeat;
 }
 
 div.live-search-icon-quest-horde {
-background-image:url(../images/horde-icon.gif);
+background-image:url(../images/horde.png);
 background-position:6px 5px;
 background-repeat:no-repeat;
 }

@@ -16,8 +16,8 @@
                 <tr><td><div class="infobox-spacer"></div>
                     <ul>
                         <li><div>{#Level#}: {if $npc.minlevel<>$npc.maxlevel}{$npc.minlevel} - {/if}{$npc.maxlevel}</div></li>
-                        <li><div>{#Class#}: {$npc.class}</div></li>
-                        <li><div>{#Difficulty#}: {$npc.rank}</div></li>
+                        <li><div>{#Class#}: {$npc.class_name}</div></li>
+                        <li><div>{#Difficulty#}: {$npc.rank_name}</div></li>
                         <li><div>{#CreatureType#}: {$npc.type_name}</div></li>
                         <li><div>{#React#}: <span class="q{if $npc.A==-1}10{elseif $npc.A==1}2{else}{/if}">{#A#}</span> <span class="q{if $npc.H==-1}10{elseif $npc.H==1}2{else}{/if}">{#H#}</span></div></li>
                         <li><div>{#Faction#}: <a href="?faction={$npc.faction_num}">{$npc.faction}</a></div></li>
@@ -54,7 +54,7 @@
 
         <div class="text">
             <a href="http://{$lang}.wowhead.com/?{$query}" class="button-red"><em><b><i>Wowhead</i></b><span>Wowhead</span></em></a>
-            <h1>{$npc.expansion}{$npc.name}{if $npc.subname} &lt;{$npc.subname}&gt;{/if}</h1>
+            <h1>{$npc.exp_icon}{$npc.name}{if $npc.subname} &lt;{$npc.subname}&gt;{/if}</h1>
 
         {if $npc.normal}
             {if $npc.normal.de1}

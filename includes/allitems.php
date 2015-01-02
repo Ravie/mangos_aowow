@@ -191,8 +191,10 @@ function spell_to_bonus($spell_id, $trigger, $ppmrate, $cooldown, $catcooldown)
     $tooltip = spell_desc($spell_id);
     if($tooltip == '_empty_')
         return;
+    /*used for displaying hidden spell effects of item
     if(!$tooltip)
         return '<a href="?spell='.$spell_id.'">Error in spell_desc for spell '.$spell_id.'</a>';
+    */
     switch($trigger)
     {
         case 0:

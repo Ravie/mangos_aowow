@@ -149,12 +149,6 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
             $npc['name'] = str_replace(' (3)', '', $npc['name']);
             $npc['name'] .= LOCALE_25HEROIC;
         }
-        if ($npc['expansion'] == 1)
-            $npc['expansion'] = '<span class="tbc-icon"></span>';
-        elseif ($npc['expansion'] == 2)
-            $npc['expansion'] = '<span class="wotlk-icon"></span>';
-        else
-            $npc['expansion'] = '';
         if($npc['rank'] == 3)
         {
             $npc['minlevel'] = '??';
@@ -168,8 +162,9 @@ if(!$npc = load_cache(NPC_PAGE, $cache_key))
         foreach($toDiv as $e)
             $npc[$e] = number_format($npc[$e]);
 
-        $npc['class'] = npc_classes($npc['class']);
-        $npc['rank'] = $npc_rank[$npc['rank']];
+        $npc['exp_icon'] = npc_expansion($npc['expansion']);
+        $npc['class_name'] = npc_classes($npc['class']);
+        $npc['rank_name'] = $npc_rank[$npc['rank']];
         $npc['type_name'] = $npc_type[$npc['type']];
         // FactionAlliance = FactionHorde
         $npc['faction_num'] = $row['factionID'];

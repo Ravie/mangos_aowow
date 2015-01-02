@@ -14,7 +14,7 @@ switch($_SESSION['locale'])
             'LOCALE_QUEST_FLAGS_STAY_ALIVE'        => 'Требует оставаться в живых',
             'LOCALE_QUEST_FLAGS_EVENT'             => 'Предлагается всем членам группы',
             'LOCALE_QUEST_FLAGS_EXPLORATION'       => 'Связан с разведыванием территории',
-            'LOCALE_QUEST_FLAGS_SHARABLE'          => 'Раздаваемый',
+            'LOCALE_QUEST_FLAGS_SHARABLE'          => 'Заданием можно делиться',
             'LOCALE_QUEST_FLAGS_EPIC'              => 'Эпический',
             'LOCALE_QUEST_FLAGS_RAID'              => 'Рейдовый',
             'LOCALE_QUEST_FLAGS_TBC'               => 'Требует The Burning Crusade',
@@ -68,7 +68,7 @@ switch($_SESSION['locale'])
             'LOCALE_BLOODELF'      => 'Эльф Крови',
             'LOCALE_DRAENEI'       => 'Дреней',
             // side
-            'LOCALE_BOTH_FACTIONS' => 'Общий',
+            'LOCALE_BOTH_FACTIONS' => 'Для обеих фракций',
             'LOCALE_HORDE'         => 'Орда',
             'LOCALE_ALLIANCE'      => 'Альянс',
             // reputation

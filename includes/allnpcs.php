@@ -22,29 +22,8 @@ function creatureinfo2($Row, $level = 0)
         'classification' => $Row['Rank'],
         'expansion'      => $Row['Expansion']
     );
-    if ($creature['expansion'] == 1)
-        $creature['expansion'] = '<span class="tbc-icon"></span>';
-    elseif ($creature['expansion'] == 2)
-        $creature['expansion'] = '<span class="wotlk-icon"></span>';
-    else
-        $creature['expansion'] = '';
-    /*
-    //entry
-    if($creature['diffentry2'] != 0)
-        $creature['name'] .= LOCALE_10NORMAL;
-    elseif($creature['diffentry1'] != 0)
-        $creature['name'] .= LOCALE_5NORMAL;
-    //DifficultyEntry1
-    //if(strpos($creature['name'],'(1)'))
-    //DifficultyEntry2
-    if(strpos($creature['name'],'(2)'))
-        $creature['name'] = str_replace(' (2)', LOCALE_10HEROIC, $creature['name']);
-    //DifficultyEntry3
-    if(strpos($creature['name'],'(3)'))
-        $creature['name'] = str_replace(' (3)', LOCALE_25HEROIC, $creature['name']);
-    */
     $x = '';
-    $x .= '<table><tr><td>'.$creature['expansion'].'<b class="q">';
+    $x .= '<table><tr><td>'.npc_expansion($creature['expansion']).'<b class="q">';
     $x .= htmlspecialchars($creature['name']);
     $x .= '</b></td></tr><tr><td>';
     if($creature['subname'])
