@@ -574,7 +574,5 @@
 
             {if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
-            </div>
         </div>
-    </div>
 {include file='footer.tpl'}

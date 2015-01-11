@@ -113,7 +113,6 @@ tabsRelated.flush();
 
 {if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
-            </div>
         </div>
     </div>
 

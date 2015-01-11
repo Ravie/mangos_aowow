@@ -70,7 +70,5 @@
                     <script type="text/javascript">ge('username-generic').focus()</script>
                     <div class="clear"></div>
                 </div>
-
-            </div>
         </div>
 {include file='footer.tpl'}

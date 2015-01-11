@@ -15,7 +15,7 @@
                 <tr><th>{#Quick_Facts#}</th></tr>
                 <tr><td><div class="infobox-spacer"></div>
                     <ul>
-                        <li><div>{#Level#}: {if $npc.minlevel<>$npc.maxlevel}{$npc.minlevel} - {/if}{$npc.maxlevel}</div></li>
+                        <li><div>{#Level#}: {if $npc.minlevel != $npc.maxlevel}{$npc.minlevel} - {/if}{$npc.maxlevel}</div></li>
                         <li><div>{#Class#}: {$npc.class_name}</div></li>
                         <li><div>{#Difficulty#}: {$npc.rank_name}</div></li>
                         <li><div>{#CreatureType#}: {$npc.type_name}</div></li>
