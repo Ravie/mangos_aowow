@@ -193,7 +193,7 @@ function XPValue($playerLevel, $data)
     if ($playerLevel)
     {
         $realXP = 0;
-        $xpMultiplier = 0;
+        $xpMultiplier = 1;
         $baseLevel = 0;
 
         if ($data['QuestLevel'] != -1)
@@ -243,10 +243,6 @@ function XPValue($playerLevel, $data)
                 {
                     $xpMultiplier = 10;
                 }
-            }
-            else
-            {
-                $xpMultiplier = 1;
             }
         }
 

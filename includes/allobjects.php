@@ -126,6 +126,7 @@ function objectinfo2(&$Row, $level=0)
                         * data8: losOK (Boolean flag)
                 */
                 $object['lockid'] = $Row['data1'];
+                break;
             case GAMEOBJECT_TYPE_QUESTGIVER:
                 /*
                         * data0: open (LockId from Lock.dbc)

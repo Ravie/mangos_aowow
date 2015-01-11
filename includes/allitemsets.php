@@ -19,7 +19,6 @@ function itemsetinfo2(&$row)
         if ($row['item'.$j])
         {
             $itemset['pieces'][] = $row['item'.$j];
-            $item = array();
             $item = iteminfo($row['item'.$j], 0);
             if($item['classes'] < $classmask)
                 $classmask = $item['classes'];
