@@ -284,7 +284,7 @@
 
                     {if $quest.Objectives}
                         {$quest.Objectives}
-                    {else $quest.RequestItemsText}
+                    {elseif $quest.RequestItemsText}
                         <h3>{#Progress#}</h3>
                         {$quest.RequestItemsText}
                     {/if}
