@@ -49,7 +49,7 @@ switch($_GET['latest'])
                     break;
                 default:
                     $comments[$i]['subject'] = 'Unknown';
-                    break;;
+                    break;
             }
             $comments[$i]['user'] = $rDB->selectCell('SELECT username FROM account WHERE id=?d LIMIT 1', $row['user']);
             if(empty($comments[$i]['user']))
