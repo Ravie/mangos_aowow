@@ -907,19 +907,8 @@ function spell_desc2($spellRow, $type='tooltip')
                 $lastvalue = $base;
                 break;
             case 'l':
-                $tmp = ending($lastvalue);
-                switch($tmp)
-                {
-                    case 1: 
-                        $str .= $exprData[0]; 
-                        break;
-                    case 2: 
-                        $str .= $exprData[1]; 
-                        break;
-                    case 3: 
-                        $str .= $exprData[2]; 
-                        break;
-                }
+                $str .= $exprData[ending($lastvalue)-1];
+                break;
             case 'g':
                 $str .= $exprData[0].'/'.$exprData[1];
                 break;
@@ -1048,7 +1037,7 @@ function render_spell_tooltip(&$row)
                 break;
             case POWER_RUNIC_POWER:
                 if($row['manacost'] > 10)
-                    $x .= LOCALE_REQUIRES_LEVEL1.' '.($row['manacost']/10).' '.LOCALE_POWER_RUNIC_POWER.' <br />';
+                    $x .= LOCALE_IS_REQUIRED.' '.($row['manacost']/10).' '.LOCALE_POWER_RUNIC_POWER.' <br />';
                 break;
         }
     elseif($row['manacostpercent'] > 0)

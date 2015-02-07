@@ -331,9 +331,6 @@ function render_item_tooltip(&$Row)
     // Item Level
     if($Row['ItemLevel']>0)
         $x .= '<span style="color: rgb(255, 209, 0);"><br>'.LOCALE_ITEMLVL.': '.$Row['ItemLevel'].'</span>';
-    // Требуемый уровень
-    if($Row['RequiredLevel']>1)
-        $x .= '<span style="color: rgb(255, 209, 0);"><br>'.LOCALE_REQUIRES_LEVEL1.' '.$Row['RequiredLevel'].' '.LOCALE_REQUIRES_LEVEL2.'</span>';
     // Биндинг вещи
     $x .= $bond[$Row['bonding']];
 
@@ -459,6 +456,10 @@ function render_item_tooltip(&$Row)
         $x .= LOCALE_REQUIRES.' '.$row['name'].' - '.$rep_levels[$Row['RequiredReputationRank']];
     }
 
+    // Требуемый уровень
+    if($Row['RequiredLevel']>1)
+        $x .= '<span style="color: rgb(255, 209, 0);">'.LOCALE_REQUIRES_LEVEL.': '.$Row['RequiredLevel'].'</span>';
+
     $x .= '</td></tr></table>';
 
     // Спеллы
@@ -512,7 +513,7 @@ function render_item_tooltip(&$Row)
         if($row['skillID'])
         {
             $name = $DB->selectCell('SELECT name_loc'.$_SESSION['locale'].' FROM ?_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
-            $x .= '<br />'.LOCALE_REQUIRES_LEVEL1.': <a href="?spells=11.'.$row['skillID'].'" class="q1">'.$name.'</a>';
+            $x .= '<br />'.LOCALE_IS_REQUIRED.': <a href="?spells=11.'.$row['skillID'].'" class="q1">'.$name.'</a>';
             if($row['skilllevel'])
                 $x .= ' ('.$row['skilllevel'].')';
             $x .= '<br />';
