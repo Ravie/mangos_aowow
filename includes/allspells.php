@@ -1100,7 +1100,7 @@ function render_spell_tooltip(&$row)
     if ($row['cooldown'] < $row['categoryCooldown'])
         $row['cooldown'] = $row['categoryCooldown'];
 
-    if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID']==1) && $row['cooldown'])
+    if(($row['ChannelInterruptFlags'] || isset($casttime) || $row['spellcasttimesID']==1 || $row['spellcasttimesID'] == 18) && $row['cooldown'])
         $x .= '<table width="100%"><tr><td>';
 
     if($row['ChannelInterruptFlags'])
