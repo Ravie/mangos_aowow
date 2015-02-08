@@ -903,7 +903,7 @@ var mn_path=[
     //[3,"Сообщество",,mn_community],
     //[2,"Дополнительно",,mn_more]
 ];
-var g_chr_allclasses="Любой класс";
+var g_chr_allclasses="Без ограничений";
 var g_chr_classes={
     1:"Воин",
     2:"Паладин",

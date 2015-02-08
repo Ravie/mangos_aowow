@@ -903,7 +903,7 @@ var mn_path=[
     //[3,"Community",,mn_community],
     //[2,"More",,mn_more]
 ];
-var g_chr_allclasses="Any class";
+var g_chr_allclasses="w/o limitations";
 var g_chr_classes={
     1:"Warrior",
     2:"Paladin",
