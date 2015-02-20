@@ -583,10 +583,13 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM)
         for($j=1;$j<=5;$j++)
             if($data['RewRepFaction'.$j] != 0)
             {
-                $value = $data['RewRepValue'.$j];
+                $value = $data['RewRepValue'.$j] / 100;
                 $id = $data['RewRepValueId'.$j];
                 if (!$value && isset($quest_faction_reward[$id]))
-                    $value=$quest_faction_reward[$id];
+                    $value = $quest_faction_reward[$id];
+                $RepModify = $DB->selectRow('SELECT * FROM reputation_reward_rate WHERE faction=?d LIMIT 1', $data['RewRepFaction'.$j]);
+                if ($RepModify)
+                    $value = $value * $RepModify['quest_rate'];
                 if ($value)
                     $data['reprewards'][] = array_merge(factioninfo($data['RewRepFaction'.$j]), array('value' => $value));
             }
