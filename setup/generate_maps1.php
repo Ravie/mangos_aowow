@@ -24,20 +24,19 @@
 
   if (!isset($config["mpq"]))
     die("Path to extracted MPQ files is not configured");
+  if (!isset($config["english_dbc"]))
+    die("Path to extracted client DBC is not configured");
   if (!isset($config["maps"]))
     die("Path where to extract maps is not configured");
 
   $mpqdir = $config["mpq"];
+  $dbcdir = $config["english_dbc"];
   $outmapdir = $config["maps"];
   if (isset($config["tmp"]))
   {
     $outtmpdir = $config["tmp"];
     @mkdir($outtmpdir);
   }
-
-  $dbcdir = $mpqdir . "DBFilesClient/";
-  if (@stat($dbcdir) == NULL)
-    $dbcdir = $mpqdir . "dbfilesclient/";
 
   $worldmapdir = $mpqdir . "interface/worldmap/";
   $normaldir = $outmapdir . "enus/normal/";
@@ -87,7 +86,6 @@
   }
 
   status("Reading subzones list...");
-  $dbc_ap = dbc2array_("AreaPOI.dbc", "xxxxxxxxxxxxxxxxxisxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
   $dbc_at = dbc2array_("AreaTable.dbc", "ixixxxxxxxxsxxxxxxxxxxxxxxxxxxxxxxxx");
   $dbc_wmo = dbc2array_("WorldMapOverlay.dbc", "niiiiixxsiiiixxxx");
   $wmo = array();
@@ -95,34 +93,12 @@
   {
     if ($row_wmo[6])
     {
-      foreach ($dbc_ap as $row_ap)
-        if ($row_wmo[2] == $row_ap[0] && isset($row_ap[1]))
-        {
-          foreach ($dbc_at as $row_at)
-            if ($row_ap[1] == $row_at[2])
-            {
-              $wmo[$row_wmo[1]][] = array
-              (
-                "areaid" => $row_at[0],
-                "poi1"   => 0,
-                "poi2"   => 0,
-                "poi3"   => 0,
-                "name"   => strtolower($row_wmo[6]),
-                "width"  => $row_wmo[7],
-                "height" => $row_wmo[8],
-                "left"   => $row_wmo[9],
-                "top"    => $row_wmo[10]
-              );
-              break;
-            }
-          break;
-        }
       $wmo[$row_wmo[1]][] = array
       (
-        "areaid" => $row_wmo[2],
-        "poi1"   => $row_wmo[3],
-        "poi2"   => $row_wmo[4],
-        "poi3"   => $row_wmo[5],
+        "areaid0" => $row_wmo[2],
+        "areaid1" => $row_wmo[3],
+        "areaid2" => $row_wmo[4],
+        "areaid3" => $row_wmo[5],
         "name"   => strtolower($row_wmo[6]),
         "width"  => $row_wmo[7],
         "height" => $row_wmo[8],
@@ -161,110 +137,127 @@
       echo ".";
 
       $prefix = $worldmapdir . $mapname . "/" . $mapname;
-      if (@stat($prefix . "1.blp") == NULL)
-        $prefix = $prefix . "1_";
-      if (@stat($prefix . "1.blp") == NULL)
+      if (@stat($prefix . "1.blp") != NULL)
       {
-        status(" not found.\n");
-        continue;
-      }
-      for ($i = 0; $i < 12; $i++)
-      {
-        $img = imagecreatefromblp($prefix . ($i+1) . ".blp");
-        imagecopyresampled($map, $img, 256*($i%4), 256*intval($i/4), 0, 0, 256, 256, imagesx($img), imagesy($img));
-        imagedestroy($img);
-      }
-      echo ".";
-
-      if (isset($wmo[$zid]))
-      {
-        foreach ($wmo[$zid] as &$row)
+        for ($i = 0; $i < 12; $i++)
         {
-          $i = 1; $y = 0;
-          while($y < $row["height"])
-          {
-            $x = 0;
-            while($x < $row["width"])
-            {
-              $img = imagecreatefromblp($worldmapdir . $mapname . "/" . $row["name"] . $i . ".blp");
-              imagecopy($mapfg, $img, $row["left"]+$x, $row["top"]+$y, 0, 0, imagesx($img), imagesy($img));
-
-              if (!isset($row["maskimage"]))
-              {
-                $mapmask = imagecreatetruecolor($row["width"], $row["height"]);
-                imagesavealpha($mapmask, true);
-                imagealphablending($mapmask, false);
-                $bgmaskcolor = imagecolorallocatealpha($mapmask, 0, 0, 0, 127);
-                imagefilledrectangle($mapmask, 0, 0, imagesx($mapmask)-1, imagesy($mapmask)-1, $bgmaskcolor);
-                imagecolordeallocate($mapmask, $bgmaskcolor);
-                $row["maskimage"] = $mapmask;
-                $row["maskcolor"] = imagecolorallocatealpha($mapmask, 255, 64, 192, 64);
-              }
-              for ($my = 0; $my < imagesy($img); $my++)
-                for ($mx = 0; $mx < imagesx($img); $mx++)
-                  if ((imagecolorat($img, $mx, $my)>>24) < 30)
-                    imagesetpixel($row["maskimage"], $x+$mx, $y+$my, $row["maskcolor"]);
-
-              imagedestroy($img);
-              $x += 256;
-              $i++;
-            }
-            $y += 256;
-          }
+          $img = imagecreatefromblp($prefix . ($i+1) . ".blp");
+          imagecopyresampled($map, $img, 256*($i%4), 256*intval($i/4), 0, 0, 256, 256, imagesx($img), imagesy($img));
+          imagedestroy($img);
         }
         echo ".";
-
-        if (isset($outtmpdir))
+        
+        if (isset($wmo[$zid]))
         {
-          $tmp = imagecreate(1000,1000);
-          $cbg = imagecolorallocate($tmp, 255,255,255);
-          $cfg = imagecolorallocate($tmp, 0,0,0);
-          for ($y = 0; $y < 1000; $y++)
-            for ($x = 0; $x < 1000; $x++)
+          foreach ($wmo[$zid] as &$row)
+          {
+            $i = 1; $y = 0;
+            while($y < $row["height"])
             {
-              $a = imagecolorat($mapfg, ($x*$blpmapwidth)/1000, ($y*$blpmapheight)/1000)>>24;
-              imagesetpixel($tmp, $x, $y, $a < 30 ? $cfg : $cbg);
+              $x = 0;
+              while($x < $row["width"])
+              {
+                $img = imagecreatefromblp($worldmapdir . $mapname . "/" . $row["name"] . $i . ".blp");
+                imagecopy($mapfg, $img, $row["left"]+$x, $row["top"]+$y, 0, 0, imagesx($img), imagesy($img));
+        
+                if (!isset($row["maskimage"]))
+                {
+                  $mapmask = imagecreatetruecolor($row["width"], $row["height"]);
+                  imagesavealpha($mapmask, true);
+                  imagealphablending($mapmask, false);
+                  $bgmaskcolor = imagecolorallocatealpha($mapmask, 0, 0, 0, 127);
+                  imagefilledrectangle($mapmask, 0, 0, imagesx($mapmask)-1, imagesy($mapmask)-1, $bgmaskcolor);
+                  imagecolordeallocate($mapmask, $bgmaskcolor);
+                  $row["maskimage"] = $mapmask;
+                  $row["maskcolor"] = imagecolorallocatealpha($mapmask, 255, 64, 192, 64);
+                }
+                for ($my = 0; $my < imagesy($img); $my++)
+                  for ($mx = 0; $mx < imagesx($img); $mx++)
+                    if ((imagecolorat($img, $mx, $my)>>24) < 30)
+                      imagesetpixel($row["maskimage"], $x+$mx, $y+$my, $row["maskcolor"]);
+        
+                imagedestroy($img);
+                $x += 256;
+                $i++;
+              }
+              $y += 256;
             }
-          imagepng($tmp, $outtmpdir . $mapid . ".png");
-          imagecolordeallocate($tmp, $cbg);
-          imagecolordeallocate($tmp, $cfg);
-          imagedestroy($tmp);
+          }
           echo ".";
+        
+          if (isset($outtmpdir))
+          {
+            $tmp = imagecreate(1000,1000);
+            $cbg = imagecolorallocate($tmp, 255,255,255);
+            $cfg = imagecolorallocate($tmp, 0,0,0);
+            for ($y = 0; $y < 1000; $y++)
+              for ($x = 0; $x < 1000; $x++)
+              {
+                $a = imagecolorat($mapfg, ($x*$blpmapwidth)/1000, ($y*$blpmapheight)/1000)>>24;
+                imagesetpixel($tmp, $x, $y, $a < 30 ? $cfg : $cbg);
+              }
+            imagepng($tmp, $outtmpdir . $mapid . ".png");
+            imagecolordeallocate($tmp, $cbg);
+            imagecolordeallocate($tmp, $cfg);
+            imagedestroy($tmp);
+            echo ".";
+          }
         }
-      }
-
-      //imagepng($mapfg, $mapid . "_fg.png");
-      //imagejpeg($map, $mapid . ".jpg");
-      //imagepng($map, $mapid . ".png");
-      imagecolortransparent($mapfg, imagecolorat($mapfg, imagesx($mapfg)-1, imagesy($mapfg)-1));
-      imagecopymerge($map, $mapfg, 0, 0, 0, 0, imagesx($mapfg), imagesy($mapfg), 100);
-      imagedestroy($mapfg);
-
-      saveimage($map, $mapid . ".jpg", true);
-
-      if (isset($wmo[$zid]))
-      {
-        foreach ($wmo[$zid] as &$row)
+        
+        //imagepng($mapfg, $mapid . "_fg.png");
+        //imagejpeg($map, $mapid . ".jpg");
+        //imagepng($map, $mapid . ".png");
+        imagecolortransparent($mapfg, imagecolorat($mapfg, imagesx($mapfg)-1, imagesy($mapfg)-1));
+        imagecopymerge($map, $mapfg, 0, 0, 0, 0, imagesx($mapfg), imagesy($mapfg), 100);
+        imagedestroy($mapfg);
+        
+        saveimage($map, $mapid . ".jpg", true);
+        
+        if (isset($wmo[$zid]))
         {
-          $zonemap = imagecreatetruecolor(1024, 768);
-          imagecopy($zonemap, $map, 0, 0, 0, 0, imagesx($map), imagesy($map));
-          imagecopy($zonemap, $row["maskimage"], $row["left"], $row["top"], 0, 0, imagesx($row["maskimage"]), imagesy($row["maskimage"]));
-          saveimage($zonemap, $row["areaid"] . ".jpg", true);
-          if($row["poi1"])
-            saveimage($zonemap, $row["poi1"] . ".jpg", false);
-          if($row["poi2"])
-            saveimage($zonemap, $row["poi2"] . ".jpg", false);
-          if($row["poi3"])
-            saveimage($zonemap, $row["poi3"] . ".jpg", false);
-          imagedestroy($zonemap);
+          foreach ($wmo[$zid] as &$row)
+          {
+            $zonemap = imagecreatetruecolor(1024, 768);
+            imagecopy($zonemap, $map, 0, 0, 0, 0, imagesx($map), imagesy($map));
+            imagecopy($zonemap, $row["maskimage"], $row["left"], $row["top"], 0, 0, imagesx($row["maskimage"]), imagesy($row["maskimage"]));
+            saveimage($zonemap, $row["areaid0"] . ".jpg", true);
+            if($row["areaid1"])
+              saveimage($zonemap, $row["areaid1"] . ".jpg", false);
+            if($row["areaid2"])
+              saveimage($zonemap, $row["areaid2"] . ".jpg", false);
+            if($row["areaid3"])
+              saveimage($zonemap, $row["areaid3"] . ".jpg", false);
+            imagedestroy($zonemap);
+          }
+        }
+        
+        foreach ($dbc_at as $row_at)
+          if ($row_wma[1] == $row_at[1])
+            saveimage($map, $row_at[0] . ".jpg", false);
+        
+        imagedestroy($map);
+      }
+      if (@stat($prefix . "1_1.blp") != NULL)
+      {
+        for ($j = 1; $j <= 12; $j++)
+        {
+          $map = imagecreatetruecolor(1024, 768);
+          
+          if (@stat($prefix . $j . "_1.blp") == NULL)
+            continue;
+          
+          for ($i = 0; $i < 12; $i++)
+          {
+            $img = imagecreatefromblp($prefix . $j . "_" . ($i+1) . ".blp");
+            imagecopyresampled($map, $img, 256*($i%4), 256*intval($i/4), 0, 0, 256, 256, imagesx($img), imagesy($img));
+            imagedestroy($img);
+          }
+          echo "\n\t Level ". $j ." complete... ";
+        
+          saveimage($map, $mapid . "_" . $j . ".jpg", true);
+          imagedestroy($map);
         }
       }
-      
-      foreach ($dbc_at as $row_at)
-        if ($row_wma[1] == $row_at[1])
-          saveimage($map, $row_at[0] . ".jpg", false);
-          
-      imagedestroy($map);
 
       status("done (" . intval($count*100/count($dbc_wma)) . "%)\n");
     }
