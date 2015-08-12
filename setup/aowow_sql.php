@@ -815,3 +815,33 @@ CREATE TABLE `aowow_zones` (
 UPDATE aowow_zones SET mapID = 249 WHERE areatableID = 2159;
 -- Hall of Legends
 UPDATE aowow_zones SET mapID = 450 WHERE areatableID = 2917;
+
+-- DungeonMap.dbc, DungeonMapChunk.dbc, WMOAreaTable.dbc
+DROP TABLE IF EXISTS `aowow_dungeon_floor`;
+CREATE TABLE `aowow_dungeon_floor` (
+  `DungeonID`  smallint(3) unsigned NOT NULL,
+  `MapID` smallint(3) unsigned NOT NULL COMMENT 'Map Identifier',
+  `DungeonFloor`  tinyint(1) unsigned NOT NULL,
+  `WmoID`  mediumint(5) unsigned NOT NULL,
+  `name_loc0` varchar(255) NOT NULL COMMENT 'Dungeon Floor Name',
+  INDEX `WmoID`(`WmoID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Maps';
+
+<?php
+  $dbc_dm = dbc2array_("DungeonMap.dbc", "niixxxxx");
+  $dbc_dmc = dbc2array_("DungeonMapChunk.dbc", "xxiix");
+  $dbc_wmoat = dbc2array_("WMOAreaTable.dbc", "nxxixxxxxxxsxxxxxxxxxxxxxxxx");
+  $dbc = array();
+  
+  foreach ($dbc_dm as $row_dm)
+    foreach ($dbc_dmc as $row_dmc)
+      if ($row_dm[0] == $row_dmc[1])
+        foreach ($dbc_wmoat as $row_wmoat)
+          if ($row_dmc[0] == $row_wmoat[1] && $row_wmoat[2] != '')
+            $dbc[$row_dm[0]."@".$row_wmoat[2]] = array($row_dm[0], $row_dm[1], $row_dm[2], $row_wmoat[0], $row_wmoat[2]);
+  
+  unset($dbc_dm);
+  unset($dbc_dmc);
+  unset($dbc_wmoat);
+  print_insert('INSERT INTO `aowow_dungeon_floor` VALUES', $dbc);
+?>

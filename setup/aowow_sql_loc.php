@@ -86,6 +86,7 @@ ALTER TABLE aowow_resistances ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL
 ALTER TABLE aowow_itemset ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_spellrange ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_zones ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
+ALTER TABLE aowow_dungeon_floor ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`;
 ALTER TABLE aowow_factions
     ADD COLUMN `name_loc<?=$L?>` varchar(255) NOT NULL AFTER `name_loc0`,
     ADD COLUMN `description1_loc<?=$L?>` text AFTER `description1_loc0`,
@@ -172,6 +173,8 @@ ALTER TABLE aowow_talenttab ADD COLUMN `name_loc<?=$L?>` varchar(32) NOT NULL AF
   $dbc = dbc2array_("AreaTable.dbc", L("nxxxxxxxxxxSxxxxxxxxxxxxxxxxxxxxxxxx"));
   print_update('aowow_zones', $dbc, array(0=>"areatableID"), array(1=>"name_loc$L"));
 
+  $dbc = dbc2array_("WMOAreaTable.dbc", L("nxxxxxxxxxxSxxxxxxxxxxxxxxxx"));
+  print_update('aowow_dungeon_floor', $dbc, array(0=>"WmoID"), array(1=>"name_loc$L"));
 
   $dbc = dbc2array_("Faction.dbc", L("nxxxxxxxxxxxxxxxxxxxxxxSxxxxxxxxxxxxxxxxSxxxxxxxxxxxxxxxx"));
   print_update('aowow_factions', $dbc, array(0=>"factionID"), array(1=>"name_loc$L", 2=>"description1_loc$L"));

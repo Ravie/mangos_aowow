@@ -110,20 +110,25 @@
   status(count($dbc_wmo) . "\n");
 
   status("Reading zones list...");
-  $dbc_wma = dbc2array_("WorldMapArea.dbc", "nxisxxxxxxx");
+  $dbc_wma = dbc2array_("WorldMapArea.dbc", "niisxxxxxxx");
   status(count($dbc_wma) . "\n");
+
+  $dbc_dm = dbc2array_("DungeonMap.dbc", "niixxxxx");
+  $dbc_dmc = dbc2array_("DungeonMapChunk.dbc", "xxiix");
+  $dbc_wmoat = dbc2array_("WMOAreaTable.dbc", "xxxixxxxxxixxxxxxxxxxxxxxxxx");
 
   $count = 0;
   foreach ($dbc_wma as $row_wma)
   {
     $count++;
-    if ($row_wma[1])
+    if ($row_wma[2])
     {
       $zid = $row_wma[0];
       $mapid = $row_wma[1];
-      $mapname = $row_wma[2];
-      status($mapname . "[" . $mapid . "]");
-      $mapname = strtolower($mapname);
+      $areaid = $row_wma[2];
+      $areaname = $row_wma[3];
+      status($areaname . "[" . $areaid . "]");
+      $areaname = strtolower($areaname);
 
       $map = imagecreatetruecolor(1024, 768);
 
@@ -136,7 +141,7 @@
       imagealphablending($mapfg, true);
       echo ".";
 
-      $prefix = $worldmapdir . $mapname . "/" . $mapname;
+      $prefix = $worldmapdir . $areaname . "/" . $areaname;
       if (@stat($prefix . "1.blp") != NULL)
       {
         for ($i = 0; $i < 12; $i++)
@@ -157,7 +162,7 @@
               $x = 0;
               while($x < $row["width"])
               {
-                $img = imagecreatefromblp($worldmapdir . $mapname . "/" . $row["name"] . $i . ".blp");
+                $img = imagecreatefromblp($worldmapdir . $areaname . "/" . $row["name"] . $i . ".blp");
                 imagecopy($mapfg, $img, $row["left"]+$x, $row["top"]+$y, 0, 0, imagesx($img), imagesy($img));
         
                 if (!isset($row["maskimage"]))
@@ -196,7 +201,7 @@
                 $a = imagecolorat($mapfg, ($x*$blpmapwidth)/1000, ($y*$blpmapheight)/1000)>>24;
                 imagesetpixel($tmp, $x, $y, $a < 30 ? $cfg : $cbg);
               }
-            imagepng($tmp, $outtmpdir . $mapid . ".png");
+            imagepng($tmp, $outtmpdir . $areaid . ".png");
             imagecolordeallocate($tmp, $cbg);
             imagecolordeallocate($tmp, $cfg);
             imagedestroy($tmp);
@@ -204,14 +209,14 @@
           }
         }
         
-        //imagepng($mapfg, $mapid . "_fg.png");
-        //imagejpeg($map, $mapid . ".jpg");
-        //imagepng($map, $mapid . ".png");
+        //imagepng($mapfg, $areaid . "_fg.png");
+        //imagejpeg($map, $areaid . ".jpg");
+        //imagepng($map, $areaid . ".png");
         imagecolortransparent($mapfg, imagecolorat($mapfg, imagesx($mapfg)-1, imagesy($mapfg)-1));
         imagecopymerge($map, $mapfg, 0, 0, 0, 0, imagesx($mapfg), imagesy($mapfg), 100);
         imagedestroy($mapfg);
         
-        saveimage($map, $mapid . ".jpg", true);
+        saveimage($map, $areaid . ".jpg", true);
         
         if (isset($wmo[$zid]))
         {
@@ -229,35 +234,48 @@
               saveimage($zonemap, $row["areaid3"] . ".jpg", false);
             imagedestroy($zonemap);
           }
+          echo ".";
         }
         
         foreach ($dbc_at as $row_at)
-          if ($row_wma[1] == $row_at[1])
+          if ($row_wma[2] == $row_at[1])
             saveimage($map, $row_at[0] . ".jpg", false);
-        
-        imagedestroy($map);
       }
       if (@stat($prefix . "1_1.blp") != NULL)
       {
-        for ($j = 1; $j <= 12; $j++)
+        echo "\n  Floor for dungeon: ";
+        for ($floor = 1; $floor < 12; $floor++)
         {
-          $map = imagecreatetruecolor(1024, 768);
+          if (@stat($prefix . $floor . "_1.blp") == NULL)
+            break;
+          echo $floor;
           
-          if (@stat($prefix . $j . "_1.blp") == NULL)
-            continue;
-          
-          for ($i = 0; $i < 12; $i++)
+          for ($chunk = 0; $chunk < 12; $chunk++)
           {
-            $img = imagecreatefromblp($prefix . $j . "_" . ($i+1) . ".blp");
-            imagecopyresampled($map, $img, 256*($i%4), 256*intval($i/4), 0, 0, 256, 256, imagesx($img), imagesy($img));
+            $img = imagecreatefromblp($prefix . $floor . "_" . ($chunk+1) . ".blp");
+            imagecopyresampled($map, $img, 256*($chunk%4), 256*intval($chunk/4), 0, 0, 256, 256, imagesx($img), imagesy($img));
             imagedestroy($img);
           }
-          echo "\n\t Level ". $j ." complete... ";
         
-          saveimage($map, $mapid . "_" . $j . ".jpg", true);
-          imagedestroy($map);
+          saveimage($map, $areaid . "_" . $floor . ".jpg", true);
+          echo ".";
+          
+          foreach ($dbc_dm as $row_dm)
+            if ($mapid == $row_dm[1] && $floor == $row_dm[2])
+              foreach ($dbc_dmc as $row_dmc)
+                if ($row_dm[0] == $row_dmc[1])
+                  foreach ($dbc_wmoat as $row_wmoat)
+                    if ($row_dmc[0] == $row_wmoat[0] && $row_wmoat[1] && $row_wmoat[1] != $areaid)
+                      saveimage($map, $row_wmoat[1] . ".jpg", true);
+          echo ".";
+          
+          foreach ($dbc_at as $row_at)
+            if ($row_wma[2] == $row_at[1])
+              saveimage($map, $row_at[0] . ".jpg", false);
+          echo ". ";
         }
-      }
+      }   
+      imagedestroy($map);
 
       status("done (" . intval($count*100/count($dbc_wma)) . "%)\n");
     }
