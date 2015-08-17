@@ -8,6 +8,9 @@ if(!$AoWoWconf['disable_comments'])
 $smarty->config_load($conf_file, 'zone');
 
 // номер объекта;
+$pos = strpos($podrazdel, "_");
+if ($pos)
+    $level = substr($podrazdel, $pos+1);
 $id = intval($podrazdel);
 
 $cache_key = cache_key($id);
@@ -48,6 +51,20 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
     }
     unset($rows);
 
+    $rows = $DB->select('SELECT * FROM ?_dungeon_floor WHERE MapID = ?d', $zone['mapID']);
+    if ($rows)
+    {
+        $zone['floors'] = array();
+        foreach($rows as $row)
+        {
+            $zone['floors'][$row['DungeonFloor']][] = array(
+                'name'  => localizedName($row),
+                'floor' => $row['DungeonFloor']
+            );
+        }
+    }
+    unset($rows);
+
     $zone['position'] = array();
 
     // Optimized version of position() + transform_coords() without map mask check
@@ -78,25 +95,25 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
             $taxies = array(
                 'population' => 0,
                 'name' => LOCALE_ZONE_FLIGHT_MASTERS,
-                'atid' => $id,
+                'atid' => $id.($level ? "_".$level : ""),
                 'points' => array()
             );
             $inns = array(
                 'population' => 0,
                 'name' => LOCALE_ZONE_INNKEEPERS,
-                'atid' => $id,
+                'atid' => $id.($level ? "_".$level : ""),
                 'points' => array()
             );
             $repairers = array(
                 'population' => 0,
                 'name' => LOCALE_ZONE_REPAIRERS,
-                'atid' => $id,
+                'atid' => $id.($level ? "_".$level : ""),
                 'points' => array()
             );
             $spirithealers = array(
                 'population' => 0,
                 'name' => LOCALE_ZONE_SPIRIT_HEALERS,
-                'atid' => $id,
+                'atid' => $id.($level ? "_".$level : ""),
                 'points' => array()
             );
             foreach($rows as $row)
@@ -153,7 +170,7 @@ if(!$zone = load_cache(ZONE_PAGE, $cache_key))
             array(
                 'population' => 0,
                 'name' => ""/*$zone['name']*/,
-                'atid' => $id,
+                'atid' => $id.($level ? "_".$level : ""),
                 'points' => array()
             )
         );
