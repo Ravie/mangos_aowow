@@ -16,15 +16,11 @@
                     <tr><th>{#Dungeon_Floor#}</th></tr>
                     <tr><td>
                         <div class="infobox-spacer"></div>
-                            {section loop=$zone.floors name=k}
-                                <li><div>{#Level#} {$smarty.section.k.iteration}:</br>
-                                    {foreach from=$zone.floors[$smarty.section.k.iteration] item=fl name=fl}
-                                        <ul><a href="?zone={$zone.areatableID}_{$fl.floor}">
-                                            {$fl.name}
-                                        </a></ul>
-                                    {/foreach}
+                            {foreach from=$zone.floors item=zf key=k}
+                                <li><div><a href="?zone={$zone.areatableID}_{$k}">{#Level#} {$k}</a></br>
+                                    {foreach from=$zf item=fl name=fl}<ul>{$fl.name}</ul>{/foreach}
                                 </div></li>
-                            {/section}
+                            {/foreach}
                     </td></tr>
                 </table>
             {/if}

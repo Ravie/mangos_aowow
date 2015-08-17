@@ -837,7 +837,7 @@ CREATE TABLE `aowow_dungeon_floor` (
     foreach ($dbc_dmc as $row_dmc)
       if ($row_dm[0] == $row_dmc[1])
         foreach ($dbc_wmoat as $row_wmoat)
-          if ($row_dmc[0] == $row_wmoat[1] && $row_wmoat[2] != '')
+          if ($row_dmc[0] == $row_wmoat[1])
             $dbc[$row_dm[0]."@".$row_wmoat[2]] = array($row_dm[0], $row_dm[1], $row_dm[2], $row_wmoat[0], $row_wmoat[2]);
   
   unset($dbc_dm);

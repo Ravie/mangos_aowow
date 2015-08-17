@@ -8,10 +8,15 @@ if(!$AoWoWconf['disable_comments'])
 $smarty->config_load($conf_file, 'zone');
 
 // номер объекта;
+$id = intval($podrazdel);
+
+$file = dirname(__FILE__).'/images/maps/enus/normal/'.$id;
+if (!file_exists($file.'.jpg') && file_exists($file.'_1.jpg'))
+    $level = 1;
+
 $pos = strpos($podrazdel, "_");
 if ($pos)
     $level = substr($podrazdel, $pos+1);
-$id = intval($podrazdel);
 
 $cache_key = cache_key($id);
 
